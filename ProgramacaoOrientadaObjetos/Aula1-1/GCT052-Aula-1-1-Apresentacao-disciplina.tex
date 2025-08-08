@@ -1,0 +1,230 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Configurações do tema
+\usetheme{Berkeley}
+\usecolortheme{spruce}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+% Configuração do logo da UFLA
+\setbeamertemplate{headline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.2cm]{section in head/foot}%
+    \begin{center}
+      \vspace{0.1cm}
+      \includegraphics[height=1.0cm]{../../Image/ufla-logo.PNG}
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Configuração do título centralizado
+\setbeamertemplate{frametitle}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm]{frametitle}%
+    \begin{center}
+      \insertframetitle
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Pacotes necessários
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{multicol}
+
+% Configurações de cores
+\definecolor{azul}{RGB}{0,51,102}
+\definecolor{azulclaro}{RGB}{51,102,153}
+\setbeamercolor{title}{fg=white,bg=azul}
+\setbeamercolor{frametitle}{fg=white,bg=azulclaro}
+\setbeamercolor{section title}{fg=white,bg=azul}
+
+% Informações do documento
+\title{Programação Orientada a Objetos}
+\subtitle{GCT052 - Aula 1.1 - Apresentação da Disciplina}
+\author{Bento Rafael Siqueira}
+\institute{Universidade Federal de Lavras (UFLA)}
+\date{\today}
+
+\begin{document}
+
+% Slide de título
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Slide de sumário
+\begin{frame}{Sumário}
+\tableofcontents
+\end{frame}
+
+% Seção 1: Informações Gerais
+\section{Informações Gerais}
+
+\begin{frame}{Informações Gerais}
+\begin{itemize}
+    \item \textbf{Disciplina:} Programação Orientada a Objetos
+    \item \textbf{Código:} GCT052
+    \item \textbf{Carga Horária:} 68 horas (34 Teórica, 34 Prática) 17 semanas
+    \item \textbf{Aulas Semanais:} 4 aulas
+    \item \textbf{Pré-requisitos:} Programação Básica
+\end{itemize}
+\end{frame}
+
+% Seção 2: Objetivos
+\section{Objetivos}
+
+\begin{frame}{Objetivos Gerais}
+\begin{itemize}
+    \item Compreender os fundamentos da programação orientada a objetos
+    \item Aplicar conceitos de modelagem com classes, objetos, métodos e herança
+    \item Desenvolver sistemas utilizando boas práticas de programação
+    \item Estimular o raciocínio lógico e trabalho em equipe
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Objetivos Específicos}
+\begin{itemize}
+    \item Dominar os conceitos de encapsulamento, herança e polimorfismo
+    \item Implementar soluções usando classes abstratas e interfaces
+    \item Aplicar tratamento de exceções em programas orientados a objetos
+    \item Desenvolver projetos seguindo padrões de projeto e boas práticas
+    \item Dominar o uso de ferramentas de desenvolvimento de software
+\end{itemize}
+\end{frame}
+
+% Seção 3: Ementa
+\section{Ementa}
+
+\begin{frame}{Ementa}
+A disciplina aborda os conceitos fundamentais de programação orientada a objetos, incluindo:
+\begin{itemize}
+    \item Visão geral sobre Paradigmas de Programação. 
+    \item Conceitos Básicos de Programação Orientada a Objetos. 
+    \item Encapsulamento, classe, objeto, atributo, método, construtor, atributos e métodos estáticos, composição e agregação, herança simples, sobrecarga e sobrescrita. 
+    \item Conceitos avançados de Orientação a Objetos. Herança múltipla, polimorfismo, classes abstratas e interfaces, tratamento de exceção e diagrama de classes UML. 
+    \item Projetos de implementação utilizando linguagem de programação Orientada a Objetos abordando conceitos apresentados na disciplina.
+\end{itemize}
+\end{frame}
+
+% Seção 4: Conteúdo Programático
+\section{Conteúdo Programático}
+
+\begin{frame}{Conteúdo Programático}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{enumerate}
+    \item Introdução com hands on
+    \item Declarações e classes
+    \item Unity - Lab 1
+    \item Objetos
+    \item Tipos e Referências
+    \item Unity - Lab 2
+    \item Encapsulamento
+    \item Herança
+    \item Unity - Lab 3
+    \item Interfaces
+\end{enumerate}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{enumerate}
+    \setcounter{enumi}{10}
+    \item Enums e Coleções
+    \item Unity - Lab 4
+    \item LINQ / Lambdas
+    \item Arquivos
+    \item Unity - Lab 5
+    \item Ciclo de vida do objeto
+    \item Tratamento de Exceções
+    \item Unity - Lab 6
+    \item Desenvolvimento Web
+    \item Projeto - ONG de Animais
+\end{enumerate}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Seção 5: Bibliografia
+\section{Bibliografia}
+
+\begin{frame}{Bibliografia Básica}
+\begin{itemize}
+    \item \textbf{HEAD FIRST.} Use a cabeça! C\#. Alta Books.
+    \item Perkovic, L. Introdução à computação usando Python : um foco no desenvolvimento de aplicações - 1. ed. Rio de Janeiro: LTC, 2016. ISBN 9788521630814.
+    \item KÖLLING, M. Programação orientada a objetos com Java: uma introdução prática usando o Bluej. 1. ed. São Paulo, SP: Pearson, 2004. ISBN 9788576050124.
+    \item GAMMA, Erich et al. Padrões de projeto: soluções reutilizáveis de software orientado a objetos. Porto Alegre, RS: Bookman, 2011. xii, 364 p. ISBN 9788577800469.
+\end{itemize}
+\end{frame}
+
+% Seção 6: Critérios de Avaliação
+\section{Critérios de Avaliação}
+
+\begin{frame}{Critérios de Avaliação}
+\begin{itemize}
+    \item \textbf{Prova 1 (P1):} 25\%
+    \item \textbf{Prova 2 (P2):} 25\%
+    \item \textbf{Aula de Atividade (AA):} 20\%
+    \item \textbf{Projeto em Grupo (PG):} 30\% (3 a 4 pessoas)
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Nota Final = P1 + P2 + AA + PG}
+\end{frame}
+
+% Seção 7: Cronograma Geral
+\section{Cronograma Geral}
+
+\begin{frame}{Cronograma Geral}
+\begin{itemize}
+    \item \textbf{Semanas 1-2:} Introdução com hands on e Declarações e classes
+    \item \textbf{Semanas 3-4:} Unity - Lab 1 e Objetos
+    \item \textbf{Semanas 5-6:} Tipos e Referências e Unity - Lab 2
+    \item \textbf{Semanas 7-8:} Encapsulamento e Herança
+    \item \textbf{Semanas 9-10:} Unity - Lab 3 e Interfaces
+    \item \textbf{Semanas 11-12:} Enums e Coleções e Unity - Lab 4
+    \item \textbf{Semanas 13-14:} LINQ/Lambdas e Arquivos
+    \item \textbf{Semanas 15-16:} Unity - Lab 5, Ciclo de vida do objeto e Tratamento de Exceções
+    \item \textbf{Semana 17:} Unity - Lab 6, Desenvolvimento Web e Projeto - ONG de Animais
+\end{itemize}
+\end{frame}
+
+% Seção 8: Informações Adicionais
+\section{Informações Adicionais}
+
+\begin{frame}{Horário de Atendimento}
+\begin{itemize}
+    \item \textbf{Dia:} Quinta-feira
+    \item \textbf{Horário:} 14:00 às 15:00
+    \item \textbf{Email:} bento.siqueira@ufla.br
+    \item \textbf{Local:} Sala PAV1-109
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Metodologia}
+\begin{itemize}
+    \item Aulas expositivas com exemplos práticos
+    \item Exercícios em sala de aula
+    \item Desenvolvimento de projetos práticos
+    \item Trabalho em equipe
+    \item Uso de ferramentas de desenvolvimento
+\end{itemize}
+\end{frame}
+
+% Slide final
+\begin{frame}{Dúvidas?}
+\begin{center}
+\Large
+\textbf{Obrigado pela atenção!}
+
+\vspace{1cm}
+\textbf{Programação Orientada a Objetos}
+
+\vspace{0.5cm}
+GCT052 - 2025
+\end{center}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,245 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Configurações do tema
+\usetheme{Berkeley}
+\usecolortheme{spruce}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+% Configurações específicas para o sumário
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+
+% Configuração do logo da UFLA
+\setbeamertemplate{headline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.2cm]{section in head/foot}%
+    \begin{center}
+      \vspace{0.1cm}
+      \includegraphics[height=1.0cm]{../../Image/ufla-logo.PNG}
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Configuração do título centralizado
+\setbeamertemplate{frametitle}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm]{frametitle}%
+    \begin{center}
+      \insertframetitle
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Pacotes necessários
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{multicol}
+
+% Configurações de cores
+\definecolor{azul}{RGB}{0,51,102}
+\definecolor{azulclaro}{RGB}{51,102,153}
+\setbeamercolor{title}{fg=white,bg=azul}
+\setbeamercolor{frametitle}{fg=white,bg=azulclaro}
+\setbeamercolor{section title}{fg=white,bg=azul}
+
+% Informações do documento
+\title{Projeto de Software}
+\subtitle{GCT088 - Aula 1.1 - Apresentação da Disciplina}
+\author{Bento Rafael Siqueira}
+\institute{Universidade Federal de Lavras (UFLA)}
+\date{\today}
+
+\begin{document}
+
+% Slide de título
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Slide de sumário
+\begin{frame}{Sumário}
+\tableofcontents
+\end{frame}
+
+% Seção 1: Informações Gerais
+\section{Informações Gerais}
+
+\begin{frame}{Informações Gerais}
+\begin{itemize}
+    \item \textbf{Disciplina:} Projeto de Software
+    \item \textbf{Código:} GCT088
+    \item \textbf{Carga Horária:} 68 horas (34 Teórica, 34 Prática) 17 semanas
+    \item \textbf{Aulas Semanais:} 4 aulas
+    \item \textbf{Pré-requisitos:} Programação Orientada a Objetos
+\end{itemize}
+\end{frame}
+
+% Seção 2: Objetivos
+\section{Objetivos}
+
+\begin{frame}{Objetivos Gerais}
+\begin{itemize}
+    \item Compreender os fundamentos do projeto e desenvolvimento de software
+    \item Aplicar técnicas de análise e projeto orientado a objetos
+    \item Desenvolver sistemas seguindo boas práticas de engenharia de software
+    \item Estimular o trabalho em equipe e gestão de projetos
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Objetivos Específicos}
+\begin{itemize}
+    \item Dominar técnicas de obtenção e análise de requisitos
+    \item Aplicar princípios de projeto e arquitetura de software
+    \item Implementar padrões de projeto e boas práticas
+    \item Desenvolver modelos UML para análise e projeto
+    \item Gerenciar mudanças de requisitos e flexibilidade de software
+\end{itemize}
+\end{frame}
+
+% Seção 3: Ementa
+\section{Ementa}
+
+\begin{frame}{Ementa}
+A disciplina aborda os conceitos fundamentais de projeto de software, incluindo:
+\begin{itemize}
+    \item Introdução a objetos e conceitos básicos de orientação a objetos
+    \item Projeto de aplicações e obtenção de requisitos
+    \item Análise e modelagem usando UML
+    \item Flexibilidade de software e gestão de mudanças
+    \item Arquitetura de software e princípios de projeto
+    \item Padrões de projeto e testes
+    \item Ciclo de vida em Análise e Projeto Orientado a Objetos
+    \item Desenvolvimento web e projetos práticos
+\end{itemize}
+\end{frame}
+
+% Seção 4: Conteúdo Programático
+\section{Conteúdo Programático}
+
+\begin{frame}{Conteúdo Programático}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{enumerate}
+    \item Apêndice - Introdução a Objetos
+    \item Projeto de Aplicações
+    \item Obtenção de Requisitos
+    \item Mudança de Requisitos
+    \item Análise
+    \item Flexibilidade de software - Parte 1
+    \item Flexibilidade de software - Parte 2
+    \item Grandes problemas
+    \item Arquitetura
+    \item Princípios de Projeto
+\end{enumerate}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{enumerate}
+    \setcounter{enumi}{10}
+    \item Repetição e Testes
+    \item Ciclo de vida em A\&POO
+    \item Modelos de Contexto
+    \item Modelos de interação
+    \item Modelos estruturais
+    \item Modelos comportamentais
+    \item Engenharia dirigida por modelos
+    \item Padrões de Projetos
+    \item Desenvolvimento Web
+    \item Projeto - ONG de Animais
+\end{enumerate}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Seção 5: Bibliografia
+\section{Bibliografia}
+
+\begin{frame}{Bibliografia Básica}
+\begin{itemize}
+    \item \textbf{PRESSMAN, Roger S.} Engenharia de Software: uma abordagem profissional. 8. ed. Porto Alegre: AMGH, 2016.
+    \item \textbf{SOMMERVILLE, Ian.} Engenharia de Software. 10. ed. São Paulo: Pearson, 2019.
+    \item \textbf{FOWLER, Martin.} UML Essencial: um breve guia para o padrão. 3. ed. Porto Alegre: Bookman, 2005.
+    \item \textbf{GAMMA, Erich et al.} Padrões de projeto: soluções reutilizáveis de software orientado a objetos. Porto Alegre: Bookman, 2011.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Bibliografia Complementar}
+\begin{itemize}
+    \item \textbf{BOOCH, Grady et al.} UML: guia do usuário. 2. ed. Rio de Janeiro: Campus, 2006.
+    \item \textbf{LARMAN, Craig.} Utilizando UML e padrões: uma introdução à análise e ao projeto orientados a objetos e ao processo unificado. 3. ed. Porto Alegre: Bookman, 2007.
+    \item \textbf{COCKBURN, Alistair.} Desenvolvimento ágil de software. São Paulo: Pearson, 2007.
+\end{itemize}
+\end{frame}
+
+% Seção 6: Critérios de Avaliação
+\section{Critérios de Avaliação}
+
+\begin{frame}{Critérios de Avaliação}
+\begin{itemize}
+    \item \textbf{Prova 1 (P1):} 25\%
+    \item \textbf{Prova 2 (P2):} 25\%
+    \item \textbf{Aula de Atividade (AA):} 20\%
+    \item \textbf{Projeto em Grupo (PG):} 30\% (3 a 4 pessoas)
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Nota Final = P1 + P2 + AA + PG}
+\end{frame}
+
+% Seção 7: Cronograma Geral
+\section{Cronograma Geral}
+
+\begin{frame}{Cronograma Geral}
+\begin{itemize}
+    \item \textbf{Semanas 1-2:} Introdução a Objetos e Projeto de Aplicações
+    \item \textbf{Semanas 3-4:} Obtenção e Mudança de Requisitos
+    \item \textbf{Semanas 5-6:} Análise e Flexibilidade de Software
+    \item \textbf{Semanas 7-8:} Grandes Problemas e Arquitetura
+    \item \textbf{Semanas 9-10:} Princípios de Projeto e Testes
+    \item \textbf{Semanas 11-13:} Modelos UML e Engenharia Dirigida por Modelos
+    \item \textbf{Semanas 14-15:} Padrões de Projeto
+    \item \textbf{Semanas 16-17:} Desenvolvimento Web e Projeto Final
+\end{itemize}
+\end{frame}
+
+% Seção 8: Informações Adicionais
+\section{Informações Adicionais}
+
+\begin{frame}{Horário de Atendimento}
+\begin{itemize}
+    \item \textbf{Dia:} Quinta-feira
+    \item \textbf{Horário:} 14:00 às 15:00
+    \item \textbf{Email:} bento.siqueira@ufla.br
+    \item \textbf{Local:} Sala PAV1-109
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Metodologia}
+\begin{itemize}
+    \item Aulas expositivas com exemplos práticos
+    \item Exercícios em sala de aula
+    \item Desenvolvimento de projetos práticos
+    \item Trabalho em equipe
+    \item Uso de ferramentas de modelagem (UML)
+    \item Estudos de caso reais
+\end{itemize}
+\end{frame}
+
+% Slide final
+\begin{frame}{Dúvidas?}
+\begin{center}
+\Large
+\textbf{Obrigado pela atenção!}
+
+\vspace{1cm}
+\textbf{Projeto de Software}
+
+\vspace{0.5cm}
+GCT088 - 2025
+\end{center}
+\end{frame}
+
+\end{document}
