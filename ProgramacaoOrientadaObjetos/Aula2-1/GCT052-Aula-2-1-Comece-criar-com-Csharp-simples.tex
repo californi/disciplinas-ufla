@@ -1,0 +1,529 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Configuracoes do tema
+\usetheme{Berkeley}
+\usecolortheme{spruce}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+% Configuracoes para evitar overflow
+\setbeamersize{text margin left=0.5cm}
+\setbeamersize{text margin right=0.5cm}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+
+% Configuracoes de fonte para evitar overflow
+\setbeamerfont{itemize item}{size=\footnotesize}
+\setbeamerfont{itemize subitem}{size=\tiny}
+\setbeamerfont{enumerate item}{size=\footnotesize}
+
+% Configuracoes especificas para o sumario
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+
+% Configuracao do logo da UFLA (compacto)
+\setbeamertemplate{headline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.8cm,dp=0.1cm]{section in head/foot}%
+    \begin{center}
+      \vspace{0.05cm}
+      \includegraphics[height=0.7cm]{../../Image/ufla-logo.PNG}
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Configuracao do titulo centralizado e compacto
+\setbeamertemplate{frametitle}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.8cm,dp=0.2cm]{frametitle}%
+    \begin{center}
+      \insertframetitle
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Pacotes necessarios para caracteres especiais - UTF-8
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{tikz}
+% \usepackage{listings}
+
+% Configuracoes de cores
+\definecolor{azul}{RGB}{0,51,102}
+\definecolor{azulclaro}{RGB}{51,102,153}
+\definecolor{verde}{RGB}{34,139,34}
+\definecolor{laranja}{RGB}{255,140,0}
+\setbeamercolor{title}{fg=white,bg=azul}
+\setbeamercolor{frametitle}{fg=white,bg=azulclaro}
+\setbeamercolor{section title}{fg=white,bg=azul}
+
+% Configuracoes do listings para codigo bonito e compacto
+% \lstset{
+%     basicstyle=\ttfamily\tiny,
+%     breaklines=true,
+%     frame=single,
+%     numbers=none,
+%     showstringspaces=false,
+%     tabsize=2
+% }
+
+% Definicao da linguagem C#
+% \lstdefinelanguage{CSharp}{
+%     keywords={class, namespace, using, static, void, string, int, double, bool, if, else, switch, case, break, return, for, while, foreach, try, catch, finally, throw, new, this, base, public, private, protected, internal, abstract, virtual, override, sealed, interface, struct, enum, delegate, event, var, const, readonly, ref, out, params, in, async, await},
+%     sensitive=false,
+%     morecomment=[l]{//},
+%     morestring=[b]"
+% }
+
+% Definicao da linguagem XAML
+% \lstdefinelanguage{XML}{
+%     keywords={xmlns, x, Window, Grid, StackPanel, Button, TextBox, TextBlock, Label, RowDefinition, ColumnDefinition, Margin, Height, Width, Content, Name, Class, Title},
+%     sensitive=false,
+%     morecomment=[s]{<!--}{-->},
+%     morestring=[b]"
+% }
+
+% Informacoes do documento
+\title{Programacao Orientada a Objetos}
+\subtitle{GCT052 - Aula 2.1 - Comece a criar com C\#}
+\author{Bento Rafael Siqueira}
+\institute{Universidade Federal de Lavras (UFLA)}
+\date{\today}
+
+\begin{document}
+
+% Slide de titulo
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Slide de sumario
+\begin{frame}{Sumario}
+\tableofcontents
+\end{frame}
+
+% Secao 1: Introducao ao Capitulo
+\section{Introducao ao Capitulo 1}
+
+\begin{frame}{O que voce vai aprender hoje?}
+\textbf{Objetivos da aula:}
+\begin{itemize}
+    \item \textbf{Objetivo:} Começar com Console e evoluir para WPF
+    \item \textbf{Foco:} Aprendizado progressivo: Console → WPF
+    \item \textbf{Resultado:} Base sólida + aplicação desktop funcional
+    \item \textbf{Metodologia:} Aprender fazendo, do simples ao complexo
+\end{itemize}
+
+\textbf{Conceitos fundamentais:}
+\begin{itemize}
+    \item Estrutura básica de programas C\#
+    \item Transição de aplicações Console para WPF
+    \item Programação orientada a eventos
+    \item Separação entre interface e lógica
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Por que comecar com Console?}
+\textbf{Vantagens do Console para aprendizado:}
+\begin{itemize}
+    \item \textbf{Simplicidade:} Conceitos básicos sem distrações
+    \item \textbf{Fundamentos:} Entrada/saída, variáveis, controle de fluxo
+    \item \textbf{Progressão:} Console → WPF → Aplicações complexas
+    \item \textbf{Base sólida:} Compreensão profunda dos conceitos
+\end{itemize}
+
+\textbf{Benefícios educacionais:}
+\begin{itemize}
+    \item Foco nos conceitos fundamentais
+    \item Aprendizado sequencial e lógico
+    \item Construção de base sólida
+    \item Transição natural para interfaces gráficas
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Por que C\# e WPF?}
+\textbf{Vantagens das tecnologias:}
+\begin{itemize}
+    \item \textbf{C\#:} Linguagem moderna, poderosa e versátil
+    \item \textbf{WPF:} Framework avançado para interfaces gráficas
+    \item \textbf{XAML:} Linguagem declarativa para UI
+    \item \textbf{Integração:} C\# + WPF + XAML = Aplicações desktop robustas
+    \item \textbf{Carreira:} Habilidades muito valorizadas no mercado
+\end{itemize}
+
+\textbf{Benefícios práticos:}
+\begin{itemize}
+    \item Desenvolvimento rápido e eficiente
+    \item Interface rica e moderna
+    \item Código organizado e manutenível
+    \item Suporte oficial da Microsoft
+\end{itemize}
+\end{frame}
+
+% Secao 2: Aplicacoes Console (Base)
+\section{Aplicacoes Console (Base)}
+
+\begin{frame}{O que e uma aplicacao Console?}
+\textbf{Características principais:}
+\begin{itemize}
+    \item \textbf{Interface de linha de comando} simples
+    \item \textbf{Entrada e saída} via texto
+    \item \textbf{Execução sequencial} de comandos
+    \item \textbf{Ideal para aprender} conceitos básicos
+    \item \textbf{Base para scripts} e ferramentas
+    \item \textbf{Portabilidade} entre sistemas operacionais
+\end{itemize}
+
+\textbf{Vantagens educacionais:}
+\begin{itemize}
+    \item Foco na lógica sem distrações visuais
+    \item Entrada/saída simples e direta
+    \item Execução linear e previsível
+    \item Base para automação e scripts
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Estrutura basica de um programa Console}
+\textbf{Componentes essenciais:}
+\begin{itemize}
+    \item \textbf{using System} - Importa bibliotecas básicas do .NET Framework
+    \item \textbf{namespace} - Organiza o código em um espaço de nomes lógico
+    \item \textbf{class Program} - Define a classe principal (base da POO)
+    \item \textbf{static void Main} - Método principal, ponto de entrada da aplicação
+\end{itemize}
+
+\textbf{Conceitos fundamentais:}
+\begin{itemize}
+    \item Importação de bibliotecas - Acesso às funcionalidades do .NET
+    \item Organização de código - Estruturação lógica e hierárquica
+    \item Definição de classes - Base para criar objetos e estruturas
+    \item Ponto de entrada - Onde a execução do programa começa
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Conceitos basicos demonstrados}
+\textbf{Elementos fundamentais:}
+\begin{itemize}
+    \item \textbf{Importação de bibliotecas} - Acesso às funcionalidades do .NET
+    \item \textbf{Organização de código} - Estruturação lógica e hierárquica
+    \item \textbf{Definição de classes} - Base para criar objetos e estruturas
+    \item \textbf{Ponto de entrada} - Onde a execução do programa começa
+    \item \textbf{Entrada e saída} - Comunicação com o usuário
+\end{itemize}
+
+\textbf{Benefícios:}
+\begin{itemize}
+    \item Código organizado e estruturado
+    \item Reutilização de funcionalidades
+    \item Base sólida para POO
+    \item Facilidade de manutenção
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo pratico: Calculadora simples}
+\textbf{Lógica implementada:}
+\begin{itemize}
+    \item \textbf{Captura de dois números} do usuário
+    \item \textbf{Seleção de operação} matemática
+    \item \textbf{Validação de entrada} (divisão por zero)
+    \item \textbf{Execução da operação} selecionada
+    \item \textbf{Exibição do resultado} formatado
+\end{itemize}
+
+\textbf{Conceitos demonstrados:}
+\begin{itemize}
+    \item Estruturas de decisão (if/else)
+    \item Switch case para múltiplas opções
+    \item Tratamento de erros básico
+    \item Lógica de cálculo matemático
+\end{itemize}
+\end{frame}
+
+% Secao 3: Transicao: Console para WPF
+\section{Transicao: Console para WPF}
+
+\begin{frame}{O que muda ao ir para WPF?}
+\textbf{Principais mudanças:}
+\begin{itemize}
+    \item \textbf{Saída de texto} → \textbf{Interface gráfica}
+    \item \textbf{Entrada via teclado} → \textbf{Controles visuais}
+    \item \textbf{Programa sequencial} → \textbf{Programa orientado a eventos}
+    \item \textbf{Um arquivo .cs} → \textbf{Arquivos .cs + .xaml}
+    \item \textbf{Execução linear} → \textbf{Execução baseada em interações}
+\end{itemize}
+
+\textbf{Novos conceitos:}
+\begin{itemize}
+    \item Programação orientada a eventos
+    \item Separação entre interface e lógica
+    \item Controles visuais e layout
+    \item Gerenciamento de estado da interface
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Estrutura de um projeto WPF}
+\textbf{Arquivos principais:}
+\begin{itemize}
+    \item \textbf{App.xaml} - Configuração global da aplicação
+    \item \textbf{App.xaml.cs} - Código de inicialização e configuração
+    \item \textbf{MainWindow.xaml} - Interface principal em linguagem declarativa
+    \item \textbf{MainWindow.xaml.cs} - Lógica de negócio da janela principal
+    \item \textbf{Properties/} - Configurações e recursos do projeto
+\end{itemize}
+
+\textbf{Organização:}
+\begin{itemize}
+    \item Separação clara entre interface (XAML) e lógica (C\#)
+    \item Arquivos de configuração centralizados
+    \item Estrutura hierárquica bem definida
+\end{itemize}
+\end{frame}
+
+% Secao 4: Exemplo WPF: Calculadora com Interface Grafica
+\section{Exemplo WPF: Calculadora com Interface Grafica}
+
+\begin{frame}{Interface XAML da calculadora}
+\textbf{Interface implementada:}
+\begin{itemize}
+    \item \textbf{Display numérico} para mostrar números e resultados
+    \item \textbf{Botões de operação} para selecionar cálculos
+    \item \textbf{Layout responsivo} com Grid e StackPanel
+    \item \textbf{Design moderno} com espaçamento e margens
+\end{itemize}
+
+\textbf{Conceitos demonstrados:}
+\begin{itemize}
+    \item Separação entre interface (XAML) e lógica (C\#)
+    \item Controles visuais do WPF
+    \item Layout e posicionamento de elementos
+    \item Estrutura de interface declarativa
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Logica C\# da calculadora}
+\textbf{Funcionalidades implementadas:}
+\begin{itemize}
+    \item \textbf{Armazenamento de estado} (números e operações)
+    \item \textbf{Manipulação de eventos} de clique nos botões
+    \item \textbf{Lógica de cálculo} matemático
+    \item \textbf{Atualização da interface} em tempo real
+    \item \textbf{Gerenciamento de estado} da calculadora
+\end{itemize}
+
+\textbf{Conceitos demonstrados:}
+\begin{itemize}
+    \item Programação orientada a eventos
+    \item Manipulação de controles WPF
+    \item Lógica de aplicação desktop
+    \item Gerenciamento de estado da interface
+\end{itemize}
+\end{frame}
+
+% Secao 5: Exemplo WPF: Jogo de Combinacao
+\section{Exemplo WPF: Jogo de Combinacao}
+
+\begin{frame}{O que e o Jogo de Combinacao?}
+\begin{itemize}
+    \item \textbf{Objetivo:} Encontrar pares de cores iguais
+    \item \textbf{Interface:} Grade de botoes coloridos
+    \item \textbf{Mecanica:} Clicar em dois botoes para verificar
+    \item \textbf{Vitoria:} Todos os pares encontrados
+    \item \textbf{Tecnologias:} WPF + XAML + C\#
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Interface XAML do jogo}
+\textbf{Estrutura da interface:}
+\begin{itemize}
+    \item \textbf{Título do jogo} centralizado e destacado
+    \item \textbf{Contador de pares} encontrados
+    \item \textbf{Grade de jogo} com botões organizados
+    \item \textbf{Layout responsivo} que se adapta ao conteúdo
+    \item \textbf{Design limpo} e focado na jogabilidade
+\end{itemize}
+
+\textbf{Conceitos demonstrados:}
+\begin{itemize}
+    \item Organização de elementos visuais
+    \item Controles de layout avançados
+    \item Estruturação hierárquica da interface
+    \item Nomenclatura de elementos para acesso via código
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Logica C\# do jogo}
+\textbf{Funcionalidades implementadas:}
+\begin{itemize}
+    \item \textbf{Criação dinâmica} do tabuleiro de jogo
+    \item \textbf{Gerenciamento de estado} dos botões
+    \item \textbf{Lógica de verificação} de pares
+    \item \textbf{Controle de turnos} e seleções
+    \item \textbf{Atualização visual} da interface
+\end{itemize}
+
+\textbf{Conceitos demonstrados:}
+\begin{itemize}
+    \item Criação dinâmica de controles
+    \item Arrays bidimensionais
+    \item Gerenciamento de eventos complexos
+    \item Lógica de jogo interativo
+\end{itemize}
+\end{frame}
+
+% Secao 6: Configuracao do Ambiente
+\section{Configuracao do Ambiente}
+
+\begin{frame}{O que voce precisa instalar?}
+\textbf{Ferramentas essenciais:}
+\begin{itemize}
+    \item \textbf{Visual Studio 2022} (Community e gratuito)
+    \item \textbf{.NET 8.0 SDK} (ou versão mais recente)
+    \item \textbf{Workloads específicos:}
+    \begin{itemize}
+        \item .NET desktop development
+        \item Desktop development with C\#
+    \end{itemize}
+\end{itemize}
+
+\textbf{Extensões recomendadas:}
+\begin{itemize}
+    \item \textbf{C\# Dev Kit} - Desenvolvimento avançado
+    \item \textbf{IntelliCode} - Inteligência artificial
+    \item \textbf{Code Spell Checker} - Verificação ortográfica
+\end{itemize}
+
+\textbf{Vantagens:}
+\begin{itemize}
+    \item Ambiente completo e integrado
+    \item Ferramentas gratuitas e poderosas
+    \item Suporte oficial da Microsoft
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Como criar um projeto WPF}
+\textbf{Passos para criação:}
+\begin{enumerate}
+    \item \textbf{File} → \textbf{New} → \textbf{Project}
+    \item Selecionar \textbf{"WPF Application"}
+    \item Definir \textbf{nome} e \textbf{localização}
+    \item Escolher \textbf{.NET 8.0} (ou mais recente)
+    \item Clicar em \textbf{Create}
+    \item Projeto criado com estrutura básica
+\end{enumerate}
+
+\textbf{Configurações importantes:}
+\begin{itemize}
+    \item Framework .NET mais recente disponível
+    \item Nome descritivo para o projeto
+    \item Localização organizada no sistema
+    \item Estrutura padrão do Visual Studio
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Estrutura do projeto criado}
+\textbf{Arquivos e pastas:}
+\begin{itemize}
+    \item \textbf{App.xaml} - Configuração da aplicação
+    \item \textbf{App.xaml.cs} - Código de inicialização
+    \item \textbf{MainWindow.xaml} - Interface principal
+    \item \textbf{MainWindow.xaml.cs} - Lógica da janela
+    \item \textbf{Properties/} - Configurações do projeto
+    \item \textbf{bin/} e \textbf{obj/} - Arquivos de compilação
+\end{itemize}
+
+\textbf{Propósito:}
+\begin{itemize}
+    \item Arquivos de interface declarativa (XAML)
+    \item Código de lógica de negócio (C\#)
+    \item Configurações e recursos do projeto
+    \item Arquivos gerados automaticamente
+\end{itemize}
+\end{frame}
+
+% Secao 7: Proximos Passos
+\section{Proximos Passos}
+
+\begin{frame}{O que vem depois desta aula?}
+\textbf{Próximos passos:}
+\begin{itemize}
+    \item \textbf{Prática:} Implementar os exemplos completos
+    \item \textbf{Conceitos:} Classes, objetos, herança
+    \item \textbf{Controles:} Mais elementos da interface
+    \item \textbf{Eventos:} Outros tipos de interação
+    \item \textbf{Projeto:} Aplicação mais complexa
+    \item \textbf{Deploy:} Distribuir a aplicação
+\end{itemize}
+
+\textbf{Objetivos:}
+\begin{itemize}
+    \item Consolidar conceitos fundamentais
+    \item Aplicar conhecimentos em projetos práticos
+    \item Evoluir para aplicações mais complexas
+    \item Preparar para desenvolvimento profissional
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Recursos para estudo}
+\textbf{Materiais recomendados:}
+\begin{itemize}
+    \item \textbf{Livro:} "Use a Cabeça C\#" (Quarta Edição)
+    \item \textbf{Documentação:} Microsoft Learn
+    \item \textbf{Vídeos:} Canais especializados em C\#
+    \item \textbf{Comunidade:} Stack Overflow, Reddit
+    \item \textbf{Prática:} Exercícios e projetos pessoais
+    \item \textbf{Projetos open source:} GitHub
+\end{itemize}
+
+\textbf{Estratégias de aprendizado:}
+\begin{itemize}
+    \item Teoria + prática simultânea
+    \item Projetos pessoais para aplicar conceitos
+    \item Participação ativa na comunidade
+    \item Estudo contínuo e atualizado
+\end{itemize}
+\end{frame}
+
+% Secao 8: Resumo
+\section{Resumo}
+
+\begin{frame}{Resumo da Aula}
+\textbf{Pontos principais:}
+\begin{itemize}
+    \item \textbf{Console → WPF:} Progressão natural de aprendizado
+    \item \textbf{Conceitos fundamentais:} Estrutura, sintaxe e lógica
+    \item \textbf{C\#:} Linguagem poderosa e versátil
+    \item \textbf{Prática:} Aprender fazendo é fundamental
+    \item \textbf{Próximo:} Implementar os exemplos completos!
+\end{itemize}
+
+\textbf{Conceitos aprendidos:}
+\begin{itemize}
+    \item Estrutura básica de programas C\#
+    \item Transição de Console para WPF
+    \item Programação orientada a eventos
+    \item Separação entre interface e lógica
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Obrigado!}
+\begin{center}
+\Large \textbf{Dúvidas?}
+\vspace{1cm}
+\normalsize
+\textbf{Próxima aula:} Implementação prática dos exemplos
+\end{center}
+
+\textbf{Contato:}
+\begin{itemize}
+    \item \textbf{Professor:} Bento Rafael Siqueira
+    \item \textbf{Disciplina:} GCT052 - Programação Orientada a Objetos
+    \item \textbf{Universidade:} UFLA
+\end{itemize}
+\end{frame}
+
+\end{document}
