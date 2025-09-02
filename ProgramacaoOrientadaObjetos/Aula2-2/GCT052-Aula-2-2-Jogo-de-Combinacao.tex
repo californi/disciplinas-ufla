@@ -1,0 +1,610 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Configuracoes do tema
+\usetheme{Berkeley}
+\usecolortheme{spruce}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+% Configuracoes para evitar overflow
+\setbeamersize{text margin left=0.5cm}
+\setbeamersize{text margin right=0.5cm}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+
+% Configuracoes de fonte para evitar overflow
+\setbeamerfont{itemize item}{size=\footnotesize}
+\setbeamerfont{itemize subitem}{size=\tiny}
+\setbeamerfont{enumerate item}{size=\footnotesize}
+
+% Configuracoes especificas para o sumario
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+
+% Configuracao do logo da UFLA (compacto)
+\setbeamertemplate{headline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.8cm,dp=0.1cm]{section in head/foot}%
+    \begin{center}
+      \vspace{0.05cm}
+      \includegraphics[height=0.7cm]{../../Image/ufla-logo.PNG}
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Configuracao do titulo centralizado e compacto
+\setbeamertemplate{frametitle}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.8cm,dp=0.2cm]{frametitle}%
+    \begin{center}
+      \insertframetitle
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Pacotes necessarios para caracteres especiais - UTF-8
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{newunicodechar}
+
+
+\usepackage[brazilian]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{tikz}
+
+% Configuracoes de cores
+\definecolor{azul}{RGB}{0,51,102}
+\definecolor{azulclaro}{RGB}{51,102,153}
+\definecolor{verde}{RGB}{34,139,34}
+\definecolor{laranja}{RGB}{255,140,0}
+\setbeamercolor{title}{fg=white,bg=azul}
+\setbeamercolor{frametitle}{fg=white,bg=azulclaro}
+\setbeamercolor{section title}{fg=white,bg=azul}
+
+% Informacoes do documento
+\title{Programacao Orientada a Objetos}
+\subtitle{GCT052 - Aula 2.2 - Jogo de Combinação (Animal Matching Game)}
+\author{Bento Rafael Siqueira}
+\institute{Universidade Federal de Lavras (UFLA)}
+\date{\today}
+
+\begin{document}
+
+% Slide de titulo
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Sumario da apresentacao
+\begin{frame}{Sumario}
+\textbf{Conteudo da aula:}
+\begin{itemize}
+    \item Introducao ao Jogo de Combinacao
+    \item Estrutura do Projeto
+    \item Passo a Passo da Implementacao
+    \item Detalhes da Grade 4x4
+    \item Conceitos Aplicados
+    \item Referencias aos Codigos
+    \item Recursos e Referencias
+    \item Resumo
+\end{itemize}
+\end{frame}
+
+% Secao 1: Introducao ao Jogo de Combinacao
+\section{Introducao ao Jogo de Combinacao}
+
+\begin{frame}{O que vamos aprender hoje?}
+\textbf{Objetivos da aula:}
+\begin{itemize}
+    \item \textbf{Implementar} o Jogo de Combinação completo
+    \item \textbf{Aplicar} conceitos de WPF e XAML
+    \item \textbf{Desenvolver} lógica de jogo interativo
+    \item \textbf{Praticar} programação orientada a eventos
+\end{itemize}
+
+\textbf{Base:} Head First C\# 4th Edition - Animal Matching Game
+\end{frame}
+
+\begin{frame}{O que e o Jogo de Combinacao?}
+\textbf{Descrição do jogo:}
+\begin{itemize}
+    \item \textbf{Objetivo:} Encontrar pares de animais iguais
+    \item \textbf{Interface:} Grade 4x4 simples
+    \item \textbf{Mecânica:} Clicar em duas cartas para verificar
+    \item \textbf{Vitória:} Todos os 8 pares encontrados
+\end{itemize}
+
+\textbf{Conceitos básicos:} TextBlock, Button, Eventos
+\end{frame}
+
+% Secao 2: Estrutura do Projeto
+\section{Estrutura do Projeto}
+
+\begin{frame}{Estrutura do projeto WPF}
+\textbf{Arquivos principais:}
+\begin{itemize}
+    \item \textbf{MainWindow.xaml} - Interface simples do jogo
+    \item \textbf{MainWindow.xaml.cs} - Lógica básica (100 linhas)
+    \item \textbf{App.xaml} - Configuração mínima
+    \item \textbf{App.xaml.cs} - Inicialização padrão
+\end{itemize}
+
+\textbf{Organização:} Interface (XAML) + Lógica (C\#)
+\end{frame}
+
+\begin{frame}{Interface XAML - Estrutura basica}
+\textbf{Layout principal:}
+\begin{itemize}
+    \item \textbf{Grid} como container principal (3 linhas)
+    \item \textbf{TextBlock} para título do jogo
+    \item \textbf{TextBlock} para status (StatusText)
+    \item \textbf{Grid} para grade 4x4 das cartas (GameGrid)
+    \item \textbf{Button} para novo jogo (RestartButton)
+\end{itemize}
+
+\textbf{Design:} Interface simples e clara
+\end{frame}
+
+% Secao 3: Passo a Passo da Implementacao
+\section{Passo a Passo da Implementacao}
+
+\begin{frame}{Passo 1: Criar o projeto WPF}
+\textbf{Configuração inicial:}
+\begin{enumerate}
+    \item \textbf{File} → \textbf{New} → \textbf{Project}
+    \item Selecionar \textbf{"WPF Application"}
+    \item Nome: \textbf{"AnimalMatchingGame"}
+    \item Framework: \textbf{.NET 9.0}
+    \item Clicar em \textbf{Create}
+\end{enumerate}
+
+\textbf{Verificação:}
+\begin{itemize}
+    \item Projeto criado com estrutura básica
+    \item MainWindow.xaml e MainWindow.xaml.cs presentes
+    \item Ambiente pronto para desenvolvimento
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Passo 2: Configurar a interface XAML}
+\textbf{Elementos da interface:}
+\begin{itemize}
+    \item \textbf{Título:} "Animal Matching Game"
+    \item \textbf{Contador:} "Pares encontrados: 0/8"
+    \item \textbf{Grade:} 4x4 para os emojis de animais
+    \item \textbf{Botão:} "Novo Jogo" para reiniciar
+\end{itemize}
+
+\textbf{Layout implementado:}
+\begin{itemize}
+    \item Grid com 3 linhas principais
+    \item UniformGrid para organização dos emojis
+    \item Controles posicionados adequadamente
+    \item Estilo visual consistente
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Passo 3: Definir os dados do jogo}
+\textbf{Lista de animais:}
+\begin{itemize}
+    \item \textbf{8 pares} de emojis de animais
+    \item \textbf{16 posições} na grade 4x4
+    \item \textbf{Emojis:} Cachorro, Gato, Rato, Hamster, Coelho, Raposa, Urso, Panda
+    \item \textbf{Distribuição:} Cada animal aparece 2 vezes
+\end{itemize}
+
+\textbf{Estrutura:} Arrays, Listas e Dicionários
+\end{frame}
+
+\begin{frame}{Passo 4: Definir controles estáticos no XAML}
+\textbf{Grade estática 4x4:}
+\begin{itemize}
+    \item \textbf{Grid.RowDefinitions} e \textbf{Grid.ColumnDefinitions} (4x4)
+    \item \textbf{16 TextBlocks} predefinidos (TextBlock00 a TextBlock33)
+    \item \textbf{Evento MouseLeftButtonDown} associado a cada TextBlock
+    \item \textbf{Posicionamento} fixo no Grid
+\end{itemize}
+
+\textbf{Sistema de numeração:} [Linha][Coluna]
+
+\textbf{Grade 4x4 simplificada:}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+00 & 01 & 02 & 03 \\
+\hline
+10 & 11 & 12 & 13 \\
+\hline
+20 & 21 & 22 & 23 \\
+\hline
+30 & 31 & 32 & 33 \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Convenção:} Primeiro dígito = Linha, Segundo dígito = Coluna
+\end{frame}
+
+\begin{frame}{Detalhes da Grade 4x4 - Sistema de Coordenadas}
+\tiny
+\textbf{Explicação detalhada da numeração:}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Posição} & \textbf{TextBlock} & \textbf{Linha} & \textbf{Coluna} & \textbf{Coordenadas} \\
+\hline
+00 & TextBlock00 & 0 & 0 & (0,0) \\
+01 & TextBlock01 & 0 & 1 & (0,1) \\
+02 & TextBlock02 & 0 & 2 & (0,2) \\
+03 & TextBlock03 & 0 & 3 & (0,3) \\
+10 & TextBlock10 & 1 & 0 & (1,0) \\
+11 & TextBlock11 & 1 & 1 & (1,1) \\
+12 & TextBlock12 & 1 & 2 & (1,2) \\
+13 & TextBlock13 & 1 & 3 & (1,3) \\
+20 & TextBlock20 & 2 & 0 & (2,0) \\
+21 & TextBlock21 & 2 & 1 & (2,1) \\
+22 & TextBlock22 & 2 & 2 & (2,2) \\
+23 & TextBlock23 & 2 & 3 & (2,3) \\
+30 & TextBlock30 & 3 & 0 & (3,0) \\
+31 & TextBlock31 & 3 & 1 & (3,1) \\
+32 & TextBlock32 & 3 & 2 & (3,2) \\
+33 & TextBlock33 & 3 & 3 & (3,3) \\
+\hline
+\end{tabular}
+\end{center}
+
+\small
+\textbf{Características dos TextBlocks:}
+\begin{itemize}
+    \item \textbf{FontSize:} 24
+    \item \textbf{Background:} LightBlue
+    \item \textbf{Margin:} 2
+    \item \textbf{Evento:} MouseLeftButtonDown
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Passo 5: Implementar a lógica do jogo}
+\textbf{Funcionalidades principais:}
+\begin{itemize}
+    \item \textbf{Seleção de cartas} (máximo 2 por vez)
+    \item \textbf{Verificação de pares} (animais iguais)
+    \item \textbf{Controle de estado} (primeira/segunda carta)
+    \item \textbf{Atualização do status} de pares
+\end{itemize}
+
+\textbf{Lógica:} TextBlock\_Click, verificação simples
+\end{frame}
+
+\begin{frame}{Passo 6: Gerenciar eventos de clique}
+\textbf{Estados das cartas:}
+\begin{itemize}
+    \item \textbf{Oculto:} LightBlue, Text="?" (estado inicial)
+    \item \textbf{Revelado:} LightYellow, Text=animal (selecionado)
+    \item \textbf{Encontrado:} LightGreen, Text=animal (par completo)
+\end{itemize}
+
+\textbf{Controle:} Verificação simples se Text != "?"
+\end{frame}
+
+\begin{frame}{Passo 7: Implementar verificação de pares}
+\textbf{Algoritmo de verificação:}
+\begin{itemize}
+    \item \textbf{Primeiro clique:} Revela a carta (primeiraCarta)
+    \item \textbf{Segundo clique:} Revela e compara (segundaCarta)
+    \item \textbf{Se iguais:} Marca como encontrado (verde)
+    \item \textbf{Se diferentes:} Oculta após 1 segundo (timer)
+\end{itemize}
+
+\textbf{Timer:} DispatcherTimer simples com delay de 1 segundo
+\end{frame}
+
+\begin{frame}{Passo 8: Adicionar funcionalidades extras}
+\textbf{Recursos adicionais:}
+\begin{itemize}
+    \item \textbf{Botão "Novo Jogo"} para reiniciar (RestartButton\_Click)
+    \item \textbf{Status de pares} encontrados (StatusText)
+    \item \textbf{Mensagem de vitória} quando completar (MessageBox)
+    \item \textbf{Embaralhamento} das cartas (Random + LINQ)
+\end{itemize}
+
+\textbf{Melhorias:} Interface simples e funcional
+\end{frame}
+
+% Secao 4: Conceitos Aplicados
+\section{Conceitos Aplicados}
+
+\begin{frame}{Conceitos de C\# aplicados}
+\textbf{Elementos da linguagem:}
+\begin{itemize}
+    \item \textbf{Arrays e Listas} para armazenar dados
+    \item \textbf{Loops} para criar controles dinamicamente
+    \item \textbf{Condicionais} para verificar pares
+    \item \textbf{Métodos} para organizar o código
+\end{itemize}
+
+\textbf{Conceitos avançados:}
+\begin{itemize}
+    \item \textbf{Eventos} para interação do usuário
+    \item \textbf{Delegates} para callbacks
+    \item \textbf{Timers} para controle de tempo
+    \item \textbf{Threading} para operações assíncronas
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Conceitos de WPF aplicados}
+\textbf{Controles utilizados:}
+\begin{itemize}
+    \item \textbf{Grid} para layout principal
+    \item \textbf{TextBlock} para grade de cartas
+    \item \textbf{TextBlock} para texto e contadores
+    \item \textbf{Button} para interações
+\end{itemize}
+
+\textbf{Recursos do WPF:}
+\begin{itemize}
+    \item \textbf{Event Handling} para interações
+    \item \textbf{Layout} responsivo com Grid
+    \item \textbf{Properties} para configuração visual
+    \item \textbf{Eventos} MouseLeftButtonDown
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Conceitos de POO aplicados}
+\textbf{Princípios utilizados:}
+\begin{itemize}
+    \item \textbf{Encapsulamento} em classes e métodos
+    \item \textbf{Separação de responsabilidades} (UI vs lógica)
+    \item \textbf{Reutilização} de código
+    \item \textbf{Manutenibilidade} do código
+\end{itemize}
+
+\textbf{Padrões:} Event-driven programming, State management
+\end{frame}
+
+% Secao 4.5: Referencias aos Codigos Implementados
+\section{Referencias aos Codigos Implementados}
+
+\begin{frame}{Estrutura de Dados - Arrays e Listas}
+\textbf{Definição dos dados do jogo:}
+
+\textbf{Elementos principais:}
+\begin{itemize}
+    \item \textbf{Array:} animais[] com 8 animais únicos
+    \item \textbf{Lista:} cartas com 16 elementos (8 pares)
+    \item \textbf{Variáveis de estado:} primeiraCarta, segundaCarta
+    \item \textbf{Array 2D:} grade[4,4] para mapear TextBlocks
+    \item \textbf{Timer:} timer para controle de tempo
+\end{itemize}
+
+\textbf{Código implementado:}
+\begin{itemize}
+    \item \textbf{Arquivo:} MainWindow.xaml.cs (linhas 15-25)
+    \item \textbf{Array:} private string[] animais
+    \item \textbf{Lista:} private List<string> cartas
+    \item \textbf{Variáveis:} private TextBlock primeiraCarta, segundaCarta
+    \item \textbf{Array:} private TextBlock[,] grade
+    \item \textbf{Timer:} private DispatcherTimer timer
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Método SetupGame - Configuração Inicial}
+\textbf{Configuração de TextBlocks estáticos e embaralhamento:}
+
+\textbf{Funcionalidades implementadas:}
+\begin{itemize}
+    \item \textbf{Inicialização:} InitializeGameTextBlocks() mapeia TextBlocks XAML
+    \item \textbf{Array 2D:} TextBlock[,] grade para acesso
+    \item \textbf{Lista de cartas:} cartas com duplicatas
+    \item \textbf{Embaralhamento:} Random + LINQ OrderBy
+    \item \textbf{Distribuição:} Animais nos TextBlocks estáticos
+    \item \textbf{Configuração:} Text="?", Tag=animal, Background=LightBlue
+\end{itemize}
+
+\textbf{Código implementado:}
+\begin{itemize}
+    \item \textbf{Arquivo:} MainWindow.xaml.cs (linhas 27-60)
+    \item \textbf{Método:} private void SetupGame()
+    \item \textbf{Inicialização:} InitializeGameTextBlocks()
+    \item \textbf{Embaralhamento:} cartas.OrderBy(x => random.Next())
+    \item \textbf{Distribuição:} grade[row, col].Tag = animal
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Método InitializeGameTextBlocks - Mapeamento Estático}
+\textbf{Mapeamento de TextBlocks XAML para array:}
+
+\textbf{Características do mapeamento:}
+\begin{itemize}
+    \item \textbf{Array 2D:} TextBlock[,] grade[4,4]
+    \item \textbf{Mapeamento:} TextBlock00 → grade[0,0]
+    \item \textbf{Acesso:} grade[row, col] para cada posição
+    \item \textbf{Configuração:} Todos os 16 TextBlocks mapeados
+    \item \textbf{Referência:} Acesso direto aos controles XAML
+    \item \textbf{Organização:} Estrutura lógica por linha/coluna
+\end{itemize}
+
+\textbf{Código implementado:}
+\begin{itemize}
+    \item \textbf{Arquivo:} MainWindow.xaml.cs (linhas 27-45)
+    \item \textbf{Método:} private void InitializeGameTextBlocks()
+    \item \textbf{Array:} grade = new TextBlock[4, 4]
+    \item \textbf{Mapeamento:} grade[0,0] = TextBlock00
+    \item \textbf{Organização:} Todos os 16 TextBlocks mapeados
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Evento TextBlock\_MouseLeftButtonDown - Lógica Principal}
+\textbf{Evento principal do jogo:}
+
+\textbf{Lógica implementada:}
+\begin{itemize}
+    \item \textbf{Verificação de estado:} Text != "?" para verificar se já foi revelado
+    \item \textbf{Revelação:} Tag.ToString() para mostrar animal
+    \item \textbf{Controle de seleção:} primeiraCarta, segundaCarta
+    \item \textbf{Verificação de pares:} Comparação de Tag
+    \item \textbf{Chamada de métodos:} Verificação simples de igualdade
+\end{itemize}
+
+\textbf{Código implementado:}
+\begin{itemize}
+    \item \textbf{Arquivo:} MainWindow.xaml.cs (linhas 62-95)
+    \item \textbf{Método:} private void TextBlock\_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    \item \textbf{Verificação:} if (clickedTextBlock.Text != "?") return;
+    \item \textbf{Revelação:} clickedTextBlock.Text = animal
+    \item \textbf{Comparação:} if (primeiraCarta.Tag.ToString() == segundaCarta.Tag.ToString())
+    \item \textbf{Ações:} Marcação de pares e atualização de status
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Processamento de Pares - Lógica Simplificada}
+\textbf{Processamento quando um par é encontrado:}
+
+\textbf{Ações realizadas:}
+\begin{itemize}
+    \item \textbf{Mudança de cor:} LightGreen para pares encontrados
+    \item \textbf{Incremento:} paresEncontrados++ para contador
+    \item \textbf{Limpeza:} primeiraCarta = null, segundaCarta = null
+    \item \textbf{Verificação de vitória:} paresEncontrados == 8
+    \item \textbf{Chamada:} MessageBox.Show() se jogo terminou
+\end{itemize}
+
+\textbf{Código implementado:}
+\begin{itemize}
+    \item \textbf{Arquivo:} MainWindow.xaml.cs (linhas 85-95)
+    \item \textbf{Lógica:} Dentro do evento TextBlock\_MouseLeftButtonDown
+    \item \textbf{Cores:} primeiraCarta.Background = LightGreen
+    \item \textbf{Contador:} paresEncontrados++;
+    \item \textbf{Limpeza:} primeiraCarta = null; segundaCarta = null;
+    \item \textbf{Vitória:} if (paresEncontrados == 8) MessageBox.Show("Parabéns!");
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Timer - Controle de Tempo Simplificado}
+\textbf{Timer para esconder cartas não combinadas:}
+
+\textbf{Funcionalidades do timer:}
+\begin{itemize}
+    \item \textbf{Esconder cartas:} Text = "?", Background = LightBlue
+    \item \textbf{Limpeza de seleção:} Reset das variáveis primeiraCarta/segundaCarta
+    \item \textbf{Controle de estado:} Reset das variáveis de controle
+    \item \textbf{Parar timer:} timer.Stop() para finalizar
+    \item \textbf{Delay:} 1 segundo para visualização
+\end{itemize}
+
+\textbf{Código implementado:}
+\begin{itemize}
+    \item \textbf{Arquivo:} MainWindow.xaml.cs (linhas 97-110)
+    \item \textbf{Método:} private void Timer\_Tick(object sender, EventArgs e)
+    \item \textbf{Esconder:} primeiraCarta.Text = "?"; primeiraCarta.Background = LightBlue
+    \item \textbf{Limpeza:} primeiraCarta = null; segundaCarta = null;
+    \item \textbf{Parar:} timer.Stop();
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Interface XAML - MainWindow.xaml}
+\textbf{Estrutura da interface gráfica:}
+
+\textbf{Elementos da interface:}
+\begin{itemize}
+    \item \textbf{Window:} Título, dimensões, centralização
+    \item \textbf{Grid principal:} 3 linhas (Auto, *, Auto)
+    \item \textbf{Título:} TextBlock com nome do jogo
+    \item \textbf{Área do jogo:} Grid 4x4 com TextBlocks
+    \item \textbf{Status:} TextBlock para mostrar pares encontrados
+    \item \textbf{Botão:} Button para novo jogo
+\end{itemize}
+
+\textbf{Código implementado:}
+\begin{itemize}
+    \item \textbf{Arquivo:} MainWindow.xaml (linhas 1-50)
+    \item \textbf{Window:} Title="Jogo de Combinação"
+    \item \textbf{Grid:} Grid.RowDefinitions com 3 linhas
+    \item \textbf{Título:} TextBlock Text="Jogo de Combinação"
+    \item \textbf{Área do jogo:} Grid 4x4 com 16 TextBlocks
+    \item \textbf{Controles:} x:Name="StatusText", x:Name="RestartButton"
+\end{itemize}
+\end{frame}
+
+
+
+% Secao 7: Recursos e Referencias
+\section{Recursos e Referencias}
+
+\begin{frame}{Recursos para estudo}
+\textbf{Materiais recomendados:}
+\begin{itemize}
+    \item \textbf{Livro:} "Head First C\#" 4th Edition
+    \item \textbf{Repositório:} github.com/head-first-csharp/fourth-edition
+    \item \textbf{Documentação:} Microsoft Learn - WPF
+    \item \textbf{Vídeos:} Canais especializados em C\#
+\end{itemize}
+
+\textbf{Comunidade e suporte:}
+\begin{itemize}
+    \item \textbf{Stack Overflow} para dúvidas técnicas
+    \item \textbf{GitHub} para exemplos de código
+    \item \textbf{Reddit} para discussões
+    \item \textbf{Discord} para networking
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Próximos passos}
+\textbf{O que vem depois:}
+\begin{itemize}
+    \item \textbf{Prática:} Implementar o jogo completo
+    \item \textbf{Conceitos:} Herança e polimorfismo
+    \item \textbf{Unity:} Lab 1 - Introdução ao Unity
+    \item \textbf{Projeto:} Aplicação mais complexa
+\end{itemize}
+
+\textbf{Preparação:}
+\begin{itemize}
+    \item Revisar conceitos de WPF e XAML
+    \item Praticar com eventos e controles
+    \item Explorar recursos do Visual Studio
+    \item Estudar padrões de design
+\end{itemize}
+\end{frame}
+
+% Secao 8: Resumo
+\section{Resumo}
+
+\begin{frame}{Resumo da Aula}
+\textbf{Pontos principais:}
+\begin{itemize}
+    \item \textbf{Implementação completa} do Animal Matching Game
+    \item \textbf{Conceitos práticos} de WPF e C\#
+    \item \textbf{Lógica de jogo} interativo
+    \item \textbf{Programação orientada a eventos}
+\end{itemize}
+
+\textbf{Conceitos aprendidos:}
+\begin{itemize}
+    \item Criação dinâmica de controles
+    \item Gerenciamento de estado de aplicação
+    \item Manipulação de eventos complexos
+    \item Separação entre interface e lógica
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Obrigado!}
+\begin{center}
+\Large \textbf{Dúvidas?}
+\vspace{1cm}
+\normalsize
+\textbf{Próxima aula:} Unity Lab 1 - Introdução ao Unity
+\end{center}
+
+\textbf{Contato:}
+\begin{itemize}
+    \item \textbf{Professor:} Bento Rafael Siqueira
+    \item \textbf{Disciplina:} GCT052 - Programação Orientada a Objetos
+    \item \textbf{Universidade:} UFLA
+\end{itemize}
+\end{frame}
+
+\end{document}
