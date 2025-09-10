@@ -1,0 +1,591 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Configurações do tema
+\usetheme{Berkeley}
+\usecolortheme{spruce}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+% Configuração do logo da UFLA
+\setbeamertemplate{headline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.2cm]{section in head/foot}%
+    \begin{center}
+      \vspace{0.1cm}
+      \includegraphics[height=1.0cm]{../../Image/ufla-logo.PNG}
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Configuração do título centralizado
+\setbeamertemplate{frametitle}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm]{frametitle}%
+    \begin{center}
+      \insertframetitle
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Pacotes necessários
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{multicol}
+% Configurações de cores
+\definecolor{azul}{RGB}{0,51,102}
+\definecolor{azulclaro}{RGB}{51,102,153}
+\definecolor{lightblue}{RGB}{173,216,230}
+\definecolor{lightgreen}{RGB}{144,238,144}
+\definecolor{lightcoral}{RGB}{240,128,128}
+\definecolor{lightyellow}{RGB}{255,255,224}
+\definecolor{lightpink}{RGB}{255,182,193}
+\definecolor{lightgray}{RGB}{211,211,211}
+\definecolor{orange}{RGB}{255,165,0}
+\setbeamercolor{title}{fg=white,bg=azul}
+\setbeamercolor{frametitle}{fg=white,bg=azulclaro}
+\setbeamercolor{section title}{fg=white,bg=azul}
+
+
+% Informações do documento
+\title{Programação Orientada a Objetos}
+\subtitle{GCT052 - Aula 2.3 - Classes e Objetos}
+\author{Prof. Dr. Bento Rafael Siqueira}
+\institute{Universidade Federal de Lavras\\Departamento de Ciência da Computação}
+\date{\today}
+
+\begin{document}
+
+% Slide de título
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Slide de sumário
+\begin{frame}{Sumário}
+\tableofcontents
+\end{frame}
+
+% Seção 1: Introdução
+\section{Introdução às Classes e Objetos}
+
+\begin{frame}{O que são Classes e Objetos?}
+\begin{itemize}
+\item \textbf{Classe}: É um molde ou template que define as características e comportamentos de um tipo de objeto
+\item \textbf{Objeto}: É uma instância específica de uma classe, com valores únicos para seus atributos
+\item \textbf{Analogia}: Classe = Planta de uma casa, Objeto = Casa construída
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Exemplo do Dia a Dia:}
+\begin{itemize}
+\item \textbf{Classe}: Carro
+\item \textbf{Atributos}: Marca, modelo, cor, ano, placa
+\item \textbf{Métodos}: Ligar, acelerar, frear, parar
+\item \textbf{Objetos}: Meu carro (Fiat, Palio, branco, 2020, ABC-1234)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Por que usar Classes e Objetos?}
+\begin{enumerate}
+\item \textbf{Organização}: Código mais estruturado e fácil de entender
+\item \textbf{Reutilização}: Uma classe pode gerar múltiplos objetos
+\item \textbf{Manutenção}: Mudanças na classe afetam todos os objetos
+\item \textbf{Abstração}: Foco no que é importante, escondendo detalhes
+\item \textbf{Encapsulamento}: Proteção dos dados internos
+\end{enumerate}
+
+\vspace{0.5cm}
+\textbf{Vantagens:}
+\begin{itemize}
+\item Código mais limpo e legível
+\item Facilita trabalho em equipe
+\item Reduz duplicação de código
+\item Permite modelagem do mundo real
+\end{itemize}
+\end{frame}
+
+% Seção 2: Conceitos Fundamentais
+\section{Conceitos Fundamentais}
+
+\begin{frame}{Estrutura de uma Classe}
+\begin{itemize}
+\item \textbf{Atributos (Campos)}: Características ou propriedades da classe
+\item \textbf{Métodos}: Ações ou comportamentos que a classe pode realizar
+\item \textbf{Construtor}: Método especial para criar objetos
+\item \textbf{Modificadores de Acesso}: Controlam quem pode acessar os membros
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Exemplo Básico:}
+\begin{itemize}
+\item \textbf{Classe}: Pessoa
+\item \textbf{Atributos}: Nome, idade, email
+\item \textbf{Métodos}: Falar, andar, comer
+\item \textbf{Construtor}: Criar uma nova pessoa
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Modificadores de Acesso}
+\begin{enumerate}
+\item \textbf{public}: Acessível de qualquer lugar
+\item \textbf{private}: Acessível apenas dentro da própria classe
+\item \textbf{protected}: Acessível na classe e nas classes filhas
+\item \textbf{internal}: Acessível apenas dentro do mesmo assembly
+\end{enumerate}
+
+\vspace{0.5cm}
+\textbf{Boas Práticas:}
+\begin{itemize}
+\item Atributos geralmente são \textbf{private}
+\item Métodos públicos para interação externa
+\item Use \textbf{properties} para acesso controlado aos atributos
+\end{itemize}
+\end{frame}
+
+% Seção 3: Exemplos Práticos
+\section{Exemplos Práticos}
+
+\begin{frame}{Exemplo 1: Classe Conta Bancária - Estrutura}
+\textbf{Atributos:}
+\begin{itemize}
+\item Número da conta
+\item Nome do titular
+\item Saldo
+\item Tipo da conta
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Métodos:}
+\begin{itemize}
+\item Depositar
+\item Sacar
+\item Verificar saldo
+\item Transferir
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo 1: Classe Conta Bancária - Objetos}
+\textbf{Objetos possíveis:}
+\begin{itemize}
+\item Conta de João (12345, João Silva, R\$ 1.500,00, Corrente)
+\item Conta de Maria (67890, Maria Santos, R\$ 3.200,00, Poupança)
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Características dos Objetos:}
+\begin{itemize}
+\item Cada objeto tem seus próprios valores
+\item Podem executar os mesmos métodos
+\item Estado independente entre objetos
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo 2: Classe Animal - Estrutura}
+\textbf{Atributos:}
+\begin{itemize}
+\item Nome
+\item Espécie
+\item Idade
+\item Peso
+\item Cor
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Métodos:}
+\begin{itemize}
+\item Comer
+\item Dormir
+\item Mover
+\item Fazer som
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo 2: Classe Animal - Objetos}
+\textbf{Objetos possíveis:}
+\begin{itemize}
+\item Meu gato (Mimi, Gato, 3 anos, 4kg, Branco)
+\item Cachorro do vizinho (Rex, Cachorro, 5 anos, 15kg, Marrom)
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Comportamentos dos Objetos:}
+\begin{itemize}
+\item Cada animal tem características únicas
+\item Comportamentos podem variar por espécie
+\item Estado muda com ações (comer, dormir)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo 3: Classe Produto - Estrutura}
+\textbf{Atributos:}
+\begin{itemize}
+\item Código
+\item Nome
+\item Preço
+\item Quantidade em estoque
+\item Categoria
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Métodos:}
+\begin{itemize}
+\item Calcular desconto
+\item Atualizar estoque
+\item Verificar disponibilidade
+\item Aplicar promoção
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo 3: Classe Produto - Objetos}
+\textbf{Objetos possíveis:}
+\begin{itemize}
+\item Notebook (NB001, Dell Inspiron, R\$ 2.500,00, 10, Eletrônicos)
+\item Livro (LB002, C\# Completo, R\$ 89,90, 25, Livros)
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Funcionalidades dos Objetos:}
+\begin{itemize}
+\item Controle de estoque
+\item Cálculo de preços
+\item Gestão de categorias
+\item Aplicação de descontos
+\end{itemize}
+\end{frame}
+
+% Seção 4: Implementação em C#
+\section{Implementação em C\#}
+
+\begin{frame}{Estrutura Básica de uma Classe em C\#}
+\textbf{Elementos principais:}
+\begin{itemize}
+\item \textbf{Atributos}: \texttt{private string nome; private int idade;}
+\item \textbf{Construtor}: \texttt{public NomeDaClasse(string nome, int idade)}
+\item \textbf{Métodos}: \texttt{public void Falar()}
+\item \textbf{Properties}: \texttt{public string Nome \{ get; set; \}}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Exemplo completo:} Ver arquivo \texttt{Exemplos/ContaBancaria.cs}
+\end{frame}
+
+\begin{frame}{Criando e Usando Objetos}
+\textbf{Passos para usar objetos:}
+\begin{enumerate}
+\item \textbf{Criar objetos}: \texttt{NomeDaClasse obj = new NomeDaClasse();}
+\item \textbf{Usar métodos}: \texttt{obj.Falar(); obj.Comer();}
+\item \textbf{Acessar properties}: \texttt{obj.Nome = "João";}
+\item \textbf{Cada objeto é independente}: Valores únicos para cada instância
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Exemplo prático:} Ver arquivo \texttt{Exemplos/Program.cs}
+\end{frame}
+
+% Seção 5: Exemplos de Código
+\section{Exemplos de Código}
+
+\begin{frame}{Exemplo Completo: Classe Conta Bancária}
+\textbf{Arquivo: Exemplos/ContaBancaria.cs}
+\begin{itemize}
+\item Implementação completa da classe ContaBancaria
+\item Atributos: numero, titular, saldo, tipo
+\item Métodos: Depositar, Sacar, VerificarSaldo, Transferir
+\item Construtor para inicializar a conta
+\item Properties para acesso controlado
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Características:}
+\begin{itemize}
+\item Validação de valores negativos
+\item Controle de saldo insuficiente
+\item Mensagens informativas
+\item Código bem documentado
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo Completo: Classe Animal}
+\textbf{Arquivo: Exemplos/Animal.cs}
+\begin{itemize}
+\item Implementação da classe Animal
+\item Atributos: nome, especie, idade, peso, cor
+\item Métodos: Comer, Dormir, Mover, FazerSom
+\item Construtor com parâmetros opcionais
+\item Método ToString() para exibição
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Características:}
+\begin{itemize}
+\item Validação de dados de entrada
+\item Comportamentos específicos por espécie
+\item Cálculo de idade em meses
+\item Interface amigável
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo Completo: Classe Produto}
+\textbf{Arquivo: Exemplos/Produto.cs}
+\begin{itemize}
+\item Implementação da classe Produto
+\item Atributos: codigo, nome, preco, estoque, categoria
+\item Métodos: CalcularDesconto, AtualizarEstoque, VerificarDisponibilidade
+\item Construtor com validações
+\item Properties com validação
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Características:}
+\begin{itemize}
+\item Cálculo automático de descontos
+\item Controle de estoque
+\item Validação de preços
+\item Categorização de produtos
+\end{itemize}
+\end{frame}
+
+% Seção 6: Exercícios Práticos
+\section{Exercícios Práticos}
+
+\begin{frame}{Exercício 1: Classe Livro}
+\textbf{Crie uma classe Livro com:}
+
+\textbf{Atributos:}
+\begin{itemize}
+\item Título
+\item Autor
+\item ISBN
+\item Páginas
+\item Preço
+\item Ano de publicação
+\end{itemize}
+
+\textbf{Métodos:}
+\begin{itemize}
+\item Calcular preço com desconto
+\item Verificar se é livro novo (últimos 2 anos)
+\item Exibir informações do livro
+\item Calcular preço por página
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tempo}: 15 minutos
+\end{frame}
+
+\begin{frame}{Exercício 2: Classe Retângulo}
+\textbf{Crie uma classe Retângulo com:}
+
+\textbf{Atributos:}
+\begin{itemize}
+\item Largura
+\item Altura
+\end{itemize}
+
+\textbf{Métodos:}
+\begin{itemize}
+\item Calcular área
+\item Calcular perímetro
+\item Verificar se é quadrado
+\item Desenhar retângulo (usando asteriscos)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tempo}: 10 minutos
+\end{frame}
+
+\begin{frame}{Exercício 3: Classe Estudante - Estrutura}
+\textbf{Crie uma classe Estudante com:}
+
+\textbf{Atributos:}
+\begin{itemize}
+\item Nome
+\item Matrícula
+\item Curso
+\item Notas (array de 4 notas)
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Métodos:}
+\begin{itemize}
+\item Calcular média
+\item Verificar se passou (média >= 7.0)
+\item Adicionar nota
+\item Exibir boletim
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercício 3: Classe Estudante - Implementação}
+\textbf{Tempo}: 20 minutos
+
+\vspace{0.5cm}
+\textbf{Dicas para implementação:}
+\begin{itemize}
+\item Use arrays para armazenar notas
+\item Implemente validação de notas (0-10)
+\item Calcule média aritmética simples
+\item Formate a saída do boletim
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Teste com diferentes estudantes!}
+\end{frame}
+
+% Seção 7: Boas Práticas
+\section{Boas Práticas}
+
+\begin{frame}{Nomenclatura}
+\begin{itemize}
+\item \textbf{Classes}: PascalCase (ex: ContaBancaria, Produto)
+\item \textbf{Métodos}: PascalCase (ex: Depositar, CalcularSaldo)
+\item \textbf{Atributos}: camelCase (ex: nome, saldoAtual)
+\item \textbf{Constantes}: UPPER\_CASE (ex: TAXA\_JUROS)
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Exemplos:}
+\begin{itemize}
+\item \textbf{Bom}: \texttt{public class ContaBancaria}
+\item \textbf{Ruim}: \texttt{public class contabancaria}
+\item \textbf{Bom}: \texttt{private string nomeTitular}
+\item \textbf{Ruim}: \texttt{private string NomeTitular}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Encapsulamento}
+\begin{itemize}
+\item \textbf{Sempre} use modificadores de acesso apropriados
+\item Atributos devem ser \textbf{private}
+\item Use \textbf{properties} para acesso controlado
+\item Evite atributos \textbf{public}
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Exemplo:}
+\begin{itemize}
+\item \textbf{Bom}: \texttt{private double saldo;} + \texttt{public double Saldo \{ get; set; \}}
+\item \textbf{Ruim}: \texttt{public double saldo;}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Vantagens:}
+\begin{itemize}
+\item Controle de acesso aos dados
+\item Validação automática
+\item Facilita manutenção
+\item Melhora segurança
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Documentação e Comentários - Boas Práticas}
+\begin{itemize}
+\item Use \textbf{XML comments} para documentar classes e métodos
+\item Comente lógica complexa
+\item Use nomes descritivos (evite comentários óbvios)
+\item Documente parâmetros e valores de retorno
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Benefícios:}
+\begin{itemize}
+\item Facilita manutenção do código
+\item Melhora compreensão para outros desenvolvedores
+\item Gera documentação automática
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Documentação e Comentários - Exemplo}
+\textbf{Exemplo de XML Comments:}
+\begin{itemize}
+\item \texttt{/// <summary>}
+\item \texttt{/// Deposita um valor na conta}
+\item \texttt{/// </summary>}
+\item \texttt{/// <param name="valor">Valor a ser depositado</param>}
+\item \texttt{/// <returns>True se o depósito foi realizado</returns>}
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Resultado:}
+\begin{itemize}
+\item IntelliSense mostra a documentação
+\item Facilita uso da classe por outros desenvolvedores
+\end{itemize}
+\end{frame}
+
+% Seção 8: Próximos Passos
+\section{Próximos Passos}
+
+\begin{frame}{Tópicos Relacionados}
+\begin{enumerate}
+\item \textbf{Herança}
+\begin{itemize}
+\item Classes pai e filhas
+\item Reutilização de código
+\item Polimorfismo
+\end{itemize}
+
+\item \textbf{Interfaces}
+\begin{itemize}
+\item Contratos de comportamento
+\item Múltiplas implementações
+\item Abstração avançada
+\end{itemize}
+
+\item \textbf{Polimorfismo}
+\begin{itemize}
+\item Múltiplas formas
+\item Sobrescrita de métodos
+\item Ligação tardia
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Leitura Recomendada}
+\begin{itemize}
+\item \textbf{Microsoft Docs}: Classes and Objects in C\#
+\item \textbf{Clean Code}: Robert C. Martin
+\item \textbf{Effective C\#}: Bill Wagner
+\item \textbf{Pro C\# 10}: Andrew Troelsen
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Prática Recomendada:}
+\begin{enumerate}
+\item Implemente os exemplos da pasta \texttt{Exemplos}
+\item Resolva os exercícios propostos
+\item Crie suas próprias classes
+\item Pratique com projetos reais
+\end{enumerate}
+\end{frame}
+
+% Slide final
+\begin{frame}{Dúvidas e Discussão}
+\begin{center}
+\textbf{Obrigado pela atenção!}
+\end{center}
+
+\textbf{Pontos-Chave da Aula}:
+\begin{enumerate}
+\item \textbf{Classes} são moldes que definem características e comportamentos
+\item \textbf{Objetos} são instâncias específicas de classes
+\item \textbf{Encapsulamento} protege os dados e controla o acesso
+\item \textbf{Boas práticas} facilitam manutenção e legibilidade
+\end{enumerate}
+
+\vspace{0.5cm}
+\begin{center}
+\includegraphics[width=0.4\textwidth]{../../Image/ufla-logo.PNG}
+\end{center}
+
+\vspace{0.3cm}
+\textbf{Próxima Aula}: Herança e Polimorfismo
+
+\vspace{0.3cm}
+\textbf{Contato}: bento.siqueira@ufla.br\\
+\textbf{Material}: Disponível no sistema acadêmico
+\end{frame}
+
+\end{document}

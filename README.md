@@ -271,5 +271,5 @@ Este projeto é destinado ao uso acadêmico na Universidade Federal de Lavras (U
 ---
 
 **Universidade Federal de Lavras (UFLA)**  
-**Departamento de Ciência da Computação**  
+**Departamento de Computação (DCO)**  
 **Semestre 2025/2**

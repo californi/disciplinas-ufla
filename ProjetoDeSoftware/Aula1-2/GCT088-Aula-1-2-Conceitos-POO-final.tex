@@ -1,0 +1,546 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Configurações do tema
+\usetheme{default}
+\usecolortheme{spruce}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+% Configurações para evitar overflow
+\setbeamersize{text margin left=0.5cm}
+\setbeamersize{text margin right=0.5cm}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+
+% Configurações de fonte para evitar overflow
+\setbeamerfont{itemize item}{size=\footnotesize}
+\setbeamerfont{itemize subitem}{size=\tiny}
+\setbeamerfont{enumerate item}{size=\footnotesize}
+\setbeamerfont{section in toc}{size=\tiny}
+\setbeamerfont{subsection in toc}{size=\tiny}
+
+% Configurações específicas para o sumário
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\setbeamertemplate{navigation symbols}{}
+
+% Configuração do logo da UFLA (compacto)
+\setbeamertemplate{headline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.8cm,dp=0.1cm]{section in head/foot}%
+    \begin{center}
+      \vspace{0.05cm}
+      \includegraphics[height=0.7cm]{../../Image/ufla-logo.PNG}
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Configuração do título centralizado e compacto
+\setbeamertemplate{frametitle}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.8cm,dp=0.2cm]{frametitle}%
+    \begin{center}
+      \insertframetitle
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Pacotes necessários para caracteres especiais - UTF-8
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{tikz}
+
+% Configurações de cores
+\definecolor{azul}{RGB}{0,51,102}
+\definecolor{azulclaro}{RGB}{51,102,153}
+\definecolor{verde}{RGB}{34,139,34}
+\definecolor{laranja}{RGB}{255,140,0}
+\setbeamercolor{title}{fg=white,bg=azul}
+\setbeamercolor{frametitle}{fg=white,bg=azulclaro}
+\setbeamercolor{section title}{fg=white,bg=azul}
+
+% Informações do documento
+\title{Projeto de Software}
+\subtitle{GCT088 - Aula 1.2 - Conceitos de Orientação a Objetos}
+\author{Bento Rafael Siqueira}
+\institute{Universidade Federal de Lavras (UFLA)}
+\date{\today}
+
+\begin{document}
+
+% Slide de título
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Sumário da apresentação
+\begin{frame}{Sumário}
+\textbf{Conceitos de Orientação a Objetos:}
+\begin{itemize}
+    \item Abstração
+    \item Classe e Relacionamentos
+    \item Objetos e Construtores
+    \item Encapsulamento
+    \item Sobrecarga
+    \item Herança
+    \item Polimorfismo
+    \item Atividade Integrada
+\end{itemize}
+\end{frame}
+
+% Seção 1: Abstração
+\section{Abstração}
+
+\begin{frame}{O que é Abstração?}
+\textbf{Definição:}
+\begin{itemize}
+    \item \textbf{Abstração} é o processo de simplificar sistemas complexos
+    \item Foca nos aspectos essenciais, ignorando detalhes irrelevantes
+    \item Permite representar conceitos do mundo real de forma simplificada
+    \item Base para todos os outros conceitos de POO
+\end{itemize}
+
+\textbf{Exemplo Prático:}
+\begin{itemize}
+    \item \textbf{Carro:} Motor, rodas, volante, freios (essencial)
+    \item \textbf{Ignora:} Composição química do plástico, detalhes do motor
+    \item \textbf{Resultado:} Modelo simplificado e funcional
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo Prático: Sistema de Viagens}
+\textbf{Abstração de um Destino:}
+\begin{itemize}
+    \item \textbf{Incluído:} Nome, país, cidade, clima, disponibilidade
+    \item \textbf{Omitido:} Coordenadas geográficas, população, história detalhada
+    \item \textbf{Foco:} Funcionalidades essenciais para o sistema
+\end{itemize}
+
+\textbf{Arquivo de Exemplo:}
+\begin{itemize}
+    \item \texttt{Exemplos/Abstracao.cs}
+    \item Classe \texttt{Destino} com propriedades essenciais
+    \item Métodos para reserva e verificação de disponibilidade
+\end{itemize}
+\end{frame}
+
+% Seção 2: Classe (Associação, Composição e Agregação)
+\section{Classe e Relacionamentos}
+
+\begin{frame}{O que é uma Classe?}
+\textbf{Definição:}
+\begin{itemize}
+    \item \textbf{Classe} é um modelo/template para criar objetos
+    \item Define atributos (propriedades) e comportamentos (métodos)
+    \item Representa um conceito abstrato do mundo real
+    \item Serve como "planta" para instanciar objetos
+\end{itemize}
+
+\textbf{Componentes:}
+\begin{itemize}
+    \item \textbf{Atributos:} Características do objeto
+    \item \textbf{Métodos:} Comportamentos do objeto
+    \item \textbf{Construtores:} Inicialização do objeto
+    \item \textbf{Relacionamentos:} Como se conecta com outras classes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Relacionamentos entre Classes}
+\textbf{Três tipos principais:}
+
+\textbf{1. Associação:}
+\begin{itemize}
+    \item Relacionamento simples entre classes
+    \item Uma classe "usa" ou "conhece" outra
+    \item Independência entre os objetos
+\end{itemize}
+
+\textbf{2. Composição:}
+\begin{itemize}
+    \item Relacionamento "parte-de" forte
+    \item Objeto parte não existe sem o todo
+    \item Ciclo de vida dependente
+\end{itemize}
+
+\textbf{3. Agregação:}
+\begin{itemize}
+    \item Relacionamento "parte-de" fraco
+    \item Objeto parte pode existir independentemente
+    \item Ciclo de vida independente
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo Prático: Sistema de Agência de Viagens}
+\textbf{Arquivo de Exemplo:}
+\begin{itemize}
+    \item \texttt{Exemplos/Relacionamentos.cs}
+    \item \textbf{Associação:} Viajante "usa" Destino
+    \item \textbf{Composição:} Agência "contém" Departamentos
+    \item \textbf{Agregação:} Departamento "tem" Funcionários
+\end{itemize}
+
+\textbf{Características:}
+\begin{itemize}
+    \item Viajante pode existir sem destino específico
+    \item Departamento não existe sem Agência
+    \item Funcionário pode existir sem Departamento
+\end{itemize}
+\end{frame}
+
+% Seção 3: Objetos e Construtores
+\section{Objetos e Construtores}
+
+\begin{frame}{O que é um Objeto?}
+\textbf{Definição:}
+\begin{itemize}
+    \item \textbf{Objeto} é uma instância de uma classe
+    \item Representa um exemplo específico do conceito
+    \item Possui estado (valores dos atributos) e comportamento
+    \item Existe em memória durante a execução do programa
+\end{itemize}
+
+\textbf{Características:}
+\begin{itemize}
+    \item \textbf{Identidade:} Cada objeto é único
+    \item \textbf{Estado:} Valores atuais dos atributos
+    \item \textbf{Comportamento:} Métodos que pode executar
+    \item \textbf{Ciclo de vida:} Criação, uso e destruição
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Construtores}
+\textbf{Definição:}
+\begin{itemize}
+    \item \textbf{Construtor} é um método especial para inicializar objetos
+    \item Chamado automaticamente quando o objeto é criado
+    \item Mesmo nome da classe
+    \item Pode ter parâmetros para configurar o estado inicial
+\end{itemize}
+
+\textbf{Tipos de Construtores:}
+\begin{itemize}
+    \item \textbf{Construtor Padrão:} Sem parâmetros
+    \item \textbf{Construtor Parametrizado:} Com parâmetros
+    \item \textbf{Construtor de Cópia:} Copia outro objeto
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo Prático: Sistema de Pacotes de Viagem}
+\textbf{Arquivo de Exemplo:}
+\begin{itemize}
+    \item \texttt{Exemplos/ObjetosConstrutores.cs}
+    \item Classe \texttt{PacoteViagem} com múltiplos construtores
+    \item Demonstração de sobrecarga de construtores
+\end{itemize}
+
+\textbf{Construtores Implementados:}
+\begin{itemize}
+    \item \textbf{Padrão:} Valores padrão para todos os atributos
+    \item \textbf{Parametrizado:} Código e nome do pacote
+    \item \textbf{Completo:} Todos os atributos configuráveis
+\end{itemize}
+\end{frame}
+
+% Seção 4: Encapsulamento
+\section{Encapsulamento}
+
+\begin{frame}{O que é Encapsulamento?}
+\textbf{Definição:}
+\begin{itemize}
+    \item \textbf{Encapsulamento} é o princípio de ocultar detalhes internos
+    \item Agrupa dados e métodos que operam sobre esses dados
+    \item Controla o acesso aos dados através de interfaces
+    \item Protege a integridade dos dados
+\end{itemize}
+
+\textbf{Benefícios:}
+\begin{itemize}
+    \item \textbf{Segurança:} Dados protegidos contra acesso indevido
+    \item \textbf{Flexibilidade:} Implementação pode mudar sem afetar usuários
+    \item \textbf{Manutenibilidade:} Mudanças localizadas
+    \item \textbf{Reutilização:} Código mais modular
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo Prático: Controle de Reservas}
+\textbf{Arquivo de Exemplo:}
+\begin{itemize}
+    \item \texttt{Exemplos/Encapsulamento.cs}
+    \item Classe \texttt{ReservaViagem} com encapsulamento
+    \item Atributos privados com controle de acesso
+\end{itemize}
+
+\textbf{Características:}
+\begin{itemize}
+    \item \textbf{Atributos privados:} valorTotal, senhaAcesso, confirmada
+    \item \textbf{Propriedades públicas:} Controle de leitura/escrita
+    \item \textbf{Métodos públicos:} Operações seguras
+    \item \textbf{Validação:} Verificação de senha para operações críticas
+\end{itemize}
+\end{frame}
+
+% Seção 5: Sobrecarga de Métodos
+\section{Sobrecarga de Métodos}
+
+\begin{frame}{O que é Sobrecarga de Métodos?}
+\textbf{Definição:}
+\begin{itemize}
+    \item \textbf{Sobrecarga} permite múltiplas versões do mesmo método
+    \item Métodos com mesmo nome mas parâmetros diferentes
+    \item Compilador escolhe a versão adequada baseado nos argumentos
+    \item Aumenta a flexibilidade e legibilidade do código
+\end{itemize}
+
+\textbf{Regras:}
+\begin{itemize}
+    \item \textbf{Nome igual} para todos os métodos
+    \item \textbf{Parâmetros diferentes} (tipo, quantidade, ordem)
+    \item \textbf{Retorno pode ser igual ou diferente}
+    \item \textbf{Modificadores de acesso} podem variar
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo Prático: Calculadora de Viagens}
+\textbf{Arquivo de Exemplo:}
+\begin{itemize}
+    \item \texttt{Exemplos/Sobrecarga.cs}
+    \item Classe \texttt{CalculadoraViagem} com sobrecarga
+    \item Múltiplas versões de métodos de cálculo
+\end{itemize}
+
+\textbf{Métodos Sobrecarregados:}
+\begin{itemize}
+    \item \textbf{CalcularPreco:} Diferentes combinações de parâmetros
+    \item \textbf{AplicarDesconto:} Percentual ou tipo de cliente
+    \item \textbf{ValidarDestino:} Validação simples ou com lista
+\end{itemize}
+\end{frame}
+
+% Seção 6: Herança
+\section{Herança}
+
+\begin{frame}{O que é Herança?}
+\textbf{Definição:}
+\begin{itemize}
+    \item \textbf{Herança} permite criar classes baseadas em outras
+    \item Classe filha herda atributos e métodos da classe pai
+    \item Promove reutilização de código
+    \item Estabelece relacionamento "é-um" entre classes
+\end{itemize}
+
+\textbf{Benefícios:}
+\begin{itemize}
+    \item \textbf{Reutilização:} Código da classe pai é reutilizado
+    \item \textbf{Extensibilidade:} Novas funcionalidades podem ser adicionadas
+    \item \textbf{Hierarquia:} Organização lógica das classes
+    \item \textbf{Polimorfismo:} Base para polimorfismo
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo Prático: Hierarquia de Transportes}
+\textbf{Arquivo de Exemplo:}
+\begin{itemize}
+    \item \texttt{Exemplos/Heranca.cs}
+    \item Classe base \texttt{Transporte}
+    \item Classes filhas: \texttt{Aviao}, \texttt{Onibus}, \texttt{AviaoExecutivo}
+\end{itemize}
+
+\textbf{Hierarquia Implementada:}
+\begin{itemize}
+    \item \textbf{Transporte:} Classe base com propriedades comuns
+    \item \textbf{Aviao:} Herança simples com propriedades específicas
+    \item \textbf{Onibus:} Herança simples com características próprias
+    \item \textbf{AviaoExecutivo:} Herança múltipla de níveis
+\end{itemize}
+\end{frame}
+
+% Seção 7: Polimorfismo
+\section{Polimorfismo}
+
+\begin{frame}{O que é Polimorfismo?}
+\textbf{Definição:}
+\begin{itemize}
+    \item \textbf{Polimorfismo} significa "muitas formas"
+    \item Permite que objetos de classes diferentes respondam ao mesmo método
+    \item Método pode ter implementações diferentes em classes diferentes
+    \item Aumenta flexibilidade e extensibilidade do código
+\end{itemize}
+
+\textbf{Tipos:}
+\begin{itemize}
+    \item \textbf{Polimorfismo de Sobrescrita:} Método virtual/override
+    \item \textbf{Polimorfismo de Sobrecarga:} Múltiplas versões do método
+    \item \textbf{Polimorfismo de Interface:} Implementação de interfaces
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo Prático: Sistema de Serviços de Viagem}
+\textbf{Arquivo de Exemplo:}
+\begin{itemize}
+    \item \texttt{Exemplos/Polimorfismo.cs}
+    \item Classe abstrata \texttt{ServicoViagem}
+    \item Classes filhas: \texttt{Hospedagem}, \texttt{Passeio}, \texttt{Transfer}
+\end{itemize}
+
+\textbf{Polimorfismo Demonstrado:}
+\begin{itemize}
+    \item \textbf{Métodos abstratos:} CalcularPrecoFinal(), ObterTipo()
+    \item \textbf{Implementações específicas:} Cada classe filha implementa diferentemente
+    \item \textbf{Uso polimórfico:} Lista de ServicoViagem com objetos diferentes
+\end{itemize}
+\end{frame}
+
+% Seção 8: Atividade Prática Integrada
+\section{Atividade Prática Integrada}
+
+\begin{frame}{Sistema de Gestão de Viagens}
+\textbf{Desafio:} Implementar um sistema completo de agência de viagens usando todos os conceitos aprendidos.
+
+\textbf{Requisitos:}
+\begin{itemize}
+    \item \textbf{Abstração:} Modelar destinos, clientes, reservas
+    \item \textbf{Classes e Relacionamentos:} Associação, composição, agregação
+    \item \textbf{Objetos e Construtores:} Criar instâncias com diferentes construtores
+    \item \textbf{Encapsulamento:} Proteger dados sensíveis
+    \item \textbf{Sobrecarga:} Múltiplas formas de criar objetos
+    \item \textbf{Herança:} Hierarquia de serviços e clientes
+    \item \textbf{Polimorfismo:} Diferentes tipos de serviços
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Arquivo de Exemplo Integrado}
+\textbf{Arquivo Principal:}
+\begin{itemize}
+    \item \texttt{Exemplos/SistemaViagem.cs}
+    \item Sistema completo demonstrando todos os conceitos
+    \item Classe \texttt{SistemaViagem} com método \texttt{DemonstrarSistema()}
+\end{itemize}
+
+\textbf{Conceitos Aplicados:}
+\begin{itemize}
+    \item \textbf{Abstração:} ServicoBase como conceito abstrato
+    \item \textbf{Herança:} Hospedagem e Transporte herdam de ServicoBase
+    \item \textbf{Polimorfismo:} ExibirDetalhes() e ObterTipo() implementados diferentemente
+    \item \textbf{Relacionamentos:} Associação, composição e agregação
+    \item \textbf{Encapsulamento:} Atributos protegidos e controle de acesso
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Conceitos Aplicados na Atividade}
+\textbf{Verificação dos Conceitos:}
+
+\textbf{$\checkmark$ Abstração:}
+\begin{itemize}
+    \item ServicoBase como conceito abstrato
+    \item Foco nas propriedades essenciais
+\end{itemize}
+
+\textbf{$\checkmark$ Classe e Relacionamentos:}
+\begin{itemize}
+    \item Associação: Cliente usa Agência
+    \item Composição: Agência contém Departamentos
+    \item Agregação: Agência tem Serviços
+\end{itemize}
+
+\textbf{$\checkmark$ Objetos e Construtores:}
+\begin{itemize}
+    \item Múltiplos construtores para Hospedagem
+    \item Inicialização flexível de objetos
+\end{itemize}
+
+\textbf{$\checkmark$ Encapsulamento:}
+\begin{itemize}
+    \item Atributos protegidos em ServicoBase
+    \item Controle de acesso aos dados
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Conceitos Aplicados na Atividade (Continuação)}
+\textbf{$\checkmark$ Sobrecarga de Métodos:}
+\begin{itemize}
+    \item Múltiplos construtores em Hospedagem
+    \item Diferentes formas de criar objetos
+\end{itemize}
+
+\textbf{$\checkmark$ Herança:}
+\begin{itemize}
+    \item Hospedagem e Transporte herdam de ServicoBase
+    \item Reutilização de código comum
+\end{itemize}
+
+\textbf{$\checkmark$ Polimorfismo:}
+\begin{itemize}
+    \item ExibirDetalhes() com implementações diferentes
+    \item ObterTipo() retorna tipos específicos
+    \item Lista de ServicoBase contém objetos diferentes
+\end{itemize}
+
+\textbf{Resultado:} Sistema completo e funcional demonstrando todos os conceitos!
+\end{frame}
+
+% Seção 9: Resumo
+\section{Resumo}
+
+\begin{frame}{Resumo dos Conceitos}
+\textbf{Conceitos Fundamentais de POO:}
+
+\textbf{1. Abstração:} Simplificar sistemas complexos
+\textbf{2. Classe:} Modelo para criar objetos
+\textbf{3. Objetos:} Instâncias com estado e comportamento
+\textbf{4. Encapsulamento:} Proteção e controle de acesso
+\textbf{5. Sobrecarga:} Múltiplas versões do mesmo método
+\textbf{6. Herança:} Reutilização e extensão de código
+\textbf{7. Polimorfismo:} Flexibilidade e extensibilidade
+
+\textbf{Benefícios:}
+\begin{itemize}
+    \item Código mais organizado e reutilizável
+    \item Manutenção mais fácil
+    \item Extensibilidade aumentada
+    \item Modelagem mais próxima do mundo real
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Próximos Passos}
+\textbf{Análise e Projeto Orientado a Objetos:}
+\begin{itemize}
+    \item \textbf{Modelagem de Domínio:} Identificar entidades e relacionamentos
+    \item \textbf{Diagramas UML:} Casos de uso, classes, sequência
+    \item \textbf{Padrões de Análise:} GRASP e outros padrões
+    \item \textbf{Refatoração:} Melhorar design de código existente
+    \item \textbf{Padrões de Design:} GoF e outros padrões
+    \item \textbf{Princípios SOLID:} Boas práticas de design
+    \item \textbf{Arquitetura de Software:} Organização de sistemas
+\end{itemize}
+
+\textbf{Prática Recomendada:}
+\begin{itemize}
+    \item Modelar o sistema de viagens com UML
+    \item Aplicar padrões de design
+    \item Refatorar código existente
+    \item Implementar arquiteturas escaláveis
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Obrigado!}
+\begin{center}
+\Large \textbf{Dúvidas?}
+\vspace{1cm}
+\normalsize
+\textbf{Próxima aula:} Análise e Projeto Orientado a Objetos
+\end{center}
+
+\textbf{Contato:}
+\begin{itemize}
+    \item \textbf{Professor:} Bento Rafael Siqueira
+    \item \textbf{Disciplina:} GCT088 - Projeto de Software
+    \item \textbf{Universidade:} UFLA
+\end{itemize}
+\end{frame}
+
+\end{document}

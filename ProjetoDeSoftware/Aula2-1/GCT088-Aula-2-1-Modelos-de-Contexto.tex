@@ -1,0 +1,784 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Configurações do tema
+\usetheme{Berkeley}
+\usecolortheme{spruce}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+% Configurações específicas para o sumário
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+
+% Configuração do logo da UFLA
+\setbeamertemplate{headline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.2cm]{section in head/foot}%
+    \begin{center}
+      \vspace{0.1cm}
+      \includegraphics[height=1.0cm]{../../Image/ufla-logo.PNG}
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Configuração do título centralizado
+\setbeamertemplate{frametitle}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm]{frametitle}%
+    \begin{center}
+      \insertframetitle
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Pacotes necessários
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{tikz}
+
+% Configurações de cores
+\definecolor{azul}{RGB}{0,51,102}
+\definecolor{azulclaro}{RGB}{51,102,153}
+\definecolor{lightblue}{RGB}{173,216,230}
+\definecolor{lightgreen}{RGB}{144,238,144}
+\definecolor{lightcoral}{RGB}{240,128,128}
+\definecolor{lightyellow}{RGB}{255,255,224}
+\definecolor{lightpink}{RGB}{255,182,193}
+\definecolor{lightgray}{RGB}{211,211,211}
+\definecolor{orange}{RGB}{255,165,0}
+\setbeamercolor{title}{fg=white,bg=azul}
+\setbeamercolor{frametitle}{fg=white,bg=azulclaro}
+\setbeamercolor{section title}{fg=white,bg=azul}
+
+% Informações do documento
+\title{Projeto de Software}
+\subtitle{GCT088 - Aula 2.1 - Modelos de Contexto}
+\author{Prof. Dr. Bento Rafael Siqueira}
+\institute{Universidade Federal de Lavras\\Departamento de Ciência da Computação}
+\date{\today}
+
+\begin{document}
+
+% Slide de título
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Slide de sumário
+\begin{frame}{Sumário}
+\tableofcontents
+\end{frame}
+
+% Seção 1: Introdução
+\section{Introdução aos Modelos de Contexto}
+
+\begin{frame}{O que são Modelos de Contexto?}
+\begin{itemize}
+\item \textbf{Definição}: Representação do ambiente no qual o sistema opera
+\item \textbf{Objetivo}: Mostrar como o sistema interage com elementos externos
+\item \textbf{Escopo}: Define os limites do sistema e suas interfaces
+\item \textbf{Importância}: Fundamental para compreender requisitos e arquitetura
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Exemplo Simples: Sistema de Login}
+\begin{itemize}
+\item \textbf{Sistema Central}: Sistema de Login
+\item \textbf{Atores Externos}: Usuário, Banco de Dados, Sistema de Email
+\item \textbf{Fluxos}: Credenciais $\rightarrow$ Validação $\rightarrow$ Notificação
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Fonte}: Sommerville, I. Engenharia de Software - Seção 5.1
+\end{frame}
+
+\begin{frame}{Por que são importantes?}
+\begin{enumerate}
+\item \textbf{Identificam atores externos} e suas interações
+\item \textbf{Definem fronteiras claras} do sistema
+\item \textbf{Facilitam comunicação} entre stakeholders
+\item \textbf{Servem como base} para especificação de requisitos
+\item \textbf{Orientam decisões} arquiteturais
+\end{enumerate}
+
+\vspace{0.5cm}
+\textbf{Stakeholders do Sistema ONG de Animais:}
+\begin{itemize}
+\item \textbf{Clientes}: Adotantes de animais
+\item \textbf{Desenvolvedores}: Equipe de desenvolvimento
+\item \textbf{Administradores}: Gestores da ONG
+\item \textbf{Voluntários}: Pessoas que ajudam na ONG
+\item \textbf{Veterinários}: Profissionais de saúde animal
+\item \textbf{Patrocinadores}: Apoiadores financeiros
+\end{itemize}
+\end{frame}
+
+% Seção 2: Conceitos Fundamentais
+\section{Conceitos Fundamentais}
+
+\begin{frame}{Elementos dos Modelos de Contexto}
+\begin{enumerate}
+\item \textbf{Sistema Central}
+\begin{itemize}
+\item O sistema sendo desenvolvido
+\item Representado como uma caixa preta
+\item Foco nas interfaces, não na implementação
+\end{itemize}
+
+\item \textbf{Atores Externos}
+\begin{itemize}
+\item Pessoas, sistemas ou dispositivos externos
+\item Interagem com o sistema central
+\item Podem ser usuários, outros sistemas ou sensores
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Interações nos Modelos de Contexto}
+\begin{itemize}
+\item \textbf{Fluxos de Dados}
+\begin{itemize}
+\item Comunicação entre sistema e atores externos
+\item Podem ser bidirecionais
+\item Representam troca de informações
+\end{itemize}
+
+\item \textbf{Tipos de Interação}
+\begin{itemize}
+\item Entrada de dados (usuário $\rightarrow$ sistema)
+\item Saída de dados (sistema $\rightarrow$ usuário)
+\item Consultas (sistema $\rightarrow$ banco de dados)
+\item Notificações (sistema $\rightarrow$ email)
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Características dos Modelos de Contexto}
+\begin{itemize}
+\item \textbf{Visão de alto nível} - Sem detalhes de implementação
+\item \textbf{Foco nas interfaces externas} - Como o sistema se conecta ao mundo
+\item \textbf{Independente de tecnologia} - Não especifica linguagens ou plataformas
+\item \textbf{Orientado a requisitos} - Base para identificação de funcionalidades
+\item \textbf{Comunicativo} - Linguagem comum entre equipe e clientes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Níveis de Modelagem de Contexto}
+\begin{enumerate}
+\item \textbf{Alto Nível (Visão Executiva)}
+\begin{itemize}
+\item Visão geral do sistema e ambiente
+\item Foco nas principais interações
+\item Apropriado para apresentações executivas
+\end{itemize}
+
+\item \textbf{Nível Médio (Visão Gerencial)}
+\begin{itemize}
+\item Detalhamento moderado das interfaces
+\item Inclui principais fluxos de dados
+\item Usado para planejamento de projeto
+\end{itemize}
+
+\item \textbf{Nível Detalhado (Visão Técnica)}
+\begin{itemize}
+\item Especificação detalhada das interfaces
+\item Inclui protocolos e formatos de dados
+\item Usado para desenvolvimento e integração
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+% Seção 3: Tipos de Modelos
+\section{Tipos de Modelos de Contexto}
+
+\begin{frame}{Classificação por Granularidade}
+\begin{enumerate}
+\item \textbf{Modelo de Contexto de Alto Nível}
+\begin{itemize}
+\item Visão geral do sistema e ambiente
+\item Foco nas principais interações
+\item Apropriado para apresentações executivas
+\end{itemize}
+
+\item \textbf{Modelo de Contexto Detalhado}
+\begin{itemize}
+\item Especificação detalhada das interfaces
+\item Inclui protocolos e formatos de dados
+\item Usado para desenvolvimento e integração
+\end{itemize}
+\end{enumerate}
+
+\vspace{0.5cm}
+\textbf{Exemplo de Granularidade:}
+\begin{itemize}
+\item \textbf{Alto Nível}: Usuário, BD, Email
+\item \textbf{Detalhado}: Usuário(login, senha), BD(SQL, conexão), Email(SMTP, formato)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Classificação por Domínio}
+\begin{enumerate}
+\item \textbf{Sistemas de Informação}
+\begin{itemize}
+\item Foco em usuários e dados
+\item Interfaces com bancos de dados
+\item Relatórios e consultas
+\end{itemize}
+
+\item \textbf{Sistemas Embarcados}
+\begin{itemize}
+\item Interação com sensores e atuadores
+\item Controle de hardware
+\item Tempo real
+\end{itemize}
+
+\item \textbf{Sistemas Web}
+\begin{itemize}
+\item Interfaces com navegadores
+\item APIs e serviços
+\item Escalabilidade
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+% Seção 4: Diagramas de Contexto
+\section{Diagramas de Contexto}
+
+\begin{frame}{Elementos Básicos dos Diagramas}
+\textbf{Sistema Central:}
+\begin{itemize}
+\item Representado por um círculo ou retângulo
+\item Nome do sistema no centro
+\item Sem detalhes internos
+\item Foco principal do diagrama
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Atores Externos:}
+\begin{itemize}
+\item Representados por retângulos ou figuras
+\item Nome descritivo do ator
+\item Posicionados ao redor do sistema
+\item Interagem com o sistema central
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Fluxos de Dados - Características}
+\textbf{Características dos Fluxos:}
+\begin{itemize}
+\item Setas indicando direção
+\item Rótulos descritivos
+\item Podem ser bidirecionais
+\item Representam troca de informações
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Tipos de Interação:}
+\begin{itemize}
+\item \textbf{Entrada}: Dados recebidos pelo sistema
+\item \textbf{Saída}: Dados enviados pelo sistema
+\item \textbf{Bidirecional}: Consultas e respostas
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Fluxos de Dados - Importância}
+\textbf{Importância dos Fluxos:}
+\begin{itemize}
+\item Mostram como o sistema se comunica
+\item Identificam interfaces necessárias
+\item Facilitam o entendimento do contexto
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Benefícios:}
+\begin{itemize}
+\item Comunicação clara entre componentes
+\item Identificação de dependências
+\item Base para especificação de interfaces
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Convenções de Diagramação - Organização}
+\textbf{Organização Visual:}
+\begin{itemize}
+\item Sistema central no centro
+\item Atores externos nas bordas
+\item Fluxos identificados
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Objetivos:}
+\begin{itemize}
+\item Facilitar compreensão visual
+\item Padronizar representação
+\item Reduzir ambiguidades
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Símbolos Padronizados}
+\textbf{Símbolos Padronizados:}
+\begin{itemize}
+\item \textbf{Sistema Central}: Círculo no centro
+\item \textbf{Usuários}: Retângulos verdes
+\item \textbf{Sistemas Externos}: Retângulos laranja
+\item \textbf{Dispositivos}: Círculos vermelhos
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tipos de Fluxos:}
+\begin{itemize}
+\item \textbf{Unidirecional}: $\rightarrow$ (dados, comandos)
+\item \textbf{Bidirecional}: $\leftrightarrow$ (consultas, interações)
+\item \textbf{Rótulos}: Descrevem o conteúdo do fluxo
+\end{itemize}
+\end{frame}
+
+
+
+% Seção 5: Aplicação Prática
+\section{Aplicação Prática: Sistema para ONG de Animais}
+
+\begin{frame}{Cenário: Sistema de Gestão para ONG de Animais}
+\textbf{Problema}: Uma ONG de proteção animal precisa de um sistema integrado para:
+\begin{itemize}
+\item Gerenciar animais resgatados
+\item Controlar adoções
+\item Administrar voluntários
+\item Organizar eventos de arrecadação
+\item Manter histórico veterinário
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Funcionalidades Necessárias:}
+\begin{itemize}
+\item Gerenciar animais resgatados
+\item Controlar adoções
+\item Administrar voluntários
+\item Organizar eventos de arrecadação
+\item Manter histórico veterinário
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Identificação de Atores Externos - Usuários}
+\textbf{Atividade}: Em grupos de 3-4 pessoas, identifiquem os atores externos:
+
+\textbf{Usuários Humanos:}
+\begin{itemize}
+\item Administradores da ONG
+\item Voluntários
+\item Adotantes
+\item Veterinários parceiros
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Sistemas Externos:}
+\begin{itemize}
+\item Sistema de pagamento online
+\item Redes sociais
+\item Sistema de email
+\item Banco de dados veterinário
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Identificação de Atores Externos - Dispositivos}
+\textbf{Dispositivos:}
+\begin{itemize}
+\item Scanner de microchip
+\item Câmera para fotos
+\item Impressora de etiquetas
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Objetivo da Atividade:}
+\begin{itemize}
+\item Identificar todas as entidades externas
+\item Definir interfaces necessárias
+\item Compreender o contexto do sistema
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Modelo de Contexto - Sistema ONG de Animais}
+\textbf{Sistema Central:} Sistema de Gestão ONG de Animais
+
+\textbf{Atores Externos:}
+\begin{itemize}
+\item \textbf{Usuários Humanos:} Administradores, Voluntários, Adotantes, Veterinários
+\item \textbf{Sistemas Externos:} Sistema de Pagamento, Redes Sociais, Sistema de Email
+\item \textbf{Dispositivos:} Scanner de Microchip
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Fluxos Principais - Sistema ONG de Animais}
+\textbf{Fluxos Principais:}
+\begin{itemize}
+\item Gestão (Administradores $\leftrightarrow$ Sistema)
+\item Atividades (Voluntários $\leftrightarrow$ Sistema)
+\item Adoção (Adotantes $\leftrightarrow$ Sistema)
+\item Pagamentos (Sistema $\leftrightarrow$ Sistema de Pagamento)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Fluxos Adicionais:}
+\begin{itemize}
+\item Compartilhamento (Sistema $\leftrightarrow$ Redes Sociais)
+\item Notificações (Sistema $\leftrightarrow$ Email)
+\item Histórico Médico (Veterinários $\leftrightarrow$ Sistema)
+\item Identificação (Scanner $\leftrightarrow$ Sistema)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Fluxos de Dados - Usuários}
+\textbf{Administradores $\leftrightarrow$ Sistema:}
+\begin{itemize}
+\item Cadastro de animais e voluntários
+\item Relatórios de gestão
+\item Configurações do sistema
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Voluntários $\leftrightarrow$ Sistema:}
+\begin{itemize}
+\item Cadastro de atividades
+\item Upload de fotos dos animais
+\item Comunicação com adotantes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Fluxos de Dados - Sistemas Externos}
+\textbf{Sistema $\leftrightarrow$ Sistema de Pagamento:}
+\begin{itemize}
+\item Doações online
+\item Taxas de adoção
+\item Relatórios financeiros
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Sistema $\leftrightarrow$ Redes Sociais:}
+\begin{itemize}
+\item Compartilhamento de animais para adoção
+\item Eventos de arrecadação
+\item Campanhas de conscientização
+\end{itemize}
+\end{frame}
+
+% Seção 6: Exercícios de Sala de Aula
+\section{Exercícios de Sala de Aula}
+
+\begin{frame}{Exercício 1: Sistema de Adoção Online}
+\textbf{Cenário}: Expandir o sistema da ONG para incluir adoção online
+
+\textbf{Tarefa}: Em grupos de 3-4 pessoas, desenvolvam:
+\begin{enumerate}
+\item Modelo de contexto de alto nível
+\item Identificação de novos atores externos
+\item Fluxos de dados adicionais
+\end{enumerate}
+
+\vspace{0.5cm}
+\textbf{Tempo}: 15 minutos
+\end{frame}
+
+\begin{frame}{Exercício 1: Apresentação e Discussão}
+\textbf{Apresentação}: Cada grupo apresenta seu modelo
+
+\vspace{0.5cm}
+\textbf{Discussão}: Comparar diferentes abordagens
+
+\vspace{0.5cm}
+\textbf{Pontos de Discussão:}
+\begin{itemize}
+\item Diferenças nos modelos propostos
+\item Atores externos identificados
+\item Complexidade dos fluxos
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercício 2: Sistema de Monitoramento de Animais}
+\textbf{Cenário}: Sistema para monitorar animais em tratamento
+
+\textbf{Tarefa}: Individualmente, criem um modelo de contexto considerando:
+\begin{enumerate}
+\item Sensores de temperatura e movimento
+\item Veterinários remotos
+\item Sistema de alertas
+\item Banco de dados médico
+\end{enumerate}
+
+\vspace{0.5cm}
+\textbf{Tempo}: 10 minutos
+\end{frame}
+
+\begin{frame}{Exercício 2: Validação e Refinamento}
+\textbf{Validação}: Trocar com colega e validar completude
+
+\vspace{0.5cm}
+\textbf{Refinamento}: Adicionar fluxos de dados detalhados
+
+\vspace{0.5cm}
+\textbf{Pontos de Validação:}
+\begin{itemize}
+\item Todos os atores externos identificados
+\item Fluxos de dados completos
+\item Interfaces bem definidas
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exercício 3: Sistema de Eventos e Arrecadação}
+\textbf{Cenário}: Sistema para organizar eventos de arrecadação da ONG
+
+\textbf{Tarefa}: Em duplas, desenvolvam:
+\begin{enumerate}
+\item Modelo de contexto de alto nível
+\item Modelo detalhado com protocolos
+\item Lista de requisitos derivados
+\end{enumerate}
+
+\vspace{0.5cm}
+\textbf{Tempo}: 20 minutos
+\end{frame}
+
+\begin{frame}{Exercício 3: Apresentação e Avaliação}
+\textbf{Apresentação}: Cada dupla apresenta ambos os modelos
+
+\vspace{0.5cm}
+\textbf{Avaliação}: Critérios: completude, clareza, consistência
+
+\vspace{0.5cm}
+\textbf{Pontos de Avaliação:}
+\begin{itemize}
+\item Identificação completa de atores externos
+\item Fluxos de dados bem definidos
+\item Consistência entre modelos
+\end{itemize}
+\end{frame}
+
+% Seção 7: Casos de Estudo
+\section{Casos de Estudo}
+
+\begin{frame}{Caso 1: Sistema de Telemedicina Veterinária}
+\textbf{Desafio}: Modelar contexto de plataforma de consultas veterinárias online
+
+\textbf{Complexidades}:
+\begin{itemize}
+\item Múltiplos tipos de profissionais veterinários
+\item Integração com sistemas hospitalares
+\item Conformidade com regulamentações veterinárias
+\item Qualidade de serviço (latência, disponibilidade)
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Modelo de Contexto:}
+\begin{itemize}
+\item \textbf{Sistema Central}: Sistema de Telemedicina Veterinária
+\item \textbf{Atores}: Veterinários, Tutores, Sistema Hospitalar, Sistema de Pagamento
+\item \textbf{Fluxos}: Consultas remotas, Histórico médico, Pagamentos online
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Caso 1: Lições Aprendidas}
+\textbf{Lições Aprendidas}:
+\begin{itemize}
+\item Importância de requisitos não funcionais
+\item Necessidade de validação legal
+\item Consideração de aspectos éticos
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Aspectos Críticos}:
+\begin{itemize}
+\item Segurança de dados médicos
+\item Confiabilidade do sistema
+\item Experiência do usuário
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Caso 2: Sistema de IoT para Monitoramento Animal}
+\textbf{Desafio}: Modelar contexto de sistema de monitoramento animal com IoT
+
+\textbf{Complexidades}:
+\begin{itemize}
+\item Múltiplos tipos de sensores (temperatura, GPS, atividade)
+\item Conectividade em áreas rurais
+\item Análise de dados em tempo real
+\item Integração com sistemas de alerta
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Modelo de Contexto:}
+\begin{itemize}
+\item \textbf{Sistema Central}: Sistema IoT de Monitoramento
+\item \textbf{Sensores}: Temperatura, GPS, Atividade
+\item \textbf{Sistemas}: Sistema de Alerta, Banco de Dados
+\item \textbf{Fluxos}: Dados dos sensores → Análise → Alertas
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Caso 2: Lições Aprendidas}
+\textbf{Lições Aprendidas}:
+\begin{itemize}
+\item Importância da robustez em ambientes adversos
+\item Necessidade de processamento distribuído
+\item Consideração de escalabilidade
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Aspectos Técnicos}:
+\begin{itemize}
+\item Confiabilidade da conectividade
+\item Processamento de dados em tempo real
+\item Interface com sistemas externos
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Caso 3: Sistema de Adoção com IA}
+\textbf{Desafio}: Modelar contexto de sistema de adoção com inteligência artificial
+
+\textbf{Complexidades}:
+\begin{itemize}
+\item Algoritmos de matching entre animais e adotantes
+\item Integração com redes sociais
+\item Sistema de recomendação
+\item Análise de comportamento
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Modelo de Contexto:}
+\begin{itemize}
+\item \textbf{Sistema Central}: Sistema IA de Adoção
+\item \textbf{Componentes}: Algoritmo Matching, Análise de Comportamento
+\item \textbf{Sistemas}: Redes Sociais, Sistema de Recomendação
+\item \textbf{Fluxos}: Matching inteligente → Recomendações → Compartilhamento
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Caso 3: Lições Aprendidas}
+\textbf{Lições Aprendidas}:
+\begin{itemize}
+\item Importância da transparência em algoritmos
+\item Necessidade de validação ética
+\item Consideração de privacidade de dados
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Aspectos Éticos}:
+\begin{itemize}
+\item Transparência algorítmica
+\item Proteção de dados pessoais
+\item Validação de recomendações
+\end{itemize}
+\end{frame}
+
+% Seção 8: Próximos Passos
+\section{Próximos Passos}
+
+\begin{frame}{Modelos de Dados}
+\textbf{Modelos de Dados:}
+\begin{itemize}
+\item Entidade-Relacionamento
+\item Modelagem conceitual
+\item Normalização
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Aplicações:}
+\begin{itemize}
+\item Design de bancos de dados
+\item Estruturação de informações
+\item Integridade de dados
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Modelos de Processo}
+\textbf{Modelos de Processo:}
+\begin{itemize}
+\item Diagramas de fluxo de dados
+\item Diagramas de atividade
+\item Workflows
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Aplicações:}
+\begin{itemize}
+\item Mapeamento de processos
+\item Otimização de fluxos
+\item Automação de tarefas
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Modelos de Arquitetura}
+\textbf{Modelos de Arquitetura:}
+\begin{itemize}
+\item Arquitetura de software
+\item Padrões arquiteturais
+\item Microserviços
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Aplicações:}
+\begin{itemize}
+\item Design de sistemas
+\item Escalabilidade
+\item Manutenibilidade
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Leitura Recomendada}
+\textbf{Livros Fundamentais:}
+\begin{itemize}
+\item \textbf{Sommerville, I.} Engenharia de Software - Capítulo 5
+\item \textbf{Pressman, R.} Engenharia de Software - Capítulo 8
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Referências Adicionais:}
+\begin{itemize}
+\item \textbf{Boehm, B.} Software Engineering Economics
+\item \textbf{ISO/IEC 25010} - Quality Model for Software Product
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Atividades Práticas}
+\textbf{Projeto Prático}: Escolher um sistema real e desenvolver modelo de contexto completo
+
+\vspace{0.5cm}
+\textbf{Análise Comparativa}: Comparar diferentes ferramentas de modelagem
+
+\vspace{0.5cm}
+\textbf{Apresentação}: Apresentar modelo desenvolvido e justificar decisões
+
+\vspace{0.5cm}
+\textbf{Entrega}: Modelo de contexto + relatório de análise
+\end{frame}
+
+% Slide final
+\begin{frame}{Dúvidas e Discussão}
+\begin{center}
+\textbf{Obrigado pela atenção!}
+\end{center}
+
+\textbf{Pontos-Chave da Aula}:
+\begin{enumerate}
+\item \textbf{Modelos de Contexto} são fundamentais para compreender o ambiente do sistema
+\item \textbf{Atores externos} e suas interações devem ser identificados claramente
+\item \textbf{Diagramas de contexto} facilitam comunicação e análise
+\item \textbf{Aplicação prática} é essencial para consolidação do aprendizado
+\end{enumerate}
+
+\vspace{0.5cm}
+\begin{center}
+\includegraphics[width=0.4\textwidth]{../../Image/ufla-logo.PNG}
+\end{center}
+
+\vspace{0.3cm}
+\textbf{Próxima Aula}: Modelos de Dados e Entidade-Relacionamento
+
+\vspace{0.3cm}
+\textbf{Contato}: [email do professor]\\
+\textbf{Material}: Disponível no sistema acadêmico
+\end{frame}
+
+\end{document}
