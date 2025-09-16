@@ -1,0 +1,8 @@
+Data de entrega 23/09/2025;
+
+Etapas
+
+1) Criar um projeto (e.g. Console Application)
+2) Criar Criar uma classe (i.e. arquivo.cs) para cada exercício (e.g. Livro)
+3) Criar objetos a partir de outra classe do projeto (e.g. Program.cs, MainWindow.xaml);
+4) Trabalhar modificadores de acesso Private e Public.
