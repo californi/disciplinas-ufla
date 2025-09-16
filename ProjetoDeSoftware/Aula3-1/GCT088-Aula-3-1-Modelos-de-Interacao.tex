@@ -1,0 +1,474 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Configurações do tema
+\usetheme{Berkeley}
+\usecolortheme{spruce}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+% Configuração do logo da UFLA
+\setbeamertemplate{headline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.2cm]{section in head/foot}%
+    \begin{center}
+      \vspace{0.1cm}
+      \includegraphics[height=1.0cm]{../../Image/ufla-logo.PNG}
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Configuração do título centralizado
+\setbeamertemplate{frametitle}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm]{frametitle}%
+    \begin{center}
+      \insertframetitle
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Pacotes necessários
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{xcolor}
+
+% Configurações de cores
+\definecolor{azul}{RGB}{0,51,102}
+\definecolor{azulclaro}{RGB}{51,102,153}
+\definecolor{lightblue}{RGB}{173,216,230}
+\definecolor{lightgreen}{RGB}{144,238,144}
+\definecolor{lightcoral}{RGB}{240,128,128}
+\definecolor{lightyellow}{RGB}{255,255,224}
+\definecolor{lightpink}{RGB}{255,182,193}
+\definecolor{lightgray}{RGB}{211,211,211}
+\definecolor{orange}{RGB}{255,165,0}
+
+\setbeamercolor{title}{fg=white,bg=azul}
+\setbeamercolor{frametitle}{fg=white,bg=azulclaro}
+\setbeamercolor{section title}{fg=white,bg=azul}
+
+% Informações do documento
+\title[Modelos de Interação]{Modelos de Interação}
+\subtitle{GCT088 - Projeto de Software}
+\author{Prof. Dr. Bento Rafael Siqueira}
+\institute{Universidade Federal de Lavras\\Departamento de Ciência da Computação}
+\date{\today}
+
+\begin{document}
+
+% Slide de título
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Sumário
+\begin{frame}{Sumário}
+\tableofcontents
+\end{frame}
+
+% Seção 1: Introdução
+\section{Introdução}
+
+\begin{frame}{O que são Modelos de Interação?}
+\textbf{Definição:}
+\begin{itemize}
+\item Representam como o sistema interage com usuários e sistemas externos
+\item Descrevem sequências de ações e trocas de mensagens
+\item Focam no comportamento dinâmico do sistema
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Objetivos:}
+\begin{itemize}
+\item Especificar interfaces do sistema
+\item Identificar requisitos funcionais
+\item Facilitar comunicação entre stakeholders
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Importância dos Modelos de Interação}
+\textbf{Benefícios:}
+\begin{itemize}
+\item \textbf{Comunicação}: Facilitam entendimento entre desenvolvedores e usuários
+\item \textbf{Validação}: Permitem validar requisitos antes da implementação
+\item \textbf{Documentação}: Servem como base para especificação de interfaces
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Aplicações:}
+\begin{itemize}
+\item Análise de requisitos
+\item Design de interfaces
+\item Testes de sistema
+\end{itemize}
+\end{frame}
+
+% Seção 2: Diagramas de Casos de Uso
+\section{Diagramas de Casos de Uso}
+
+\begin{frame}{Conceitos Fundamentais}
+\textbf{Caso de Uso:}
+\begin{itemize}
+\item Descrição de uma funcionalidade do sistema
+\item Interação entre ator e sistema
+\item Representa um objetivo específico do usuário
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Ator:}
+\begin{itemize}
+\item Entidade externa que interage com o sistema
+\item Pode ser humano, sistema ou dispositivo
+\item Representa papel ou função
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Elementos dos Diagramas de Casos de Uso}
+\textbf{Símbolos Principais:}
+\begin{itemize}
+\item \textbf{Caso de Uso}: Elipse com nome descritivo
+\item \textbf{Ator}: Figura humana ou retângulo com nome
+\item \textbf{Sistema}: Retângulo contendo os casos de uso
+\item \textbf{Relacionamentos}: Linhas conectando elementos
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Tipos de Relacionamentos:}
+\begin{itemize}
+\item \textbf{Associação}: Ator executa caso de uso
+\item \textbf{Inclusão}: Caso de uso sempre executado
+\item \textbf{Extensão}: Caso de uso condicionalmente executado
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo: Sistema de "Biblioteca" de Bebidas}
+\textbf{Atores:}
+\begin{itemize}
+\item "Bibliotecário" da República (o morador mais organizado)
+\item "Usuário da Biblioteca" (estudante que precisa de uma "leitura")
+\item Sistema de pagamento (para multas quando alguém "esquece" de devolver)
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Casos de Uso Principais:}
+\begin{itemize}
+\item "Emprestar" bebida (pegar uma gelada da geladeira)
+\item "Devolver" bebida (comprar uma nova para repor)
+\item Renovar "empréstimo" (pegar mais uma porque a primeira não foi suficiente)
+\item Consultar disponibilidade (tem cerveja gelada?)
+\end{itemize}
+\end{frame}
+
+% Seção 3: Diagramas de Sequência
+\section{Diagramas de Sequência}
+
+\begin{frame}{Conceitos dos Diagramas de Sequência}
+\textbf{Definição:}
+\begin{itemize}
+\item Mostram interações entre objetos ao longo do tempo
+\item Representam sequência de mensagens trocadas
+\item Focam na ordem temporal das interações
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Elementos Principais:}
+\begin{itemize}
+\item \textbf{Objetos}: Participantes da interação
+\item \textbf{Mensagens}: Comunicação entre objetos
+\item \textbf{Linha de vida}: Representa existência do objeto
+\item \textbf{Ativação}: Período de execução de método
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tipos de Mensagens}
+\textbf{Síncronas:}
+\begin{itemize}
+\item Chamada de método
+\item Requer resposta antes de continuar
+\item Representada por seta sólida com cabeça preenchida
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Assíncronas:}
+\begin{itemize}
+\item Mensagem enviada sem esperar resposta
+\item Representada por seta sólida com cabeça aberta
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Retorno:}
+\begin{itemize}
+\item Resposta a uma mensagem síncrona
+\item Representada por seta tracejada
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo: "Empréstimo" de Bebida}
+\textbf{Sequência de Interações (A Saga da Cerveja Gelada):}
+\begin{enumerate}
+\item Morador solicita "empréstimo" (abre a geladeira com esperança)
+\item Sistema verifica disponibilidade (tem cerveja gelada?)
+\item Sistema registra "empréstimo" (anota quem pegou)
+\item Sistema atualiza estoque (diminui uma cerveja)
+\item Sistema confirma "empréstimo" (pode beber à vontade!)
+\end{enumerate}
+
+\vspace{0.5cm}
+\textbf{Objetos Envolvidos:}
+\begin{itemize}
+\item Interface do usuário (celular do morador)
+\item Controlador de "empréstimo" (morador mais organizado)
+\item Banco de dados (memória do morador responsável)
+\item Sistema de notificação (WhatsApp da república)
+\end{itemize}
+\end{frame}
+
+% Seção 4: Boas Práticas
+\section{Boas Práticas}
+
+\begin{frame}{Boas Práticas - Casos de Uso}
+\textbf{Nomenclatura:}
+\begin{itemize}
+\item Use verbos no infinitivo (Emprestar livro)
+\item Seja específico e claro
+\item Evite termos técnicos desnecessários
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Organização:}
+\begin{itemize}
+\item Agrupe casos relacionados
+\item Use relacionamentos apropriados
+\item Mantenha diagramas simples
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Boas Práticas - Diagramas de Sequência}
+\textbf{Clareza:}
+\begin{itemize}
+\item Use nomes descritivos para objetos
+\item Limite número de objetos por diagrama
+\item Foque em um cenário específico
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Detalhamento:}
+\begin{itemize}
+\item Inclua condições e loops quando necessário
+\item Use fragmentos combinados para complexidade
+\item Documente exceções importantes
+\end{itemize}
+\end{frame}
+
+% Seção 5: Aplicação Prática
+\section{Aplicação Prática: Sistema de Gestão de Festas Universitárias}
+
+\begin{frame}{Cenário: Sistema de Gestão de Festas Universitárias}
+\textbf{Problema}: Desenvolver modelos de interação para um sistema de organização de festas universitárias
+
+\textbf{Requisitos Principais:}
+\begin{itemize}
+\item Organização de eventos
+\item Gestão de convidados
+\item Controle de entrada
+\item Venda de bebidas
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Atores Identificados:}
+\begin{itemize}
+\item Organizador de festa
+\item Convidado
+\item Segurança
+\item Fornecedor de bebidas
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Atividade 1: Casos de Uso}
+\textbf{Tarefa}: Em grupos de 3-4 pessoas, criem um diagrama de casos de uso para o sistema de gestão de festas universitárias
+
+\textbf{Foque em:}
+\begin{itemize}
+\item Identificação de atores (organizadores, convidados, segurança)
+\item Casos de uso principais (criar festa, convidar pessoas, vender bebidas)
+\item Relacionamentos entre casos
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Tempo}: 20 minutos
+
+\vspace{0.5cm}
+\textbf{Apresentação}: Cada grupo apresenta seu diagrama
+\end{frame}
+
+\begin{frame}{Atividade 2: Diagrama de Sequência}
+\textbf{Tarefa}: Individualmente, criem um diagrama de sequência para o processo de organização de uma festa
+
+\textbf{Considere:}
+\begin{itemize}
+\item Criação do evento
+\item Convite de pessoas
+\item Controle de entrada
+\item Venda de bebidas
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Tempo}: 25 minutos
+
+\vspace{0.5cm}
+\textbf{Discussão}: Compare diferentes abordagens
+\end{frame}
+
+% Seção 6: Exercícios de Sala de Aula
+\section{Exercícios de Sala de Aula}
+
+\begin{frame}{Exercício 1: Sistema de Delivery de Bebidas}
+\textbf{Cenário}: Sistema de delivery de bebidas para festas universitárias
+
+\textbf{Tarefa}: Em duplas, desenvolvam:
+\begin{enumerate}
+\item Diagrama de casos de uso
+\item Diagrama de sequência para pedido de bebidas
+\end{enumerate}
+
+\vspace{0.5cm}
+\textbf{Tempo}: 30 minutos
+
+\vspace{0.5cm}
+\textbf{Avaliação}: Completude e clareza dos diagramas
+\end{frame}
+
+\begin{frame}{Exercício 2: Sistema de Bar Universitário}
+\textbf{Cenário}: Sistema de gestão de bar universitário
+
+\textbf{Tarefa}: Individualmente, criem:
+\begin{enumerate}
+\item Casos de uso para diferentes tipos de usuários (clientes, garçons, gerente)
+\item Sequência para processo de pedido e pagamento
+\end{enumerate}
+
+\vspace{0.5cm}
+\textbf{Tempo}: 25 minutos
+
+\vspace{0.5cm}
+\textbf{Foco}: Diferenciação de papéis e fluxos
+\end{frame}
+
+\begin{frame}{Exercício 3: Sistema de República Universitária}
+\textbf{Cenário}: Sistema de gestão de república universitária
+
+\textbf{Tarefa}: Em grupos de 4 pessoas, desenvolvam:
+\begin{enumerate}
+\item Modelo completo de casos de uso
+\item Diagramas de sequência para organização de festas e rateio de contas
+\end{enumerate}
+
+\vspace{0.5cm}
+\textbf{Tempo}: 40 minutos
+
+\vspace{0.5cm}
+\textbf{Apresentação}: Demonstração dos modelos criados
+\end{frame}
+
+% Seção 7: Casos de Estudo
+\section{Casos de Estudo}
+
+\begin{frame}{Caso 1: Sistema de Gestão de Eventos Universitários}
+\textbf{Desafio}: Modelar interações para sistema de eventos universitários
+
+\textbf{Complexidades:}
+\begin{itemize}
+\item Múltiplos tipos de eventos (festas, shows, esportes)
+\item Controle de idade e segurança
+\item Integração com sistemas de pagamento
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Lições Aprendidas:}
+\begin{itemize}
+\item Importância do controle de idade
+\item Necessidade de validações de segurança
+\item Consideração de capacidade do local
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Caso 2: Sistema de Delivery de Bebidas Universitário}
+\textbf{Desafio}: Modelar sistema de delivery de bebidas para estudantes
+
+\textbf{Complexidades:}
+\begin{itemize}
+\item Verificação de idade e documentos
+\item Integração com múltiplos fornecedores
+\item Sistema de avaliação e confiança
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Aspectos Críticos:}
+\begin{itemize}
+\item Segurança na entrega
+\item Controle de idade rigoroso
+\item Experiência do usuário
+\end{itemize}
+\end{frame}
+
+% Seção 8: Próximos Passos
+\section{Próximos Passos}
+
+\begin{frame}{Tópicos Relacionados}
+\textbf{Modelos de Dados:}
+\begin{itemize}
+\item Diagramas de classe
+\item Modelagem de entidades
+\item Relacionamentos entre dados
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Modelos de Arquitetura:}
+\begin{itemize}
+\item Diagramas de componentes
+\item Arquitetura de software
+\item Padrões arquiteturais
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Leitura Recomendada}
+\textbf{Livros Fundamentais:}
+\begin{itemize}
+\item \textbf{Sommerville, I.} Engenharia de Software - Capítulo 5.2
+\item \textbf{Larman, C.} UML e Padrões - Capítulos 6-7
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Referências Adicionais:}
+\begin{itemize}
+\item \textbf{Cockburn, A.} Writing Effective Use Cases
+\item \textbf{Booch, G.} Object-Oriented Analysis and Design
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Atividades Práticas}
+\textbf{Projeto Prático}: Escolher um sistema real e desenvolver modelos de interação completos
+
+\vspace{0.5cm}
+\textbf{Ferramentas}: Utilizar ferramentas como StarUML, Lucidchart ou Draw.io
+
+\vspace{0.5cm}
+\textbf{Entrega}: Modelos de casos de uso e sequência + relatório de análise
+\end{frame}
+
+% Slide final
+\begin{frame}{Dúvidas e Discussão}
+\begin{center}
+\textbf{Obrigado pela atenção!}
+
+\vspace{1cm}
+\textbf{Dúvidas?}
+\end{center}
+\end{frame}
+
+\end{document}
