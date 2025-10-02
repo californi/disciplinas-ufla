@@ -1,0 +1,650 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tikz}
+
+% Configuração do tema
+\usetheme{Madrid}
+\usecolortheme{default}
+
+% Configuração do código
+\lstset{
+    language=Python,
+    basicstyle=\tiny\ttfamily,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color{gray!10},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    frame=single,
+    tabsize=2,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=false,
+    escapeinside={\%*}{*)}
+}
+
+% Informações do documento
+\title[Minicurso REST API]{Minicurso: REST APIs com FastAPI, Microservices, Docker e Kubernetes}
+\subtitle{Introdução Completa em 60 Minutos}
+\author{Professor Dr. Bento Rafael Siqueira}
+\institute{UFLA - Universidade Federal de Lavras}
+\date{\today}
+
+\begin{document}
+
+% Slide de título
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% Sumário
+\begin{frame}
+    \frametitle{Agenda}
+    \tableofcontents
+\end{frame}
+
+\section{Introdução}
+
+\begin{frame}
+    \frametitle{O que vamos aprender hoje?}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \textbf{Conceitos Fundamentais:}
+            \begin{itemize}
+                \item REST APIs
+                \item FastAPI Framework
+                \item Microservices
+                \item Containerização
+                \item Orquestração
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \textbf{Tecnologias:}
+            \begin{itemize}
+                \item Python 3.8+
+                \item FastAPI
+                \item Docker
+                \item Kubernetes
+                \item Docker Compose
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    
+    \vspace{1em}
+    \begin{alertblock}{Objetivo}
+        Ao final desta aula, você será capaz de criar, containerizar e orquestrar uma API REST completa!
+    \end{alertblock}
+\end{frame}
+
+\section{REST APIs}
+
+\begin{frame}
+    \frametitle{O que é uma REST API?}
+    \begin{block}{REST - Representational State Transfer}
+        \begin{itemize}
+            \item Arquitetura de software para sistemas distribuídos
+            \item Usa HTTP como protocolo de comunicação
+            \item Baseada em recursos (Resources) identificados por URLs
+            \item Operações através de métodos HTTP (GET, POST, PUT, DELETE)
+        \end{itemize}
+    \end{block}
+    
+    \begin{exampleblock}{Características Principais}
+        \begin{itemize}
+            \item \textbf{Stateless}: Cada requisição é independente
+            \item \textbf{Client-Server}: Separação clara de responsabilidades
+            \item \textbf{Cacheable}: Respostas podem ser armazenadas em cache
+            \item \textbf{Uniform Interface}: Interface consistente
+        \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Métodos HTTP e seus significados}
+    \begin{center}
+        \begin{tabular}{|l|l|l|}
+            \hline
+            \textbf{Método} & \textbf{Operação} & \textbf{Descrição} \\
+            \hline
+            GET & Leitura & Recuperar dados \\
+            \hline
+            POST & Criação & Criar novo recurso \\
+            \hline
+            PUT & Atualização & Atualizar recurso completo \\
+            \hline
+            PATCH & Atualização & Atualizar parte do recurso \\
+            \hline
+            DELETE & Exclusão & Remover recurso \\
+            \hline
+        \end{tabular}
+    \end{center}
+    
+    \vspace{1em}
+    \begin{exampleblock}{Exemplo de URLs REST}
+        \begin{itemize}
+            \item \texttt{GET /api/users} - Listar todos os usuários
+            \item \texttt{GET /api/users/123} - Obter usuário específico
+            \item \texttt{POST /api/users} - Criar novo usuário
+            \item \texttt{PUT /api/users/123} - Atualizar usuário
+            \item \texttt{DELETE /api/users/123} - Deletar usuário
+        \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+\section{FastAPI}
+
+\begin{frame}
+    \frametitle{Por que FastAPI?}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \textbf{Vantagens:}
+            \begin{itemize}
+                \item \textbf{Performance}: Uma das APIs mais rápidas do Python
+                \item \textbf{Documentação Automática}: Swagger/OpenAPI
+                \item \textbf{Type Hints}: Validação automática
+                \item \textbf{Async/Await}: Suporte nativo
+                \item \textbf{Fácil de usar}: Sintaxe simples
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{alertblock}{Comparação de Performance}
+                \begin{itemize}
+                    \item FastAPI: ~60,000 req/s
+                    \item Flask: ~20,000 req/s
+                    \item Django: ~15,000 req/s
+                \end{itemize}
+            \end{alertblock}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Primeira API com FastAPI}
+    \begin{lstlisting}[language=Python]
+from fastapi import FastAPI
+from pydantic import BaseModel
+from typing import List
+
+app = FastAPI(title="Minha API", version="1.0.0")
+
+# Modelo de dados
+class User(BaseModel):
+    id: int
+    name: str
+    email: str
+
+# Dados em memoria (para demonstracao)
+users = [
+    User(id=1, name="Joao", email="joao@email.com"),
+    User(id=2, name="Maria", email="maria@email.com")
+]
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World!"}
+
+@app.get("/users", response_model=List[User])
+async def get_users():
+    return users
+
+@app.get("/users/{user_id}", response_model=User)
+async def get_user(user_id: int):
+    for user in users:
+        if user.id == user_id:
+            return user
+    return {"error": "User not found"}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Adicionando mais funcionalidades}
+    \begin{lstlisting}[language=Python]
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from typing import List, Optional
+
+# Modelo para criacao de usuario
+class UserCreate(BaseModel):
+    name: str
+    email: str
+
+@app.post("/users", response_model=User)
+async def create_user(user: UserCreate):
+    new_id = max([u.id for u in users]) + 1
+    new_user = User(id=new_id, name=user.name, email=user.email)
+    users.append(new_user)
+    return new_user
+
+@app.put("/users/{user_id}", response_model=User)
+async def update_user(user_id: int, user: UserCreate):
+    for i, existing_user in enumerate(users):
+        if existing_user.id == user_id:
+            users[i] = User(id=user_id, name=user.name, email=user.email)
+            return users[i]
+    raise HTTPException(status_code=404, detail="User not found")
+
+@app.delete("/users/{user_id}")
+async def delete_user(user_id: int):
+    for i, user in enumerate(users):
+        if user.id == user_id:
+            del users[i]
+            return {"message": "User deleted"}
+    raise HTTPException(status_code=404, detail="User not found")
+    \end{lstlisting}
+\end{frame}
+
+\section{Microservices}
+
+\begin{frame}
+    \frametitle{Arquitetura de Microservices}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \textbf{Monolito vs Microservices}
+            \begin{itemize}
+                \item \textbf{Monolito}: Uma aplicação única
+                \item \textbf{Microservices}: Múltiplas aplicações pequenas
+            \end{itemize}
+            
+            \vspace{1em}
+            \textbf{Vantagens dos Microservices:}
+            \begin{itemize}
+                \item Escalabilidade independente
+                \item Tecnologias diferentes
+                \item Deploy independente
+                \item Falhas isoladas
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{center}
+                \begin{tikzpicture}[scale=0.8]
+                    % Monolito
+                    \draw[thick, fill=red!20] (0,0) rectangle (2,1.5);
+                    \node at (1,0.75) {\small Monolito};
+                    
+                    % Microservices
+                    \draw[thick, fill=green!20] (4,0) rectangle (5.5,1.5);
+                    \draw[thick, fill=green!20] (6,0) rectangle (7.5,1.5);
+                    \draw[thick, fill=green!20] (8,0) rectangle (9.5,1.5);
+                    \draw[thick, fill=green!20] (10,0) rectangle (11.5,1.5);
+                    
+                    \node at (4.75,0.75) {\tiny User};
+                    \node at (6.75,0.75) {\tiny Product};
+                    \node at (8.75,0.75) {\tiny Order};
+                    \node at (10.75,0.75) {\tiny Payment};
+                    
+                    % Seta
+                    \draw[thick, ->] (2.2,0.75) -- (3.8,0.75);
+                    \node at (3,1.2) {\tiny Evolução};
+                \end{tikzpicture}
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exemplo de Microservices}
+    \begin{center}
+        \begin{tabular}{|l|l|l|}
+            \hline
+            \textbf{Service} & \textbf{Porta} & \textbf{Responsabilidade} \\
+            \hline
+            User Service & 8001 & Gerenciar usuários \\
+            \hline
+            Product Service & 8002 & Gerenciar produtos \\
+            \hline
+            Order Service & 8003 & Gerenciar pedidos \\
+            \hline
+            Payment Service & 8004 & Processar pagamentos \\
+            \hline
+            API Gateway & 8000 & Roteamento e autenticação \\
+            \hline
+        \end{tabular}
+    \end{center}
+    
+    \vspace{1em}
+    \begin{exampleblock}{Comunicação entre Services}
+        \begin{itemize}
+            \item \textbf{Síncrona}: HTTP/REST, gRPC
+            \item \textbf{Assíncrona}: Message Queues (RabbitMQ, Kafka)
+            \item \textbf{Service Discovery}: Consul, Eureka
+        \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+\section{Docker}
+
+\begin{frame}
+    \frametitle{O que é Docker?}
+    \begin{block}{Containerização}
+        \begin{itemize}
+            \item Empacota aplicação e suas dependências
+            \item Ambiente isolado e portável
+            \item Consistência entre desenvolvimento e produção
+            \item Escalabilidade horizontal
+        \end{itemize}
+    \end{block}
+    
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \textbf{Vantagens:}
+            \begin{itemize}
+                \item "Funciona na minha máquina"
+                \item Deploy rápido
+                \item Isolamento
+                \item Recursos otimizados
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \textbf{Conceitos:}
+            \begin{itemize}
+                \item \textbf{Image}: Template
+                \item \textbf{Container}: Instância
+                \item \textbf{Dockerfile}: Receita
+                \item \textbf{Registry}: Repositório
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Dockerfile para FastAPI}
+    \begin{lstlisting}[language=bash]
+# Usar imagem base do Python
+FROM python:3.9-slim
+
+# Definir diretorio de trabalho
+WORKDIR /app
+
+# Copiar arquivos de dependencias
+COPY requirements.txt .
+
+# Instalar dependencias
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiar codigo da aplicacao
+COPY . .
+
+# Expor porta
+EXPOSE 8000
+
+# Comando para executar a aplicacao
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+    \end{lstlisting}
+    
+    \begin{exampleblock}{requirements.txt}
+        \begin{lstlisting}[language=bash]
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+        \end{lstlisting}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Docker Compose para Microservices}
+    \begin{lstlisting}[language=bash]
+version: '3.8'
+
+services:
+  user-service:
+    build: ./user-service
+    ports:
+      - "8001:8000"
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/users
+    depends_on:
+      - db
+
+  product-service:
+    build: ./product-service
+    ports:
+      - "8002:8000"
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/products
+    depends_on:
+      - db
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8000:8000"
+    depends_on:
+      - user-service
+      - product-service
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: microservices
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+    \end{lstlisting}
+\end{frame}
+
+\section{Kubernetes}
+
+\begin{frame}
+    \frametitle{O que é Kubernetes?}
+    \begin{block}{Orquestração de Containers}
+        \begin{itemize}
+            \item Plataforma open-source para orquestração
+            \item Automatiza deploy, scaling e gerenciamento
+            \item Desenvolvido pelo Google
+            \item Padrão da indústria
+        \end{itemize}
+    \end{block}
+    
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \textbf{Recursos Principais:}
+            \begin{itemize}
+                \item \textbf{Pods}: Unidade mínima
+                \item \textbf{Services}: Descoberta e load balancing
+                \item \textbf{Deployments}: Gerenciamento de replicas
+                \item \textbf{Ingress}: Roteamento HTTP
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \textbf{Benefícios:}
+            \begin{itemize}
+                \item Auto-scaling
+                \item Auto-healing
+                \item Rolling updates
+                \item Service discovery
+                \item Load balancing
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Deployment Kubernetes}
+    \begin{lstlisting}[language=bash]
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  labels:
+    app: user-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+      - name: user-service
+        image: user-service:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DATABASE_URL
+          value: "postgresql://user:pass@db:5432/users"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+spec:
+  selector:
+    app: user-service
+  ports:
+  - port: 80
+    targetPort: 8000
+  type: ClusterIP
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Ingress para API Gateway}
+    \begin{lstlisting}[language=bash]
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: api.example.com
+    http:
+      paths:
+      - path: /users
+        pathType: Prefix
+        backend:
+          service:
+            name: user-service
+            port:
+              number: 80
+      - path: /products
+        pathType: Prefix
+        backend:
+          service:
+            name: product-service
+            port:
+              number: 80
+    \end{lstlisting}
+\end{frame}
+
+\section{Demonstração Prática}
+
+\begin{frame}
+    \frametitle{Demonstração: API Completa}
+    \begin{enumerate}
+        \item \textbf{Criar API FastAPI} (10 min)
+        \begin{itemize}
+            \item Estrutura básica
+            \item Endpoints CRUD
+            \item Validação de dados
+        \end{itemize}
+        
+        \item \textbf{Containerizar com Docker} (10 min)
+        \begin{itemize}
+            \item Dockerfile
+            \item Build da imagem
+            \item Executar container
+        \end{itemize}
+        
+        \item \textbf{Microservices com Docker Compose} (15 min)
+        \begin{itemize}
+            \item Múltiplos serviços
+            \item Comunicação entre serviços
+            \item Banco de dados
+        \end{itemize}
+        
+        \item \textbf{Deploy no Kubernetes} (15 min)
+        \begin{itemize}
+            \item Configuração YAML
+            \item Deploy dos serviços
+            \item Teste da aplicação
+        \end{itemize}
+        
+        \item \textbf{Testes e Monitoramento} (10 min)
+        \begin{itemize}
+            \item Testes de carga
+            \item Logs e métricas
+            \item Escalabilidade
+        \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+\section{Próximos Passos}
+
+\begin{frame}
+    \frametitle{O que aprender depois?}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \textbf{Conceitos Avançados:}
+            \begin{itemize}
+                \item Service Mesh (Istio)
+                \item Message Queues
+                \item Event Sourcing
+                \item CQRS Pattern
+                \item Circuit Breaker
+                \item Distributed Tracing
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \textbf{Ferramentas:}
+            \begin{itemize}
+                \item Prometheus + Grafana
+                \item ELK Stack
+                \item Jaeger
+                \item Helm
+                \item ArgoCD
+                \item Terraform
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    
+    \vspace{1em}
+    \begin{alertblock}{Recursos para Estudo}
+        \begin{itemize}
+            \item \href{https://fastapi.tiangolo.com/}{Documentação FastAPI}
+            \item \href{https://kubernetes.io/docs/}{Documentação Kubernetes}
+            \item \href{https://docs.docker.com/}{Documentação Docker}
+            \item \href{https://microservices.io/}{Microservices Patterns}
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Conclusão}
+    \begin{center}
+        \Huge{Obrigado!}
+        
+        \vspace{1em}
+        \Large{Perguntas?}
+        
+        \vspace{2em}
+        \normalsize
+        \textbf{Contato:} bento.siqueira@ufla.br
+        
+        \textbf{Repositório:} github.com/californi/disciplinas-ufla
+    \end{center}
+\end{frame}
+
+\end{document}

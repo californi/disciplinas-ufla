@@ -1,0 +1,9 @@
+\babel@toc {portuguese}{}\relax 
+\beamer@sectionintoc {1}{Introdução}{3}{0}{1}
+\beamer@sectionintoc {2}{REST APIs}{4}{0}{2}
+\beamer@sectionintoc {3}{FastAPI}{6}{0}{3}
+\beamer@sectionintoc {4}{Microservices}{9}{0}{4}
+\beamer@sectionintoc {5}{Docker}{11}{0}{5}
+\beamer@sectionintoc {6}{Kubernetes}{14}{0}{6}
+\beamer@sectionintoc {7}{Demonstração Prática}{17}{0}{7}
+\beamer@sectionintoc {8}{Próximos Passos}{18}{0}{8}
