@@ -34,7 +34,7 @@
     captionpos=b,
     breaklines=true,
     breakatwhitespace=false,
-    escapeinside={\%*}{*)}
+    escapeinside={\%*}{*)}}
 }
 
 % Informações do documento
@@ -155,7 +155,8 @@
             \begin{itemize}
                 \item \textbf{Performance}: Uma das APIs mais rápidas do Python
                 \item \textbf{Documentação Automática}: Swagger/OpenAPI
-                \item \textbf{Type Hints}: Validação automática
+                \item \textbf{<｜tool▁calls▁begin｜><｜tool▁call▁begin｜>
+search_replace}type Hints}: Validação automática
                 \item \textbf{Async/Await}: Suporte nativo
                 \item \textbf{Fácil de usar}: Sintaxe simples
             \end{itemize}
@@ -210,43 +211,6 @@ async def get_user(user_id: int):
     \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]
-    \frametitle{Adicionando mais funcionalidades}
-    \begin{lstlisting}[language=Python]
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from typing import List, Optional
-
-# Modelo para criacao de usuario
-class UserCreate(BaseModel):
-    name: str
-    email: str
-
-@app.post("/users", response_model=User)
-async def create_user(user: UserCreate):
-    new_id = max([u.id for u in users]) + 1
-    new_user = User(id=new_id, name=user.name, email=user.email)
-    users.append(new_user)
-    return new_user
-
-@app.put("/users/{user_id}", response_model=User)
-async def update_user(user_id: int, user: UserCreate):
-    for i, existing_user in enumerate(users):
-        if existing_user.id == user_id:
-            users[i] = User(id=user_id, name=user.name, email=user.email)
-            return users[i]
-    raise HTTPException(status_code=404, detail="User not found")
-
-@app.delete("/users/{user_id}")
-async def delete_user(user_id: int):
-    for i, user in enumerate(users):
-        if user.id == user_id:
-            del users[i]
-            return {"message": "User deleted"}
-    raise HTTPException(status_code=404, detail="User not found")
-    \end{lstlisting}
-\end{frame}
-
 \section{Microservices}
 
 \begin{frame}
@@ -288,7 +252,7 @@ async def delete_user(user_id: int):
                     
                     % Seta
                     \draw[thick, ->] (2.2,0.75) -- (3.8,0.75);
-                    \node at (3,1.2) {\tiny Evolução};
+                    \node at (3,1.2) {\tiny Evolucao};
                 \end{tikzpicture}
             \end{center}
         \end{column}
@@ -302,7 +266,7 @@ async def delete_user(user_id: int):
             \hline
             \textbf{Service} & \textbf{Porta} & \textbf{Responsabilidade} \\
             \hline
-            User Service & 8001 & Gerenciar usuários \\
+            User Service & 8001 & Gerenciar usuarios \\
             \hline
             Product Service & 8002 & Gerenciar produtos \\
             \hline
@@ -310,16 +274,16 @@ async def delete_user(user_id: int):
             \hline
             Payment Service & 8004 & Processar pagamentos \\
             \hline
-            API Gateway & 8000 & Roteamento e autenticação \\
+            API Gateway & 8000 & Roteamento e autenticacao \\
             \hline
         \end{tabular}
     \end{center}
     
     \vspace{1em}
-    \begin{exampleblock}{Comunicação entre Services}
+    \begin{exampleblock}{Comunicacao entre Services}
         \begin{itemize}
-            \item \textbf{Síncrona}: HTTP/REST, gRPC
-            \item \textbf{Assíncrona}: Message Queues (RabbitMQ, Kafka)
+            \item \textbf{Sincrona}: HTTP/REST, gRPC
+            \item \textbf{Assincrona}: Message Queues (RabbitMQ, Kafka)
             \item \textbf{Service Discovery}: Consul, Eureka
         \end{itemize}
     \end{exampleblock}
@@ -332,7 +296,7 @@ async def delete_user(user_id: int):
     \begin{block}{Containerização}
         \begin{itemize}
             \item Empacota aplicação e suas dependências
-            \item Ambiente isolado e portável
+            \item Ambiente isolado e portátil
             \item Consistência entre desenvolvimento e produção
             \item Escalabilidade horizontal
         \end{itemize}
@@ -515,37 +479,6 @@ spec:
   - port: 80
     targetPort: 8000
   type: ClusterIP
-    \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{Ingress para API Gateway}
-    \begin{lstlisting}[language=bash]
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: api-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-spec:
-  rules:
-  - host: api.example.com
-    http:
-      paths:
-      - path: /users
-        pathType: Prefix
-        backend:
-          service:
-            name: user-service
-            port:
-              number: 80
-      - path: /products
-        pathType: Prefix
-        backend:
-          service:
-            name: product-service
-            port:
-              number: 80
     \end{lstlisting}
 \end{frame}
 

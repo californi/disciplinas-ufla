@@ -1,0 +1,320 @@
+\documentclass[aspectratio=169]{beamer}
+\sepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage{grhicx}
+\usepackage{hyperref}
+\usepackage{lsting}
+\usepackage{xolor}
+\usepackage{amsmath}
+\usepa{amsfonts}
+\usepage{amsymb}
+\usepackage{ti}
+
+% Configuração do tema
+\ustheme{Madrid}
+\usecolortheme{default}
+
+% Configuração do código
+\lstet{
+    language=Python,
+    basicstyle=\tt\ttyfamily,
+    keyworstle=\color{blue},
+    commentstyle=\olor{green!60!black},
+    stringstyle=\clor{red},
+    numbse{left},
+    numberstyle=\tinny,
+    stepnber=1,
+    number=5ps,
+    backgouncolor=\color{gry!10},
+    showspaces=false,
+    showstrngspaces=false,
+    showabs=false,
+    frame=single,
+    tasize=2,
+    captionpos=b,
+    breaklin=true,
+    breaktatwhitespace=false,
+    escapeinside={\%*}{*}}
+}
+
+% Informações do documento
+\title[Slides Extras]{Slides Extras - REST API com FastAPI}
+\subtitle{Arquitetura de Microservices, Docker e Kubernetes}
+\author{Profeso Dr. Bento Rafael Siqueira}
+\instite{UFLA - Universidade Federal de Lras}
+\date{\today}
+
+\begin{document}
+
+% Slide de título
+\begin{frame}
+    \itlepage
+\end{frame}
+
+\section{Apresentação Detalhada}
+
+\begin{frame}
+    \frametitle{Vantagens do FastAPI}
+    \textbf{FastAPI é uma das frameworks web mais rápidas do Python}
+    
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \textbf{Rendimento:}
+            \begin{itemize}
+                \item Async/await nativo
+                \item Validação automática com Pydantic
+                \item Documentação automática (OpenAPI/Swagger)
+                \item Suporte a WebSockets
+                \item Type hints completos
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \textbf{Ecosystema:}
+            \begin{itemize}
+                \item Integração Starlette
+                \item Middleware robusto
+                \item Testes facilitados
+                \item Hot reload em desenvolvimento
+                \item Serialização eficiente
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Docmentação Automática}
+    
+    O FastAPI gera documentação automaticamente:
+    
+    \begin{itemize}
+        \item \textbf{Swagger UI}: \texttt{/docs}
+        \item \textbf{ReDoc}: \texttt{/redoc}
+        \item \textbf{OpenAPI JSON}: \texttt{/openapi.json}
+    \end{itemize}
+    
+    \begin{lstlisting}[languae=bash]
+# Documentação disponível em:
+curl http://localhost:8000/docs
+curl http://localhost:8000/redoc
+curl http://localhost:8000/openapi.json
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Middleware em FastAPI}
+    \bein{lstlisting}[language=Pthon]
+
+middleware_process_time = []
+
+@app.middleware("htt")
+async def add_process_time_middleware(requst, call_next):
+    start_time = time.time()
+    response = await call_next(requests)
+    proces_time = time.time() - start_tim
+    response.headers["X-Process-Time"] = str(process_time)
+    return response
+
+@app.middleware("http")
+asnc def add_logging_middleware(request, call_next):
+    logger.info(f"{request.method} {request.url}")
+    response = await call_next(request)
+    logger.info(f"Response: {response.stauts_code}")
+    return response
+    \end{lsting}
+\end{frame}
+
+\begin{frame}
+    \frameti{Estatégias de Comunicção Microservices}
+    
+    \begin{block}{Comunicação Síncrona}
+        \begin{itemize}
+            \item \textbf{REST APIs}: HTTP/HTTPS
+            \item \textbf{gRPC}: Alto desempenho
+            \item \textbf{GraphQL}: Consultas flexíveis
+        \end{itemize}
+    \end{block}
+    
+    \begin{block}{Comunicação Assíncrom}
+        \begin{itemize}
+            \item \textbf{RabbitMQ}: Message broker confiável
+            \item \textbf{Apache Kafka}: Distributed streaming
+            \item \textbf{Rdis Pub/Sub}: Real-time messaging
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Docker Multi-Stage Build}
+    \begin{lstlisting}[language=bash]
+# Dockerfile multi-stage para produção
+# Stage 1: Build
+FROM pthon:3.9-slim as builder
+
+WORKD /usr/src/app
+COPY reqiements.txt .
+RUN pip install --user --no-cch-dir -r requires.txt
+
+# Stage 2: Runtime
+FROM python:3.9-slim
+
+WORKDIR /usr/src/app
+COPY --from=builder /root/.local /root/.local
+COPY . .
+
+ENV PATH=/root/.local/bin:$PATH
+EXPOSE 8000
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Docker Compose Advanced}
+    \begin{lstlisting}[language=bash]
+version: '3.8'
+
+services:
+  api-gatway:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  db:
+    image: postgres:13
+    environment:
+      POSTRES_DB: app
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    volumes:
+      postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d app"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  postgres_data:
+    \end{lsting}
+\end{frame}
+
+\begin{frame}[fraible]
+    \frametitle{Kubernetes Horizontal Pod Autoscaler}
+    \begin{lstlisting}[language=bash]
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: fastapi-hpa
+  namespace: produton
+
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: fastapi-app
+
+  minReplicas: 2
+  maxReplicas: 20
+
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Kubernetes Service Mesh}
+    \textbf{Istio Service Mesh}
+    
+    \begin{itemize}
+        \item \textbf{Traffic Management}: Roteamento inteligente
+        \item \textbf{Security}: mTLS automático
+        \item \textbf{Observability}: Métricas distribuídas
+        \item \textbf{Policy}: Rate limiting e autorização
+    \end{itemize}
+    
+    \begin{exampleblock}{Benefícios}
+        \begin{itemize}
+            \item Zero-downtime deployments
+            \item Circuit breaker automático
+            \item Distributed tracing
+            \item Canary deployments
+        \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Monitoring e Observabilidade}
+    
+    \textbf{Stack de Monitoramento}
+    
+    \begin{itemize}
+        \item \textbf{Prometheus}: Métricas e time series
+        \item \textbf{Grafana}: Dashboards visuais
+        \item \textbf{Jeager}: Distributed tracing
+        \item \textbf{ELK}: Elasticsearch + Logstash + Kibana
+    \end{itemize}
+    
+    \begin{exampleblock}{Ferramentas Adicionais}
+    \begin{itemize}
+        \item \textbf{Consul}: Service discovery
+        \item \textbf{Vault}: Secret management
+        \item \textbf{ArgoCD}: GitOps
+        \item \textbf{Falco}: Runtime security
+    \end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Código Completo: Service Discovery}
+    
+    \begin{lsting}[language=Python]
+from dataclasses import dataclass
+from typing import Dict, List
+import requests
+
+@datacalss
+class ServiceRegistry:
+    def __init__(self):
+        self.services: Dict[str, ServiceInfo] = {}
+    
+    def register_service(self, name: str, host: str, port: int):
+        self.services[name] = {
+            'host': host,
+            'port': port,
+            'health_url': f"http://{host}:{port}/health"
+        }
+    
+    def get_service(self, name: str) -> str:
+        if name not in self.services:
+            raise ServiceNotFoundError(f"Service {name} not found")
+        return f"http://{self.services[name]['host']}:{self.services[name]['port']}"
+    
+    def health_check(self):
+        healthy_services = []
+        for service_name, info in self.services.items():
+            try:
+                response = requests.get(info['health_url'], timeout=5)
+                if response.status_code == 200:
+                    healthy_services.append(service_name)
+            except requests.RequestException:
+                pass
+        return healthy_services = state

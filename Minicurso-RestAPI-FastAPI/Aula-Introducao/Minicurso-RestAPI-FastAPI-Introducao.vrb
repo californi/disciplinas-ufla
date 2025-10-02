@@ -1,28 +1,39 @@
-\frametitle{Ingress para API Gateway}
+\frametitle{Deployment Kubernetes}
     \begin{lstlisting}[language=bash]
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: api-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: user-service
+  labels:
+    app: user-service
 spec:
-  rules:
-  - host: api.example.com
-    http:
-      paths:
-      - path: /users
-        pathType: Prefix
-        backend:
-          service:
-            name: user-service
-            port:
-              number: 80
-      - path: /products
-        pathType: Prefix
-        backend:
-          service:
-            name: product-service
-            port:
-              number: 80
+  replicas: 3
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+      - name: user-service
+        image: user-service:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DATABASE_URL
+          value: "postgresql://user:pass@db:5432/users"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+spec:
+  selector:
+    app: user-service
+  ports:
+  - port: 80
+    targetPort: 8000
+  type: ClusterIP
     \end{lstlisting}
