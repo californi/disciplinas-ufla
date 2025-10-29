@@ -1,4 +1,4 @@
-# Lista de Exercícios 1 - Programação Orientada a Objetos (GCT052)
+# Lista de Exercícios 1 - entrega 12/11/2025 - Programação Orientada a Objetos (GCT052)
 ## Tópicos: Classes, Atributos, Métodos, Objetos, Sobrecarga, Propriedades, Encapsulamento, Associação, Composição e Agregação
 
 ---
