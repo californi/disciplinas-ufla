@@ -27,7 +27,7 @@ Este diretório contém o material da Aula 3.1 sobre **Relações entre Classes*
 - `GCT052-Aula-3-1-Relacoes-entre-Classes.pdf` - Apresentação em PDF
 - `Exemplos/` - Código de exemplo em C#
 
-### Professora
+### Professor
 
 Prof. Dr. Bento Rafael Siqueira  
 Email: bento.siqueira@ufla.br
