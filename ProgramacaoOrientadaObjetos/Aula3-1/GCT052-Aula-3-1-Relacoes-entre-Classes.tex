@@ -1,0 +1,630 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Configurações do tema
+\usetheme{Berkeley}
+\usecolortheme{spruce}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+% Configuração do logo da UFLA
+\setbeamertemplate{headline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.2cm]{section in head/foot}%
+    \begin{center}
+      \vspace{0.1cm}
+      \includegraphics[height=1.0cm]{../../Image/ufla-logo.PNG}
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Configuração do título centralizado
+\setbeamertemplate{frametitle}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm]{frametitle}%
+    \begin{center}
+      \insertframetitle
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Pacotes necessários
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{verbatim}
+
+% Configurações de cores
+\definecolor{azul}{RGB}{0,51,102}
+\definecolor{azulclaro}{RGB}{51,102,153}
+\definecolor{lightblue}{RGB}{173,216,230}
+\definecolor{lightgreen}{RGB}{144,238,144}
+\definecolor{lightcoral}{RGB}{240,128,128}
+\definecolor{lightyellow}{RGB}{255,255,224}
+\definecolor{lightpink}{RGB}{255,182,193}
+\definecolor{lightgray}{RGB}{211,211,211}
+\definecolor{orange}{RGB}{255,165,0}
+
+% Configuração de cores do tema
+\setbeamercolor{title}{fg=white,bg=azul}
+\setbeamercolor{frametitle}{fg=white,bg=azulclaro}
+\setbeamercolor{section title}{fg=white,bg=azul}
+
+% Configuração do listings para C#
+\lstset{
+    language=[Sharp]C,
+    basicstyle=\scriptsize\ttfamily,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color{lightgray},
+    showspaces=false,
+    showstringspaces=false,
+    frame=single,
+    tabsize=2,
+    breaklines=true,
+    extendedchars=true,
+    literate={á}{{\'a}}1 {à}{{\`a}}1 {ã}{{\~a}}1 {â}{{\^a}}1 {é}{{\'e}}1 {ê}{{\^e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ô}{{\^o}}1 {õ}{{\~o}}1 {ú}{{\'u}}1 {ç}{{\c c}}1
+}
+
+% Informações do documento
+\title{Programação Orientada a Objetos}
+\subtitle{GCT052 - Aula 3.1 - Relações entre Classes}
+\author{Prof. Dr. Bento Rafael Siqueira}
+\institute{Universidade Federal de Lavras\\Departamento de Ciência da Computação}
+\date{\today}
+
+\begin{document}
+
+% Slide de título
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Slide de sumário
+\begin{frame}{Sumário}
+\tableofcontents
+\end{frame}
+
+% Seção 1: Introdução
+\section{Introdução às Relações}
+
+\begin{frame}{Por que Relações entre Classes?}
+\begin{itemize}
+\item Classes não existem isoladas no mundo real
+\item Sistemas complexos requerem \textbf{interação} entre componentes
+\item As relações definem \textbf{como} os objetos se relacionam
+\item Importante para modelar sistemas reais corretamente
+\end{itemize}
+
+\vspace{0.5cm}
+\begin{block}{Principais Tipos de Relação}
+\begin{enumerate}
+\item \textbf{Associação}: Relação genérica entre classes
+\item \textbf{Agregação}: Relação "tem um" onde a parte pode existir sem o todo
+\item \textbf{Composição}: Relação "tem um" onde a parte não existe sem o todo
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\section{Associação}
+
+\begin{frame}{Associação}
+\begin{block}{Definição}
+Relacionamento genérico entre duas classes independentes, onde uma classe usa outra.
+\end{block}
+
+\begin{itemize}
+\item Classe A usa ou conhece Classe B
+\item São \textbf{independentes}: existem separadamente
+\item Sem relação de "propriedade"
+\item A relação é \textbf{bidirecional} ou \textbf{unidirecional}
+\end{itemize}
+
+\vspace{0.5cm}
+\begin{exampleblock}{Exemplo do Mundo Real}
+\begin{itemize}
+\item \texttt{Professor} $\leftrightarrow$ \texttt{Aluno} (bidirecional)
+\item \texttt{Pessoa} usa \texttt{Telefone} (unidirecional)
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Associação - Exemplo em C\#}
+\begin{lstlisting}
+// Classe Professor
+public class Professor
+{
+    public string Nome { get; set; }
+    public List<Aluno> Alunos { get; set; }
+    
+    public Professor(string nome)
+    {
+        Nome = nome;
+        Alunos = new List<Aluno>();
+    }
+    
+    public void AdicionarAluno(Aluno aluno)
+    {
+        Alunos.Add(aluno);
+    }
+}
+
+// Classe Aluno
+public class Aluno
+{
+    public string Nome { get; set; }
+    public string Matricula { get; set; }
+    
+    public Aluno(string nome, string matricula)
+    {
+        Nome = nome;
+        Matricula = matricula;
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Associação - Notação UML}
+\begin{center}
+\begin{verbatim}
++-------------+
+|  Professor  |
+|  - Nome     |
+|  - Alunos   |
++------+------+
+       | *
+       |
+       v
++-------------+
+|   Aluno     |
+|   - Nome    |
+|   - Matricula
++-------------+
+\end{verbatim}
+\end{center}
+
+\vspace{0.5cm}
+\begin{block}{Características}
+\begin{itemize}
+\item Relação simples entre duas classes
+\item Professor pode ter nenhum, um ou muitos alunos
+\item Aluno pode existir sem Professor
+\end{itemize}
+\end{block}
+\end{frame}
+
+\section{Agregação}
+
+\begin{frame}{Agregação}
+\begin{block}{Definição}
+Relação "tem um" onde a parte pode existir independentemente do todo.
+\end{block}
+
+\vspace{0.5cm}
+\begin{itemize}
+\item Representa um relacionamento \textbf{mais forte} que associação
+\item Relação de "propriedade parcial"
+\item A parte \textbf{pode sobreviver} sem o todo
+\item Destruição do todo \textbf{não destrói} as partes
+\end{itemize}
+
+\vspace{0.5cm}
+\begin{exampleblock}{Exemplo do Mundo Real}
+\begin{itemize}
+\item \texttt{Universidade} "tem" \texttt{Departamentos}
+\item \texttt{Biblioteca} "tem" \texttt{Livros}
+\item Se a universidade for fechada, os departamentos continuam existindo
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Agregação - Exemplo em C\#}
+\begin{lstlisting}
+// Classe Departamento (parte)
+public class Departamento
+{
+    public string Nome { get; set; }
+    public string Sigla { get; set; }
+    
+    public Departamento(string nome, string sigla)
+    {
+        Nome = nome;
+        Sigla = sigla;
+    }
+}
+
+// Classe Universidade (todo)
+public class Universidade
+{
+    public string Nome { get; set; }
+    public List<Departamento> Departamentos { get; set; }
+    
+    public Universidade(string nome)
+    {
+        Nome = nome;
+        Departamentos = new List<Departamento>();
+    }
+    
+    public void AdicionarDepartamento(Departamento dept)
+    {
+        Departamentos.Add(dept);
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Agregação - Notação UML}
+\begin{center}
+\begin{verbatim}
++------------------+
+|   Universidade   |
+|   - Nome         |
+|   - Departamentos|
++----------+-------+
+           | (diamond)
+           |
+           v
++------------------+
+|  Departamento    |
+|  - Nome          |
+|  - Sigla         |
++------------------+
+\end{verbatim}
+\end{center}
+
+\vspace{0.5cm}
+\begin{block}{Características}
+\begin{itemize}
+\item Representada por um \textbf{losango vazio} ($\lozenge$)
+\item Universidade "tem" Departamentos
+\item Departamento pode existir sem Universidade
+\end{itemize}
+\end{block}
+\end{frame}
+
+\section{Composição}
+
+\begin{frame}{Composição}
+\begin{block}{Definição}
+Relação "tem um" onde a parte \textbf{não pode existir} sem o todo.
+\end{block}
+
+\vspace{0.5cm}
+\begin{itemize}
+\item Relação \textbf{mais forte} que agregação
+\item Relação de "propriedade completa"
+\item A parte \textbf{não sobrevive} sem o todo
+\item Destruição do todo \textbf{destrói} as partes
+\end{itemize}
+
+\vspace{0.5cm}
+\begin{exampleblock}{Exemplo do Mundo Real}
+\begin{itemize}
+\item \texttt{Casa} "tem" \texttt{Salas} - Se a casa for demolida, as salas também são destruídas
+\item \texttt{ContaBancaria} "tem" \texttt{Transacoes} - Sem a conta, as transações não fazem sentido
+\item \texttt{Arquivo} "tem" \texttt{Linhas} - Sem o arquivo, as linhas não existem
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Composição - Exemplo em C\#}
+\begin{lstlisting}
+// Classe Transacao (parte)
+public class Transacao
+{
+    public DateTime Data { get; set; }
+    public double Valor { get; set; }
+    public string Tipo { get; set; }
+    
+    public Transacao(DateTime data, double valor, string tipo)
+    {
+        Data = data;
+        Valor = valor;
+        Tipo = tipo;
+    }
+}
+
+// Classe ContaBancaria (todo)
+public class ContaBancaria
+{
+    public string Numero { get; set; }
+    public double Saldo { get; set; }
+    public List<Transacao> Transacoes { get; set; }
+    
+    public ContaBancaria(string numero)
+    {
+        Numero = numero;
+        Saldo = 0;
+        Transacoes = new List<Transacao>();
+    }
+    
+    public void AdicionarTransacao(Transacao trans)
+    {
+        Transacoes.Add(trans);
+        Saldo += trans.Valor;
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Composição - Notação UML}
+\begin{center}
+\begin{verbatim}
++------------------+
+| ContaBancaria    |
+|  - Numero        |
+|  - Saldo         |
+|  - Transacoes    |
++----------+-------+
+           | (filled diamond)
+           |
+           v
++------------------+
+|   Transacao      |
+|   - Data         |
+|   - Valor        |
+|   - Tipo         |
++------------------+
+\end{verbatim}
+\end{center}
+
+\vspace{0.5cm}
+\begin{block}{Características}
+\begin{itemize}
+\item Representada por um \textbf{losango preenchido} ($\blacklozenge$)
+\item ContaBancaria "tem" Transacoes
+\item Transacao \textbf{não pode existir} sem ContaBancaria
+\end{itemize}
+\end{block}
+\end{frame}
+
+\section{Comparação}
+
+\begin{frame}{Comparação das Relações}
+\begin{table}
+\centering
+\small
+\begin{tabular}{|l|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+\textbf{Aspecto} & \textbf{Associação} & \textbf{Agregação} & \textbf{Composição} \\
+\hline
+Relação & Usa/Conhece & "Tem um" & "Tem um" \\
+\hline
+Dependência & Independe & Leve & Forte \\
+\hline
+Existência & Totalmente independente & Parte pode existir sem & Parte não existe sem \\
+\hline
+Lifecycle & Separado & Separado & Controlado pelo todo \\
+\hline
+UML & Linha simples & Losango vazio & Losango preenchido \\
+\hline
+Exemplo & Professor-Aluno & Universidade-Dept & Casa-Sala \\
+\hline
+\end{tabular}
+\end{table}
+
+\vspace{0.3cm}
+\begin{alertblock}{Regra de Ouro}
+\begin{itemize}
+\item \textbf{Associação}: "usa"
+\item \textbf{Agregação}: "tem parcialmente"
+\item \textbf{Composição}: "tem totalmente"
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{Decidindo o Tipo de Relação}
+\begin{block}{Perguntas para Decidir}
+\end{block}
+
+\begin{enumerate}
+\item \textbf{As classes podem existir independentemente?}
+\begin{itemize}
+\item Sim $\rightarrow$ Associação
+\item Não $\rightarrow$ Composição ou Agregação
+\end{itemize}
+
+\vspace{0.3cm}
+\item \textbf{A parte tem sentido sem o todo?}
+\begin{itemize}
+\item Sim $\rightarrow$ Agregação
+\item Não $\rightarrow$ Composição
+\end{itemize}
+
+\vspace{0.3cm}
+\item \textbf{O todo controla a existência da parte?}
+\begin{itemize}
+\item Sim $\rightarrow$ Composição
+\item Não $\rightarrow$ Agregação
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\section{Exemplos Práticos}
+
+\begin{frame}{Exemplo Completo 1: Biblioteca}
+\begin{block}{Sistema de Biblioteca}
+\begin{itemize}
+\item \texttt{Biblioteca} - Classe principal
+\item \texttt{Livro} - Pode existir sem biblioteca? \textbf{Sim} $\rightarrow$ Agregação
+\item \texttt{Pessoa} - Usa a biblioteca? \textbf{Sim} $\rightarrow$ Associação
+\item \texttt{Emprestimo} - Existe sem biblioteca? \textbf{Não} $\rightarrow$ Composição
+\end{itemize}
+\end{block}
+
+\vspace{0.5cm}
+\begin{lstlisting}[basicstyle=\tiny]
+public class Biblioteca
+{
+    private List<Livro> livros;      // Agregação
+    private List<Pessoa> pessoas;    // Associação
+    private List<Emprestimo> emprestimos; // Composição
+}
+
+public class Livro { }               // Existe independente
+
+public class Pessoa { }              // Existe independente
+
+public class Emprestimo { }          // Não existe sem Biblioteca
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Exemplo Completo 2: Sistema Bancário}
+\begin{block}{Sistema Bancário}
+\begin{itemize}
+\item \texttt{Banco} - Classe principal
+\item \texttt{Cliente} - Relação? \textbf{Associação}
+\item \texttt{Conta} - Relação? \textbf{Agregação} (conta pode fechar mas cliente existe)
+\item \texttt{Extrato} - Relação? \textbf{Composição} (extrato não existe sem conta)
+\item \texttt{Cartao} - Relação? \textbf{Composição} (cartão não existe sem conta)
+\end{itemize}
+\end{block}
+
+\vspace{0.5cm}
+\begin{lstlisting}[basicstyle=\tiny]
+public class Banco
+{
+    private List<Cliente> clientes;     // Associação
+    private List<Conta> contas;        // Agregação
+    
+    public void AdicionarCliente(Cliente cliente) { }
+}
+
+public class Conta
+{
+    private List<Transacao> transacoes; // Composição
+    private Cartao cartao;              // Composição
+}
+\end{lstlisting}
+\end{frame}
+
+\section{Boas Práticas}
+
+\begin{frame}{Boas Práticas no Uso de Relações}
+\begin{block}{1. Composição para Dados Críticos}
+\begin{itemize}
+\item Use composição para dados que devem ser sempre consistentes
+\item Exemplo: Transações de uma conta bancária
+\end{itemize}
+\end{block}
+
+\begin{block}{2. Agregação para Compartilhamento}
+\begin{itemize}
+\item Use agregação quando vários objetos podem compartilhar partes
+\item Exemplo: Vários departamentos podem ter o mesmo professor
+\end{itemize}
+\end{block}
+
+\begin{block}{3. Associação para Colaboração}
+\begin{itemize}
+\item Use associação quando classes trabalham juntas mas são independentes
+\item Exemplo: Professor e Aluno
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Armadilhas Comuns}
+\begin{alertblock}{Erro 1: Usar Composição no Lugar de Agregação}
+\begin{itemize}
+\item \textcolor{red}{Errado}: Pensar que toda relação "tem um" é composição
+\item \textcolor{green!70!black}{Certo}: Avalie se a parte sobrevive ao todo
+\end{itemize}
+\end{alertblock}
+
+\begin{alertblock}{Erro 2: Confundir Associação com Agregação}
+\begin{itemize}
+\item \textcolor{red}{Errado}: Toda vez que há uma lista de objetos
+\item \textcolor{green!70!black}{Certo}: Agregação implica relação de "propriedade"
+\end{itemize}
+\end{alertblock}
+
+\begin{alertblock}{Erro 3: Não Considerar o Lifecycle}
+\begin{itemize}
+\item \textcolor{red}{Errado}: Apenas olhar o código, não o significado
+\item \textcolor{green!70!black}{Certo}: Pense no ciclo de vida dos objetos
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\section{Exercícios}
+
+\begin{frame}{Exercício Proposto}
+\begin{block}{Sistema de Restaurante}
+Desenhe as classes e defina os tipos de relacionamento para:
+
+\begin{itemize}
+\item \texttt{Restaurante} - O estabelecimento
+\item \texttt{Garcon} - Pessoal do restaurante
+\item \texttt{Cliente} - Quem come no restaurante
+\item \texttt{Cardapio} - Menu disponível
+\item \texttt{Prato} - Item do cardápio
+\item \texttt{Pedido} - Ordem feita pelo cliente
+\item \texttt{ItemPedido} - Item específico em um pedido
+\end{itemize}
+\end{block}
+
+\vspace{0.5cm}
+\begin{exampleblock}{Para Pensar}
+\begin{itemize}
+\item Cardápio pode existir sem restaurante?
+\item ItemPedido faz sentido sem Pedido?
+\item Cliente e Garcon têm que existir juntos?
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\section{Conclusão}
+
+\begin{frame}{Resumo}
+\begin{block}{Associação}
+\begin{itemize}
+\item Relação mais fraca
+\item Classes independentes
+\item Representação: Linha simples
+\end{itemize}
+\end{block}
+
+\begin{block}{Agregação}
+\begin{itemize}
+\item Relação intermediária
+\item Parte pode existir sem o todo
+\item Representação: Losango vazio
+\end{itemize}
+\end{block}
+
+\begin{block}{Composição}
+\begin{itemize}
+\item Relação mais forte
+\item Parte não existe sem o todo
+\item Representação: Losango preenchido
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Fim}
+\centering
+\Large \textbf{Qualquer Dúvida?}
+
+\vspace{1cm}
+
+\normalsize
+\textbf{Contato:} bento.siqueira@ufla.br
+
+\vspace{0.5cm}
+
+\textbf{Material:} github.com/californi/disciplinas-ufla
+\end{frame}
+
+\end{document}
+
