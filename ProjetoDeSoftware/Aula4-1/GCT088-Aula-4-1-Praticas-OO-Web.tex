@@ -1,0 +1,244 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% Language package intentionally omitted for portability
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstdefinelanguage{CSharp}{
+  morekeywords={class, public, private, protected, internal, record, struct, interface, enum, using, namespace, return, void, new, get, set, async, await, Task, var, readonly, sealed, abstract, override, virtual, try, catch, finally, throw, out, in},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+}
+\lstset{
+  language=CSharp,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{teal},
+  commentstyle=\color{gray},
+  showstringspaces=false,
+  breaklines=true,
+}
+
+\title{GCT088 — Aula 4.1\\Camada de Domínio e Testes do Domínio}
+\author{Projeto de Software}
+\institute{UFLA}
+\date{Visual Studio Community + .NET 8}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Objetivo da aula}
+\begin{itemize}
+  \item Modelar o Domínio com entidades e value objects
+  \item Definir invariantes e comportamentos no núcleo
+  \item Escrever testes de unidade do Domínio (xUnit)
+  \item Critério: Domínio sem dependências de Web/Infra
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Por que começar pelo Domínio?}
+\begin{itemize}
+  \item O Domínio captura as regras do negócio (fonte da verdade)
+  \item Reduz acoplamento: Application e Infra orbitam o Domínio
+  \item Testabilidade: código puro, feedback rápido, menos flakiness
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Entidades}
+\begin{itemize}
+  \item Identidade + ciclo de vida; devem manter invariantes
+  \item Ex.: Product (Id, Name, Price, StockQuantity)
+  \item Comportamentos encapsulados (ex.: AddStock/RemoveStock)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Exemplo — Entidade Product}
+\begin{lstlisting}
+namespace LojaOnLine.Domain.Entities;
+
+public sealed class Product
+{
+    public Guid Id { get; }
+    public string Name { get; }
+    public decimal Price { get; private set; }
+    public int StockQuantity { get; private set; }
+
+    public Product(string name, decimal price, int stockQuantity)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("Name is required", nameof(name));
+        if (price < 0)
+            throw new ArgumentException("Price must be >= 0", nameof(price));
+        if (stockQuantity < 0)
+            throw new ArgumentException("Stock must be >= 0", nameof(stockQuantity));
+
+        Id = Guid.NewGuid();
+        Name = name;
+        Price = price;
+        StockQuantity = stockQuantity;
+    }
+
+    public void AddStock(int amount)
+    {
+        if (amount <= 0) throw new ArgumentException("amount > 0", nameof(amount));
+        StockQuantity += amount;
+    }
+
+    public void RemoveStock(int amount)
+    {
+        if (amount <= 0) throw new ArgumentException("amount > 0", nameof(amount));
+        if (amount > StockQuantity) throw new InvalidOperationException("insufficient stock");
+        StockQuantity -= amount;
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Value Objects (VO)}
+\begin{itemize}
+  \item Imutáveis; igualdade por valor (não por identidade)
+  \item Encapsulam conceitos: Money, Sku, Email
+  \item Eliminam duplicação de validações e regras
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Exemplo — Value Object Money (opcional)}
+\begin{lstlisting}
+namespace LojaOnLine.Domain.ValueObjects;
+
+public sealed record Money(string Currency, decimal Amount)
+{
+    public Money : this(Currency.ToUpperInvariant(), Amount)
+    {
+        if (string.IsNullOrWhiteSpace(Currency))
+            throw new ArgumentException("Currency required", nameof(Currency));
+        if (Amount < 0) throw new ArgumentException("Amount >= 0", nameof(Amount));
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Value Object — visão intuitiva}
+\begin{itemize}
+  \item Pense em "um valor com regras": sempre válido e comparável por conteúdo
+  \item Não tem identidade própria (sem Id); dois VOs iguais em conteúdo são o mesmo
+  \item Bom para: Email, CPF/CNPJ, Money, Sku, FaixaEtaria, etc.
+  \item Benefícios práticos: validação centralizada, menos ifs repetidos, código mais legível
+\end{itemize}
+Exemplo (conceitual): Email só existe se for válido; duas instâncias com o mesmo texto são iguais.
+\end{frame}
+
+\begin{frame}{Classe sealed — visão intuitiva}
+\begin{itemize}
+  \item "Não deixa herdar": evita extensões que quebrem regras do tipo
+  \item Use quando: a classe já expressa tudo o que precisa; herança tentaria burlar invariantes
+  \item Ajuda a manter o contrato estável e facilita raciocinar sobre o tipo
+  \item Ex.: Domínio sensível (Product com regras de estoque/preço) — bloqueie herança
+\end{itemize}
+Dica: prefira composição a herança; libere herança só quando houver um motivo arquitetural claro.
+\end{frame}
+
+\begin{frame}{Invariantes e comportamentos}
+\begin{itemize}
+  \item Invariantes: Name obrigatório; Price $\ge 0$; Stock $\ge 0$
+  \item Comportamentos: AddStock, RemoveStock, (ChangePrice)
+  \item Padrão: lançar exceções ao violar invariantes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Serviços de Domínio}
+\begin{itemize}
+  \item Regras que não pertencem a uma única entidade
+  \item Funções puras sobre entidades/VOs
+  \item Ex.: política de desconto (tabela de regras) aplicada a Products
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Testes do Domínio (xUnit)}
+\begin{itemize}
+  \item Sem banco/HTTP; apenas Domínio
+  \item Testes de invariantes: criação inválida deve falhar
+  \item Testes de comportamento: estoque, preço
+  \item Test Data Builders para reduzir repetição
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Exemplo — Testes xUnit (invariantes)}
+\begin{lstlisting}
+using LojaOnLine.Domain.Entities;
+using Xunit;
+
+public class ProductTests
+{
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Create_InvalidName_Throws(string? name)
+    {
+        Assert.Throws<ArgumentException>(() => new Product(name!, 10m, 1));
+    }
+
+    [Fact]
+    public void Create_NegativePrice_Throws()
+    {
+        Assert.Throws<ArgumentException>(() => new Product("A", -1m, 0));
+    }
+
+    [Fact]
+    public void Create_NegativeStock_Throws()
+    {
+        Assert.Throws<ArgumentException>(() => new Product("A", 0m, -1));
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Exemplo — Testes xUnit (comportamentos)}
+\begin{lstlisting}
+using LojaOnLine.Domain.Entities;
+using Xunit;
+
+public class ProductBehaviorTests
+{
+    [Fact]
+    public void AddStock_WithPositiveAmount_IncreasesStock()
+    {
+        var p = new Product("A", 10m, 1);
+        p.AddStock(3);
+        Assert.Equal(4, p.StockQuantity);
+    }
+
+    [Fact]
+    public void RemoveStock_Insufficient_Throws()
+    {
+        var p = new Product("A", 10m, 1);
+        Assert.Throws<InvalidOperationException>(() => p.RemoveStock(2));
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Critérios de sucesso}
+\begin{itemize}
+  \item Domínio expressa regras com clareza e consistência
+  \item Testes cobrem cenários positivos e negativos
+  \item Domínio permanece independente de tecnologia
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Próxima aula}
+\begin{itemize}
+  \item Camada de Application: casos de uso e orquestração usando o Domínio
+  \item Ainda sem Infra: foco em DTOs e serviços de aplicação
+\end{itemize}
+\end{frame}
+
+\end{document}
