@@ -68,6 +68,12 @@ Atividade 2 - Os 5 passos de A Novice's Process of Object-Oriented Programming; 
 Atividade 3 - Padrões de Projeto
 
 * Definir um padrão de projeto diferente para cada integrante (06/11);
+  - Adilson: Adapter
+  - Lucas: Facade
+  - Renan: Composite
+  - Vanessa: Template
+  - Vanusa: Factory
+
 * Implementar o padrão (projeto novo ou projeto da ONG) - (04/12);
 
 https://api.metabooks.com/api/v1/asset/mmo/file/ce22a6b9a7c64286964dabed9b537b3d?access_token=13a46dfd-5120-4c7b-ab97-24d073db9777#page=8.31
