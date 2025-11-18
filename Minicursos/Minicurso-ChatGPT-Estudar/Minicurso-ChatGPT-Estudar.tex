@@ -1,0 +1,647 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{multicol}
+
+% Configuração do tema
+\usetheme{Madrid}
+\usecolortheme{default}
+
+% Configurações de cores
+\definecolor{azul}{RGB}{0,51,102}
+\definecolor{azulclaro}{RGB}{51,102,153}
+\definecolor{verde}{RGB}{34,139,34}
+\definecolor{laranja}{RGB}{255,140,0}
+\definecolor{roxo}{RGB}{138,43,226}
+\definecolor{vermelho}{RGB}{220,20,60}
+\definecolor{amarelo}{RGB}{255,215,0}
+\setbeamercolor{title}{fg=white,bg=azul}
+\setbeamercolor{frametitle}{fg=white,bg=azulclaro}
+
+% Informações do documento
+\title[ChatGPT para Estudar]{Minicurso: Usando o ChatGPT para Estudar}
+\subtitle{Dicas para Estudar Melhor com Inteligência Artificial}
+\author{Professor Dr. Bento Rafael Siqueira}
+\institute{UFLA - Universidade Federal de Lavras\\Departamento de Ciência da Computação}
+\date{\today}
+
+\begin{document}
+
+% Slide de título
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\section{Introdução}
+
+\begin{frame}
+    \frametitle{Quem gosta de fofoca?}
+    \begin{center}
+        \Large \textbf{O ChatGPT é como aquela tia fofoqueira!}
+    \end{center}
+    
+    \vspace{0.6cm}
+    \begin{center}
+    \begin{tikzpicture}[scale=1.4]
+        % Cabeça
+        \filldraw[fill=orange!30, draw=orange, very thick] (0,0) circle (1.8cm);
+        % Olhos
+        \filldraw[fill=black] (-0.6,0.4) circle (0.25cm);
+        \filldraw[fill=black] (0.6,0.4) circle (0.25cm);
+        % Boca sorrindo
+        \draw[very thick, red] (-0.7,-0.4) arc (180:0:0.7cm);
+        % Cabelo
+        \filldraw[fill=brown!50, draw=brown] (-1.4,1.4) .. controls (-1.8,2.2) and (1.8,2.2) .. (1.4,1.4);
+    \end{tikzpicture}
+    \end{center}
+    
+    \vspace{0.4cm}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.85]
+        % Caixa 1
+        \filldraw[fill=azul!25, draw=azul, very thick, rounded corners=12pt] (-4.5,0.5) rectangle (-1,2.2);
+        \node[align=center] at (-2.75,1.6) {\normalsize \textbf{Sabe de tudo!}\\
+        \small (ou quase tudo)\\
+        \tiny Como a tia que conhece};
+        \node[align=center] at (-2.75,0.8) {\tiny todo mundo};
+        
+        % Caixa 2
+        \filldraw[fill=verde!25, draw=verde, very thick, rounded corners=12pt] (-0.5,0.5) rectangle (3,2.2);
+        \node[align=center] at (1.25,1.6) {\normalsize \textbf{Adora conversar!}\\
+        \small Responde qualquer coisa\\
+        \tiny Nunca fica sem assunto};
+        \node[align=center] at (1.25,0.8) {\tiny como a tia fofoqueira};
+        
+        % Caixa 3
+        \filldraw[fill=laranja!25, draw=laranja, very thick, rounded corners=12pt] (3.5,0.5) rectangle (7,2.2);
+        \node[align=center] at (5.25,1.6) {\normalsize \textbf{24 horas!}\\
+        \small Nunca dorme\\
+        \tiny Disponível sempre};
+        \node[align=center] at (5.25,0.8) {\tiny como a tia no WhatsApp};
+        
+        % Caixa 4 - Mas cuidado
+        \filldraw[fill=amarelo!30, draw=orange, very thick, rounded corners=12pt] (-4.5,-2.5) rectangle (7,-0.2);
+        \node[align=center] at (1.25,-1.6) {\normalsize \textbf{Mas cuidado:}};
+        \node[align=center] at (1.25,-1.9) {\normalsize \textbf{às vezes inventa coisas!}};
+        \node[align=center] at (1.25,-2.2) {\small Como a tia que conta fofoca};
+        \node[align=center] at (1.25,-2.5) {\small sem ter certeza};
+        \node[align=center] at (1.25,-2.8) {\tiny Pode parecer verdade, mas não é!};
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Por que "Tia Fofoqueira"?}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.9]
+        % Comparação 1
+        \filldraw[fill=azul!20, draw=azul, very thick, rounded corners=12pt] (-5,2.2) rectangle (5,4);
+        \node[align=center] at (0,3.5) {\normalsize \textbf{1. Sabe de TUDO}};
+        \node[align=center] at (0,3.1) {\small (ou quase tudo)};
+        \node[align=center] at (-2.5,2.5) {\small Tia: conhece toda família};
+        \node[align=center] at (2.5,2.5) {\small ChatGPT: sabe de muitos assuntos};
+        
+        % Comparação 2
+        \filldraw[fill=verde!20, draw=verde, very thick, rounded corners=12pt] (-5,0.5) rectangle (5,1.9);
+        \node[align=center] at (0,1.4) {\normalsize \textbf{2. Adora Conversar}};
+        \node[align=center] at (-2.5,0.8) {\small Tia: nunca cansa de falar};
+        \node[align=center] at (2.5,0.8) {\small ChatGPT: responde sempre};
+        
+        % Comparação 3
+        \filldraw[fill=laranja!20, draw=laranja, very thick, rounded corners=12pt] (-5,-1.2) rectangle (5,0.2);
+        \node[align=center] at (0,-0.3) {\normalsize \textbf{3. Está Sempre Disponível}};
+        \node[align=center] at (-2.5,-0.8) {\small Tia: no WhatsApp 24h};
+        \node[align=center] at (2.5,-0.8) {\small ChatGPT: nunca dorme};
+        
+        % Comparação 4
+        \filldraw[fill=amarelo!25, draw=orange, very thick, rounded corners=12pt] (-5,-3.2) rectangle (5,-1.3);
+        \node[align=center] at (0,-1.9) {\normalsize \textbf{4. Mas Cuidado:}};
+        \node[align=center] at (0,-2.3) {\normalsize \textbf{Pode Inventar!}};
+        \node[align=center] at (-2.5,-2.8) {\small Tia: conta fofoca};
+        \node[align=center] at (-2.5,-3.1) {\small sem certeza};
+        \node[align=center] at (2.5,-2.8) {\small ChatGPT: pode};
+        \node[align=center] at (2.5,-3.1) {\small estar errado};
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exemplos: Tia Fofoqueira vs. ChatGPT}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.85]
+        % Exemplo 1
+        \filldraw[fill=azul!20, draw=azul, very thick, rounded corners=12pt] (-5,2.3) rectangle (5,3.8);
+        \node[align=center] at (0,3.4) {\normalsize \textbf{Exemplo 1: Sabe de Tudo}};
+        \node[align=center] at (-2.5,2.8) {\small Tia: "Eu sei quem};
+        \node[align=center] at (-2.5,2.5) {\small namora quem"};
+        \node[align=center] at (2.5,2.8) {\small ChatGPT: "Eu sei sobre};
+        \node[align=center] at (2.5,2.5) {\small matemática"};
+        
+        % Exemplo 2
+        \filldraw[fill=verde!20, draw=verde, very thick, rounded corners=12pt] (-5,0.6) rectangle (5,2.1);
+        \node[align=center] at (0,1.7) {\normalsize \textbf{Exemplo 2: Adora Conversar}};
+        \node[align=center] at (-2.5,1.1) {\small Tia: "Me conta tudo!"};
+        \node[align=center] at (2.5,1.3) {\small ChatGPT: "Pode perguntar};
+        \node[align=center] at (2.5,0.9) {\small qualquer coisa!"};
+        
+        % Exemplo 3
+        \filldraw[fill=laranja!20, draw=laranja, very thick, rounded corners=12pt] (-5,-1.1) rectangle (5,0.4);
+        \node[align=center] at (0,-0.1) {\normalsize \textbf{Exemplo 3: Sempre Disponível}};
+        \node[align=center] at (-2.5,-0.6) {\small Tia: "Me chama a};
+        \node[align=center] at (-2.5,-0.9) {\small qualquer hora"};
+        \node[align=center] at (2.5,-0.6) {\small ChatGPT: "Estou sempre};
+        \node[align=center] at (2.5,-0.9) {\small online"};
+        
+        % Exemplo 4
+        \filldraw[fill=amarelo!25, draw=orange, very thick, rounded corners=12pt] (-5,-2.8) rectangle (5,-1.4);
+        \node[align=center] at (0,-1.9) {\normalsize \textbf{Exemplo 4: Pode Inventar}};
+        \node[align=center] at (-2.5,-2.4) {\small Tia: "Ouvi dizer que..."};
+        \node[align=center] at (2.5,-2.4) {\small ChatGPT: "Pode estar};
+        \node[align=center] at (2.5,-2.7) {\small errado"};
+    \end{tikzpicture}
+    \end{center}
+    
+    \vspace{0.3cm}
+    \begin{center}
+        \normalsize \textbf{Por isso: sempre valide o que o ChatGPT diz!}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{O que é o ChatGPT?}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.8]
+        % Robô cabeça
+        \filldraw[fill=azulclaro!30, draw=azul, very thick, rounded corners=10pt] (-2,1) rectangle (2,3);
+        % Olhos
+        \filldraw[fill=green, draw=darkgreen, very thick] (-0.8,2.2) circle (0.3cm);
+        \filldraw[fill=green, draw=darkgreen, very thick] (0.8,2.2) circle (0.3cm);
+        % Antena
+        \draw[very thick, azul] (0,3) -- (0,3.5);
+        \filldraw[fill=vermelho, draw=darkred] (0,3.5) circle (0.15cm);
+        % Corpo
+        \filldraw[fill=azulclaro!30, draw=azul, very thick, rounded corners=10pt] (-1.5,-1) rectangle (1.5,1);
+        % Botões
+        \filldraw[fill=laranja, draw=orange] (-0.5,0) circle (0.2cm);
+        \filldraw[fill=laranja, draw=orange] (0.5,0) circle (0.2cm);
+    \end{tikzpicture}
+    \end{center}
+    
+    \vspace{0.5cm}
+    \begin{center}
+        \Large \textbf{Robô super inteligente}\\
+        \Large \textbf{Conversa com você}\\
+        \Large \textbf{Grátis e sempre disponível!}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Por que usar?}
+    \begin{center}
+    \begin{tikzpicture}
+        % Relógio 24/7
+        \draw[very thick, azul] (0,0) circle (1.5cm);
+        \draw[very thick, azul] (0,0) -- (0,1);
+        \draw[very thick, azul] (0,0) -- (0.8,-0.8);
+        \node at (0,-2.5) {\Large \textbf{24/7}};
+        
+        % Paciência
+        \draw[very thick, verde] (4,0) circle (1.5cm);
+        \node at (4,0) {\Huge \textbf{∞}};
+        \node at (4,-2.5) {\Large \textbf{Paciência}};
+        
+        % Grátis
+        \draw[very thick, laranja] (8,0) circle (1.5cm);
+        \node at (8,0) {\Huge \textbf{\$}};
+        \node at (8,-1.5) {\Large \textbf{0}};
+        \node at (8,-2.5) {\Large \textbf{Grátis}};
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\section{Como Fazer Perguntas}
+
+\begin{frame}
+    \frametitle{Pergunta Ruim vs. Pergunta Boa}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{center}
+            \begin{tikzpicture}[scale=0.8]
+                \filldraw[fill=vermelho!20, draw=vermelho, very thick, rounded corners=12pt] (-2.5,-2.5) rectangle (2.5,2.5);
+                \node at (0,1.5) {\Large \textbf{X}};
+                \node[align=center] at (0,0.3) {\normalsize \textbf{Explique}\\
+                \normalsize \textbf{frações}};
+                \node[align=center] at (0,-1.2) {\small Muito vago!\\
+                \small Não sabe o que você precisa};
+            \end{tikzpicture}
+            \end{center}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{center}
+            \begin{tikzpicture}[scale=0.8]
+                \filldraw[fill=verde!20, draw=verde, very thick, rounded corners=12pt] (-2.5,-2.5) rectangle (2.5,2.5);
+                \node at (0,1.5) {\Large \textbf{OK}};
+                \node[align=center] at (0,0.5) {\normalsize \textbf{8ª série}\\
+                \normalsize \textbf{Explicação simples}\\
+                \normalsize \textbf{Exemplo: pizza}};
+                \node[align=center] at (0,-1.2) {\small ChatGPT sabe\\
+                \small exatamente o que você precisa};
+            \end{tikzpicture}
+            \end{center}
+        \end{column}
+    \end{columns}
+    
+    \vspace{0.5cm}
+    \begin{center}
+        \Large \textbf{Seja específico!}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Template Perfeito}
+    \begin{center}
+    \begin{tikzpicture}[scale=1.0]
+        % Caixa principal
+        \filldraw[fill=azulclaro!20, draw=azul, very thick, rounded corners=15pt] (-4.5,-3.5) rectangle (4.5,3.5);
+        
+        % Elementos do template
+        \filldraw[fill=azul!30, draw=azul, very thick, rounded corners=10pt] (-4,2) rectangle (4,2.8);
+        \node[align=left] at (0,2.4) {\normalsize \textbf{1. Sua série:} 8ª série};
+        
+        \filldraw[fill=verde!30, draw=verde, very thick, rounded corners=10pt] (-4,0.8) rectangle (4,1.6);
+        \node[align=left] at (0,1.2) {\normalsize \textbf{2. O problema:} Não entendi frações};
+        
+        \filldraw[fill=laranja!30, draw=laranja, very thick, rounded corners=10pt] (-4,-0.4) rectangle (4,0.4);
+        \node[align=left] at (0,0) {\normalsize \textbf{3. Como explicar:} Como se tivesse 10 anos};
+        
+        \filldraw[fill=roxo!30, draw=roxo, very thick, rounded corners=10pt] (-4,-1.6) rectangle (4,-0.8);
+        \node[align=left] at (0,-1.2) {\normalsize \textbf{4. Exemplo:} Use analogia da pizza};
+    \end{tikzpicture}
+    \end{center}
+    
+    \vspace{0.3cm}
+    \begin{center}
+        \Large \textbf{Quanto mais detalhes, melhor!}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Dicas Visuais}
+    \begin{center}
+    \begin{tikzpicture}[scale=1.0]
+        % Dica 1 - Específico
+        \filldraw[fill=azul!30, draw=azul, very thick, rounded corners=12pt] (-3.5,2) rectangle (3.5,3.8);
+        \node[align=center] at (0,3.1) {\Large \textbf{1. Seja Específico}};
+        \node[align=center] at (0,2.4) {\small Diga exatamente o que você precisa};
+        
+        % Dica 2 - Contexto
+        \filldraw[fill=verde!30, draw=verde, very thick, rounded corners=12pt] (-3.5,0) rectangle (3.5,1.8);
+        \node[align=center] at (0,1.1) {\Large \textbf{2. Conte o Contexto}};
+        \node[align=center] at (0,0.4) {\small Explique a situação};
+        
+        % Dica 3 - Simples
+        \filldraw[fill=laranja!30, draw=laranja, very thick, rounded corners=12pt] (-3.5,-2) rectangle (3.5,-0.2);
+        \node[align=center] at (0,-0.9) {\Large \textbf{3. Peça Explicação Simples}};
+        \node[align=center] at (0,-1.4) {\small Como se você fosse mais novo};
+        
+        % Dica 4 - Exemplos
+        \filldraw[fill=roxo!30, draw=roxo, very thick, rounded corners=12pt] (-3.5,-4) rectangle (3.5,-2.2);
+        \node[align=center] at (0,-2.9) {\Large \textbf{4. Peça Exemplos Práticos}};
+        \node[align=center] at (0,-3.4) {\small Analogias do dia a dia};
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\section{Como Usar para Estudar}
+
+\begin{frame}
+    \frametitle{Quando Usar?}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.9]
+        % Não entendeu
+        \filldraw[fill=vermelho!20, draw=vermelho, very thick, rounded corners=12pt] (-4.5,1) rectangle (-0.5,3.5);
+        \node at (-2.5,2.8) {\Large \textbf{?}};
+        \node[align=center] at (-2.5,1.8) {\normalsize \textbf{Não}\\
+        \normalsize \textbf{entendeu}};
+        
+        % Exercício
+        \filldraw[fill=laranja!20, draw=laranja, very thick, rounded corners=12pt] (-0.2,1) rectangle (3.2,3.5);
+        \node at (1.5,2.8) {\Large \textbf{E}};
+        \node[align=center] at (1.5,1.8) {\normalsize \textbf{Exercício}\\
+        \small travado};
+        
+        % Revisão
+        \filldraw[fill=verde!20, draw=verde, very thick, rounded corners=12pt] (3.5,1) rectangle (7,3.5);
+        \node at (5.25,2.8) {\Large \textbf{R}};
+        \node[align=center] at (5.25,1.8) {\normalsize \textbf{Revisar}\\
+        \small para prova};
+        
+        % Setas para ChatGPT
+        \draw[->, very thick, azul] (-2.5,0.5) -- (-2.5,-0.5);
+        \draw[->, very thick, azul] (1.5,0.5) -- (1.5,-0.5);
+        \draw[->, very thick, azul] (5.25,0.5) -- (5.25,-0.5);
+        
+        % ChatGPT
+        \filldraw[fill=azul!30, draw=azul, very thick, rounded corners=15pt] (-3.5,-2.5) rectangle (7.5,-0.5);
+        \node at (2,-1.5) {\Large \textbf{ChatGPT}};
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exemplos Práticos}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.85]
+        % Exemplo 1
+        \filldraw[fill=azul!20, draw=azul, very thick, rounded corners=12pt] (-4.5,2) rectangle (4.5,4.2);
+        \node[align=center] at (0,3.5) {\normalsize \textbf{Exemplo 1: Não Entendeu}};
+        \node[align=center] at (0,2.6) {\small "Explica fotossíntese como se eu tivesse 10 anos"};
+        
+        % Exemplo 2
+        \filldraw[fill=verde!20, draw=verde, very thick, rounded corners=12pt] (-4.5,-0.3) rectangle (4.5,1.9);
+        \node[align=center] at (0,1.2) {\normalsize \textbf{Exemplo 2: Exercício}};
+        \node[align=center] at (0,0.3) {\small "Me dá dicas, não a resposta!"};
+        
+        % Exemplo 3
+        \filldraw[fill=laranja!20, draw=laranja, very thick, rounded corners=12pt] (-4.5,-2.8) rectangle (4.5,-0.6);
+        \node[align=center] at (0,-1.5) {\normalsize \textbf{Exemplo 3: Revisão}};
+        \node[align=center] at (0,-2.2) {\small "Faz resumo curto para prova"};
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\section{O que Fazer e NÃO Fazer}
+
+\begin{frame}
+    \frametitle{FAÇA vs. NÃO FAÇA}
+    \begin{center}
+    \begin{tikzpicture}[scale=1.0]
+        % Lado FAÇA
+        \filldraw[fill=verde!30, draw=verde, very thick, rounded corners=15pt] (-5.5,-3.5) rectangle (-0.5,3.5);
+        \node at (-3,2.5) {\Large \textbf{OK FAÇA}};
+        \node[align=left] at (-3,0.8) {\normalsize • Seja específico};
+        \node[align=left] at (-3,0) {\normalsize • Peça explicações};
+        \node[align=left] at (-3,-0.8) {\normalsize • Use para aprender};
+        \node[align=left] at (-3,-1.6) {\normalsize • Valide respostas};
+        
+        % Seta
+        \draw[<->, very thick, azul] (0,0) -- (0.5,0);
+        
+        % Lado NÃO FAÇA
+        \filldraw[fill=vermelho!30, draw=vermelho, very thick, rounded corners=15pt] (1,-3.5) rectangle (6,3.5);
+        \node at (3.5,2.5) {\Large \textbf{X NÃO FAÇA}};
+        \node[align=left] at (3.5,0.8) {\normalsize • Copiar sem entender};
+        \node[align=left] at (3.5,0) {\normalsize • Confiar cegamente};
+        \node[align=left] at (3.5,-0.8) {\normalsize • Usar para trapacear};
+        \node[align=left] at (3.5,-1.6) {\normalsize • Pular estudo};
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Regra de Ouro}
+    \begin{center}
+    \begin{tikzpicture}[scale=1.2]
+        % Círculo dourado
+        \filldraw[fill=yellow!40, draw=orange, very thick] (0,0) circle (2.5cm);
+        \node at (0,0.5) {\Huge \textbf{APRENDER}};
+        \node at (0,-0.5) {\Huge \textbf{NÃO}};
+        \node at (0,-1.3) {\Large \textbf{EVITAR}};
+        
+        % Setas
+        \draw[->, very thick, verde] (-3.5,0) -- (-2.8,0);
+        \draw[->, very thick, vermelho] (2.8,0) -- (3.5,0);
+        
+        \node at (-4.5,0) {\Large \textbf{OK}};
+        \node at (4.5,0) {\Large \textbf{X}};
+    \end{tikzpicture}
+    \end{center}
+    
+    \vspace{0.5cm}
+    \begin{center}
+        \Large \textbf{Use para aprender, não para evitar aprender!}
+    \end{center}
+\end{frame}
+
+\section{Cuidados}
+
+\begin{frame}
+    \frametitle{Cuidado! Pode estar errado}
+    \begin{center}
+    \begin{tikzpicture}[scale=1.0]
+        % Cabeça com interrogação
+        \filldraw[fill=amarelo!30, draw=orange, very thick] (0,1.5) circle (1.8cm);
+        \node at (0,1.5) {\Huge \textbf{?}};
+        
+        % Problemas
+        \filldraw[fill=vermelho!20, draw=vermelho, very thick, rounded corners=12pt] (-4,-1.2) rectangle (-1.5,-0.2);
+        \node[align=center] at (-2.75,-0.7) {\normalsize \textbf{Pode inventar}\\
+        \small informações};
+        
+        \filldraw[fill=laranja!20, draw=laranja, very thick, rounded corners=12pt] (-0.7,-1.2) rectangle (1.7,-0.2);
+        \node[align=center] at (0.5,-0.7) {\normalsize \textbf{Pode estar}\\
+        \small desatualizado};
+        
+        \filldraw[fill=azul!20, draw=azul, very thick, rounded corners=12pt] (2.5,-1.2) rectangle (5,-0.2);
+        \node[align=center] at (3.75,-0.7) {\normalsize \textbf{Pode confundir}\\
+        \small conceitos};
+        
+        % Solução
+        \filldraw[fill=verde!30, draw=verde, very thick, rounded corners=12pt] (-2.5,-3.2) rectangle (2.5,-2.2);
+        \node at (0,-2.7) {\Large \textbf{Sempre valide!}};
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Quando NÃO usar}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.8]
+        % Proibido em provas
+        \draw[very thick, vermelho] (-3,2) circle (1cm);
+        \draw[very thick, vermelho] (-3.7,1.3) -- (-2.3,2.7);
+        \node at (-3,-0.5) {\small \textbf{Provas}};
+        
+        % Proibido copiar
+        \draw[very thick, vermelho] (0,2) circle (1cm);
+        \draw[very thick, vermelho] (-0.7,1.3) -- (0.7,2.7);
+        \node at (0,-0.5) {\small \textbf{Copiar}};
+        
+        % Proibido substituir
+        \draw[very thick, vermelho] (3,2) circle (1cm);
+        \draw[very thick, vermelho] (2.3,1.3) -- (3.7,2.7);
+        \node at (3,-0.5) {\small \textbf{Substituir}};
+        
+        % Quando usar
+        \filldraw[fill=verde!30, draw=verde, very thick, rounded corners=10pt] (-3.5,-2.5) rectangle (3.5,-1.5);
+        \node at (0,-2) {\Large \textbf{Use para: Entender, Praticar, Revisar}};
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\section{Exemplos}
+
+\begin{frame}
+    \frametitle{Exemplo 1: Não Entendeu}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.9]
+        % Problema
+        \filldraw[fill=vermelho!20, draw=vermelho, very thick, rounded corners=12pt] (-4.5,2) rectangle (4.5,3.8);
+        \node[align=center] at (0,3.1) {\normalsize \textbf{Problema:} Não entendi fotossíntese};
+        
+        % Pergunta
+        \filldraw[fill=azul!20, draw=azul, very thick, rounded corners=12pt] (-4.5,0) rectangle (4.5,1.8);
+        \node[align=center] at (0,1.1) {\small "Explica fotossíntese como se eu tivesse 10 anos,\\
+        usando analogia de fábrica"};
+        
+        % Solução
+        \filldraw[fill=verde!20, draw=verde, very thick, rounded corners=12pt] (-4.5,-2.2) rectangle (4.5,-0.4);
+        \node[align=center] at (0,-1.4) {\normalsize \textbf{Resultado:} Entendeu de verdade!};
+        
+        % Setas
+        \draw[->, very thick, azul] (0,1.8) -- (0,2);
+        \draw[->, very thick, verde] (0,0) -- (0,-0.2);
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exemplo 2: Exercício}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.9]
+        % Problema
+        \filldraw[fill=laranja!20, draw=laranja, very thick, rounded corners=12pt] (-4.5,2) rectangle (4.5,3.8);
+        \node[align=center] at (0,3.1) {\normalsize \textbf{Problema:} Travado no exercício};
+        
+        % Pergunta
+        \filldraw[fill=azul!20, draw=azul, very thick, rounded corners=12pt] (-4.5,0) rectangle (4.5,1.8);
+        \node[align=center] at (0,1.1) {\small "Me dá dicas passo a passo,\\
+        mas não me dê a resposta!"};
+        
+        % Solução
+        \filldraw[fill=verde!20, draw=verde, very thick, rounded corners=12pt] (-4.5,-2.2) rectangle (4.5,-0.4);
+        \node[align=center] at (0,-1.4) {\normalsize \textbf{Resultado:} Aprendeu o método!};
+        
+        % Setas
+        \draw[->, very thick, azul] (0,1.8) -- (0,2);
+        \draw[->, very thick, verde] (0,0) -- (0,-0.2);
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exemplo 3: Revisão}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.9]
+        % Problema
+        \filldraw[fill=roxo!20, draw=roxo, very thick, rounded corners=12pt] (-4.5,2) rectangle (4.5,3.8);
+        \node[align=center] at (0,3.1) {\normalsize \textbf{Problema:} Prova amanhã, muita matéria};
+        
+        % Pergunta
+        \filldraw[fill=azul!20, draw=azul, very thick, rounded corners=12pt] (-4.5,0) rectangle (4.5,1.8);
+        \node[align=center] at (0,1.1) {\small "Faz resumo super curto\\
+        só o essencial"};
+        
+        % Solução
+        \filldraw[fill=verde!20, draw=verde, very thick, rounded corners=12pt] (-4.5,-2.2) rectangle (4.5,-0.4);
+        \node[align=center] at (0,-1.4) {\normalsize \textbf{Resultado:} Revisou rápido!};
+        
+        % Setas
+        \draw[->, very thick, azul] (0,1.8) -- (0,2);
+        \draw[->, very thick, verde] (0,0) -- (0,-0.2);
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\section{Conclusão}
+
+\begin{frame}
+    \frametitle{Resumo Visual}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.7]
+        % Tia fofoqueira
+        \filldraw[fill=laranja!30, draw=orange, very thick] (-4,2) circle (0.8cm);
+        \node at (-4,2) {\Large \textbf{C}};
+        \node at (-4,0.8) {\small Tia};
+        \node at (-4,0.3) {\small Fofoqueira};
+        
+        % Perguntas boas
+        \filldraw[fill=verde!30, draw=verde, very thick, rounded corners=10pt] (-1,1) rectangle (1,3);
+        \node at (0,2.5) {\Large \textbf{OK}};
+        \node at (0,1.5) {\small Perguntas};
+        \node at (0,1.2) {\small Boas};
+        
+        % Aprender
+        \filldraw[fill=azul!30, draw=azul, very thick, rounded corners=10pt] (2.5,1) rectangle (4.5,3);
+        \node at (3.5,2.5) {\Large \textbf{L}};
+        \node at (3.5,1.5) {\small Aprender};
+        
+        % Validar
+        \filldraw[fill=amarelo!30, draw=orange, very thick, rounded corners=10pt] (-1,-1.5) rectangle (1,0.5);
+        \node at (0,0) {\Large \textbf{OK}};
+        \node at (0,-0.8) {\small Validar};
+        
+        % Não trapacear
+        \filldraw[fill=vermelho!30, draw=vermelho, very thick, rounded corners=10pt] (2.5,-1.5) rectangle (4.5,0.5);
+        \node at (3.5,0) {\Large \textbf{X}};
+        \node at (3.5,-0.8) {\small Trapacear};
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Dicas Finais}
+    \begin{center}
+    \begin{tikzpicture}[scale=1.0]
+        % Dica 1
+        \filldraw[fill=azul!30, draw=azul, very thick, rounded corners=12pt] (-4,2) rectangle (-1,3.8);
+        \node[align=center] at (-2.5,3.2) {\normalsize \textbf{1.}\\
+        \small Experimente};
+        
+        % Dica 2
+        \filldraw[fill=verde!30, draw=verde, very thick, rounded corners=12pt] (-0.3,2) rectangle (2.3,3.8);
+        \node[align=center] at (1,3.2) {\normalsize \textbf{2.}\\
+        \small Valide};
+        
+        % Dica 3
+        \filldraw[fill=laranja!30, draw=laranja, very thick, rounded corners=12pt] (2.7,2) rectangle (5,3.8);
+        \node[align=center] at (3.85,3.2) {\normalsize \textbf{3.}\\
+        \small Pratique};
+        
+        % Mensagem central
+        \filldraw[fill=amarelo!40, draw=orange, very thick, rounded corners=15pt] (-4,-1.2) rectangle (5,1.2);
+        \node[align=center] at (0.5,0) {\Large \textbf{Use com sabedoria!}\\
+        \normalsize É seu ajudante, não substituto!};
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Dúvidas?}
+    \begin{center}
+    \begin{tikzpicture}[scale=1.2]
+        % Interrogação grande
+        \filldraw[fill=azul!30, draw=azul, very thick] (0,0) circle (2cm);
+        \node at (0,0) {\Huge \textbf{?}};
+    \end{tikzpicture}
+    \end{center}
+    
+    \vspace{0.5cm}
+    \begin{center}
+        \Large \textbf{Obrigado pela atenção!}\\
+        \vspace{0.3cm}
+        \normalsize \textbf{Use o ChatGPT com sabedoria!}
+    \end{center}
+    
+    \vspace{0.3cm}
+    \begin{center}
+        \small Professor Dr. Bento Rafael Siqueira\\
+        \small bento.siqueira@ufla.br
+    \end{center}
+\end{frame}
+
+\end{document}

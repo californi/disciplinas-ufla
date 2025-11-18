@@ -1,0 +1,11 @@
+\babel@toc {brazilian}{}\relax 
+\beamer@sectionintoc {1}{Introdução aos Relacionamentos}{3}{0}{1}
+\beamer@sectionintoc {2}{Associação}{5}{0}{2}
+\beamer@sectionintoc {3}{Agregação}{7}{0}{3}
+\beamer@sectionintoc {4}{Composição}{9}{0}{4}
+\beamer@sectionintoc {5}{Comparação dos Relacionamentos}{11}{0}{5}
+\beamer@sectionintoc {6}{Implementação em C\#}{13}{0}{6}
+\beamer@sectionintoc {7}{Exemplos de Código}{15}{0}{7}
+\beamer@sectionintoc {8}{Exercícios Práticos}{18}{0}{8}
+\beamer@sectionintoc {9}{Boas Práticas}{21}{0}{9}
+\beamer@sectionintoc {10}{Próximos Passos}{24}{0}{10}

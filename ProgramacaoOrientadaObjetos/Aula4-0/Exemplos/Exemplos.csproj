@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyTitle>Herança - Exemplos</AssemblyTitle>
+    <AssemblyDescription>Demonstração de Herança em C#</AssemblyDescription>
+    <AssemblyCompany>UFLA - Departamento de Ciência da Computação</AssemblyCompany>
+    <AssemblyProduct>Programação Orientada a Objetos</AssemblyProduct>
+    <AssemblyCopyright>Copyright © 2024</AssemblyCopyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+
+</Project>

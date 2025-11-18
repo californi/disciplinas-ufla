@@ -1,0 +1,599 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Configurações do tema
+\usetheme{Berkeley}
+\usecolortheme{spruce}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+% Configuração do logo da UFLA
+\setbeamertemplate{headline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.2cm]{section in head/foot}%
+    \begin{center}
+      \vspace{0.1cm}
+      \includegraphics[height=1.0cm]{../../Image/ufla-logo.PNG}
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Configuração do título centralizado
+\setbeamertemplate{frametitle}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm]{frametitle}%
+    \begin{center}
+      \insertframetitle
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Pacotes necessários
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{listings}
+
+% Configurações de cores
+\definecolor{azul}{RGB}{0,51,102}
+\definecolor{azulclaro}{RGB}{51,102,153}
+\definecolor{lightblue}{RGB}{173,216,230}
+\definecolor{lightgreen}{RGB}{144,238,144}
+\definecolor{lightcoral}{RGB}{240,128,128}
+\definecolor{lightyellow}{RGB}{255,255,224}
+\definecolor{lightpink}{RGB}{255,182,193}
+\definecolor{lightgray}{RGB}{211,211,211}
+\definecolor{orange}{RGB}{255,165,0}
+\setbeamercolor{title}{fg=white,bg=azul}
+\setbeamercolor{frametitle}{fg=white,bg=azulclaro}
+\setbeamercolor{section title}{fg=white,bg=azul}
+
+% Configurações do listings para código
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    showstringspaces=false,
+    tabsize=2
+}
+
+% Informações do documento
+\title{Programação Orientada a Objetos}
+\subtitle{GCT052 - Aula 2.5 - Relacionamentos entre Objetos}
+\author{Prof. Dr. Bento Rafael Siqueira}
+\institute{Universidade Federal de Lavras\\Departamento de Ciência da Computação}
+\date{\today}
+
+\begin{document}
+
+% Slide de título
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Slide de sumário
+\begin{frame}{Sumário}
+\tableofcontents
+\end{frame}
+
+% Seção 1: Introdução
+\section{Introdução aos Relacionamentos}
+
+\begin{frame}{O que são Relacionamentos entre Objetos?}
+\begin{itemize}
+\item \textbf{Relacionamentos} definem como objetos se conectam e interagem
+\item \textbf{Associação}: Relacionamento simples entre objetos independentes
+\item \textbf{Agregação}: Relacionamento "tem um" onde o objeto parte pode existir independentemente
+\item \textbf{Composição}: Relacionamento "tem um" onde o objeto parte não pode existir sem o todo
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Analogia do Mundo Real:}
+\begin{itemize}
+\item \textbf{Associação}: Pessoa e Livro (pessoa pode ler livro)
+\item \textbf{Agregação}: Universidade e Professor (professor pode existir sem universidade)
+\item \textbf{Composição}: Casa e Quarto (quarto não existe sem casa)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Por que estudar Relacionamentos?}
+\begin{enumerate}
+\item \textbf{Modelagem Realista}: Representa melhor o mundo real
+\item \textbf{Reutilização}: Objetos podem ser reutilizados em diferentes contextos
+\item \textbf{Flexibilidade}: Facilita mudanças e manutenção
+\item \textbf{Organização}: Código mais estruturado e compreensível
+\item \textbf{Design Patterns}: Base para padrões de projeto avançados
+\end{enumerate}
+
+\vspace{0.5cm}
+\textbf{Vantagens:}
+\begin{itemize}
+\item Código mais modular e flexível
+\item Facilita trabalho em equipe
+\item Melhora manutenibilidade
+\item Permite modelagem complexa
+\end{itemize}
+\end{frame}
+
+% Seção 2: Associação
+\section{Associação}
+
+\begin{frame}{O que é Associação?}
+\begin{itemize}
+\item \textbf{Associação}: Relacionamento mais fraco entre objetos independentes
+\item \textbf{Características}:
+\begin{itemize}
+\item Objetos podem existir independentemente
+\item Relacionamento temporário ou permanente
+\item Ambos os objetos têm vida própria
+\item Comunicação através de métodos
+\end{itemize}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Exemplos do Dia a Dia:}
+\begin{itemize}
+\item \textbf{Pessoa} e \textbf{Carro} (pessoa pode dirigir carro)
+\item \textbf{Professor} e \textbf{Aluno} (professor ensina aluno)
+\item \textbf{Cliente} e \textbf{Produto} (cliente compra produto)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tipos de Associação}
+\begin{enumerate}
+\item \textbf{Associação Simples}: Relacionamento básico entre duas classes
+\item \textbf{Associação Unidirecional}: Um objeto conhece o outro, mas não vice-versa
+\item \textbf{Associação Bidirecional}: Ambos os objetos se conhecem mutuamente
+\item \textbf{Associação Reflexiva}: Objeto se relaciona consigo mesmo
+\end{enumerate}
+
+\vspace{0.5cm}
+\textbf{Multiplicidade:}
+\begin{itemize}
+\item \textbf{1:1}: Um para um
+\item \textbf{1:N}: Um para muitos
+\item \textbf{N:N}: Muitos para muitos
+\end{itemize}
+\end{frame}
+
+% Seção 3: Agregação
+\section{Agregação}
+
+\begin{frame}{O que é Agregação?}
+\begin{itemize}
+\item \textbf{Agregação}: Relacionamento "tem um" onde a parte pode existir independentemente
+\item \textbf{Características}:
+\begin{itemize}
+\item Objeto todo contém objetos partes
+\item Partes podem existir sem o todo
+\item Relacionamento de propriedade fraca
+\item Destruição do todo não destrói as partes
+\end{itemize}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Exemplos do Mundo Real:}
+\begin{itemize}
+\item \textbf{Universidade} e \textbf{Professor} (universidade tem professores)
+\item \textbf{Carro} e \textbf{Roda} (carro tem rodas)
+\item \textbf{Escola} e \textbf{Aluno} (escola tem alunos)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Características da Agregação}
+\begin{itemize}
+\item \textbf{Símbolo}: Losango vazio na UML
+\item \textbf{Propriedade}: "tem um" ou "contém"
+\item \textbf{Vida Útil}: Partes podem sobreviver ao todo
+\item \textbf{Criação}: Todo pode criar ou receber partes
+\item \textbf{Destruição}: Todo pode ser destruído sem afetar partes
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Implementação em C\#:}
+\begin{itemize}
+\item Uso de propriedades ou campos
+\item Injeção de dependência
+\item Coleções para múltiplas partes
+\item Métodos para gerenciar partes
+\end{itemize}
+\end{frame}
+
+% Seção 4: Composição
+\section{Composição}
+
+\begin{frame}{O que é Composição?}
+\begin{itemize}
+\item \textbf{Composição}: Relacionamento "tem um" onde a parte não pode existir sem o todo
+\item \textbf{Características}:
+\begin{itemize}
+\item Objeto todo possui objetos partes
+\item Partes não podem existir independentemente
+\item Relacionamento de propriedade forte
+\item Destruição do todo destrói as partes
+\end{itemize}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Exemplos do Mundo Real:}
+\begin{itemize}
+\item \textbf{Casa} e \textbf{Quarto} (casa tem quartos)
+\item \textbf{Carro} e \textbf{Motor} (carro tem motor)
+\item \textbf{Pessoa} e \textbf{Coração} (pessoa tem coração)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Características da Composição}
+\begin{itemize}
+\item \textbf{Símbolo}: Losango preenchido na UML
+\item \textbf{Propriedade}: "possui" ou "é composto por"
+\item \textbf{Vida Útil}: Partes dependem do todo
+\item \textbf{Criação}: Todo cria suas próprias partes
+\item \textbf{Destruição}: Todo destrói suas partes ao ser destruído
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Implementação em C\#:}
+\begin{itemize}
+\item Criação de objetos no construtor
+\item Propriedades somente leitura
+\item Gerenciamento de ciclo de vida
+\item Métodos para operações nas partes
+\end{itemize}
+\end{frame}
+
+% Seção 5: Comparação dos Relacionamentos
+\section{Comparação dos Relacionamentos}
+
+\begin{frame}{Diferenças entre os Relacionamentos}
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Característica} & \textbf{Associação} & \textbf{Agregação} & \textbf{Composição} \\
+\hline
+Força do relacionamento & Fraca & Média & Forte \\
+\hline
+Existência independente & Sim & Sim & Não \\
+\hline
+Propriedade & Não & Parcial & Total \\
+\hline
+Ciclo de vida & Independente & Independente & Dependente \\
+\hline
+Símbolo UML & Linha simples & Losango vazio & Losango preenchido \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{0.5cm}
+\textbf{Regra Prática:}
+\begin{itemize}
+\item \textbf{Associação}: "usa" ou "conhece"
+\item \textbf{Agregação}: "tem" (pode existir sem)
+\item \textbf{Composição}: "possui" (não pode existir sem)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplos Práticos de Comparação}
+\textbf{Cenário: Sistema de Biblioteca}
+
+\begin{itemize}
+\item \textbf{Associação}: \texttt{Bibliotecario} e \texttt{Livro}
+\begin{itemize}
+\item Bibliotecário pode trabalhar com diferentes livros
+\item Livro pode ser usado por diferentes bibliotecários
+\end{itemize}
+
+\item \textbf{Agregação}: \texttt{Biblioteca} e \texttt{Livro}
+\begin{itemize}
+\item Biblioteca contém livros
+\item Livro pode existir fora da biblioteca
+\end{itemize}
+
+\item \textbf{Composição}: \texttt{Livro} e \textbf{Página}
+\begin{itemize}
+\item Livro é composto por páginas
+\item Página não pode existir sem o livro
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+% Seção 6: Implementação em C#
+\section{Implementação em C\#}
+
+\begin{frame}{Estrutura Básica para Relacionamentos}
+\textbf{Elementos principais:}
+\begin{itemize}
+\item \textbf{Classes independentes} para associação
+\item \textbf{Propriedades} para agregação e composição
+\item \textbf{Construtores} para inicialização
+\item \textbf{Métodos} para operações relacionadas
+\item \textbf{Collections} para relacionamentos 1:N
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Exemplo básico:} Ver arquivos \texttt{Exemplos/}
+\end{frame}
+
+\begin{frame}{Padrões de Implementação}
+\textbf{Associação:}
+\begin{itemize}
+\item Referências através de métodos
+\item Parâmetros em métodos
+\item Propriedades opcionais
+\end{itemize}
+
+\textbf{Agregação:}
+\begin{itemize}
+\item Propriedades públicas/privadas
+\item Injeção via construtor
+\item Coleções para múltiplas partes
+\end{itemize}
+
+\textbf{Composição:}
+\begin{itemize}
+\item Criação no construtor
+\item Propriedades somente leitura
+\item Gerenciamento de ciclo de vida
+\end{itemize}
+\end{frame}
+
+% Seção 7: Exemplos de Código
+\section{Exemplos de Código}
+
+\begin{frame}{Exemplo 1: Sistema de Biblioteca - Associação}
+\textbf{Arquivo: Exemplos/Bibliotecario.cs e Livro.cs}
+\begin{itemize}
+\item Classe \texttt{Bibliotecario} com método \texttt{ProcessarLivro()}
+\item Classe \texttt{Livro} independente
+\item Relacionamento através de parâmetros de método
+\item Ambos podem existir independentemente
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Características:}
+\begin{itemize}
+\item Relacionamento temporário
+\item Comunicação via métodos
+\item Flexibilidade máxima
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo 2: Sistema de Universidade - Agregação}
+\textbf{Arquivo: Exemplos/Universidade.cs e Professor.cs}
+\begin{itemize}
+\item Classe \texttt{Universidade} com lista de \texttt{Professor}
+\item Classe \texttt{Professor} independente
+\item Métodos para adicionar/remover professores
+\item Professores podem existir sem universidade
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Características:}
+\begin{itemize}
+\item Propriedade fraca
+\item Ciclo de vida independente
+\item Flexibilidade moderada
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo 3: Sistema de Casa - Composição}
+\textbf{Arquivo: Exemplos/Casa.cs e Quarto.cs}
+\begin{itemize}
+\item Classe \texttt{Casa} que cria seus próprios \texttt{Quarto}s
+\item Classe \texttt{Quarto} dependente da casa
+\item Quartos são criados no construtor da casa
+\item Quartos não podem existir sem casa
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Características:}
+\begin{itemize}
+\item Propriedade forte
+\item Ciclo de vida dependente
+\item Controle total sobre partes
+\end{itemize}
+\end{frame}
+
+% Seção 8: Exercícios Práticos
+\section{Exercícios Práticos}
+
+\begin{frame}{Exercício 1: Sistema de Loja}
+\textbf{Crie um sistema de loja com:}
+
+\textbf{Classes necessárias:}
+\begin{itemize}
+\item \texttt{Loja} (nome, endereço)
+\item \texttt{Produto} (nome, preço, estoque)
+\item \texttt{Vendedor} (nome, comissão)
+\item \texttt{Cliente} (nome, telefone)
+\end{itemize}
+
+\textbf{Relacionamentos:}
+\begin{itemize}
+\item \textbf{Associação}: Cliente compra Produto
+\item \textbf{Agregação}: Loja tem Vendedores e Produtos
+\item \textbf{Composição}: Loja tem Caixa (não pode existir sem loja)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tempo}: 25 minutos
+\end{frame}
+
+\begin{frame}{Exercício 2: Sistema de Escola}
+\textbf{Crie um sistema escolar com:}
+
+\textbf{Classes necessárias:}
+\begin{itemize}
+\item \texttt{Escola} (nome, endereço)
+\item \texttt{Professor} (nome, disciplina)
+\item \texttt{Aluno} (nome, matrícula)
+\item \texttt{Disciplina} (nome, carga horária)
+\end{itemize}
+
+\textbf{Relacionamentos:}
+\begin{itemize}
+\item \textbf{Associação}: Professor ensina Disciplina
+\item \textbf{Agregação}: Escola tem Professores e Alunos
+\item \textbf{Composição}: Escola tem Direção (não existe sem escola)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tempo}: 30 minutos
+\end{frame}
+
+\begin{frame}{Exercício 3: Sistema de Hospital}
+\textbf{Crie um sistema hospitalar com:}
+
+\textbf{Classes necessárias:}
+\begin{itemize}
+\item \texttt{Hospital} (nome, especialidades)
+\item \texttt{Medico} (nome, CRM, especialidade)
+\item \texttt{Paciente} (nome, idade, sintomas)
+\item \texttt{Consulta} (data, diagnóstico)
+\end{itemize}
+
+\textbf{Relacionamentos:}
+\begin{itemize}
+\item \textbf{Associação}: Médico atende Paciente
+\item \textbf{Agregação}: Hospital tem Médicos
+\item \textbf{Composição}: Hospital tem Pronto Socorro
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tempo}: 35 minutos
+\end{frame}
+
+% Seção 9: Boas Práticas
+\section{Boas Práticas}
+
+\begin{frame}{Design de Relacionamentos}
+\begin{itemize}
+\item \textbf{Escolha o relacionamento correto} baseado no domínio
+\item \textbf{Use composição} quando a parte não pode existir sem o todo
+\item \textbf{Use agregação} quando a parte pode existir independentemente
+\item \textbf{Use associação} para relacionamentos temporários ou de uso
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Princípios:}
+\begin{itemize}
+\item \textbf{Princípio da Responsabilidade Única}: Cada classe tem uma responsabilidade
+\item \textbf{Princípio Aberto/Fechado}: Aberto para extensão, fechado para modificação
+\item \textbf{Princípio da Inversão de Dependência}: Dependa de abstrações, não de concretizações
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Implementação em C\#}
+\begin{itemize}
+\item \textbf{Use properties} para relacionamentos simples
+\item \textbf{Use collections} para relacionamentos 1:N
+\item \textbf{Implemente métodos} para operações relacionadas
+\item \textbf{Use construtores} apropriados para cada tipo
+\item \textbf{Documente} os relacionamentos com XML comments
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Exemplo de XML Comments:}
+\begin{itemize}
+\item \texttt{/// <summary>}
+\item \texttt{/// Relacionamento de agregação com professores}
+\item \texttt{/// </summary>}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Testes e Validação}
+\begin{itemize}
+\item \textbf{Teste a criação} de objetos relacionados
+\item \textbf{Valide a destruição} apropriada
+\item \textbf{Verifique a independência} quando aplicável
+\item \textbf{Teste operações} em relacionamentos
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Validações importantes:}
+\begin{itemize}
+\item Objetos não podem ser nulos quando necessário
+\item Relacionamentos devem ser consistentes
+\item Ciclo de vida deve ser respeitado
+\item Operações devem manter integridade
+\end{itemize}
+\end{frame}
+
+% Seção 10: Próximos Passos
+\section{Próximos Passos}
+
+\begin{frame}{Tópicos Relacionados}
+\begin{enumerate}
+\item \textbf{Herança}
+\begin{itemize}
+\item Relacionamento "é um"
+\item Reutilização de código
+\item Polimorfismo
+\end{itemize}
+
+\item \textbf{Interfaces}
+\begin{itemize}
+\item Contratos de comportamento
+\item Múltiplas implementações
+\item Abstração avançada
+\end{itemize}
+
+\item \textbf{Design Patterns}
+\begin{itemize}
+\item Padrões de relacionamento
+\item Soluções reutilizáveis
+\item Arquitetura de software
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Leitura Recomendada}
+\begin{itemize}
+\item \textbf{Microsoft Docs}: Object-Oriented Programming in C\#
+\item \textbf{Clean Code}: Robert C. Martin
+\item \textbf{Design Patterns}: Gang of Four
+\item \textbf{UML Distilled}: Martin Fowler
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Prática Recomendada:}
+\begin{enumerate}
+\item Implemente os exemplos da pasta \texttt{Exemplos}
+\item Resolva os exercícios propostos
+\item Crie seus próprios sistemas com relacionamentos
+\item Pratique identificando relacionamentos no mundo real
+\end{enumerate}
+\end{frame}
+
+% Slide final
+\begin{frame}{Dúvidas e Discussão}
+\begin{center}
+\textbf{Obrigado pela atenção!}
+\end{center}
+
+\textbf{Pontos-Chave da Aula}:
+\begin{enumerate}
+\item \textbf{Associação} é o relacionamento mais fraco entre objetos independentes
+\item \textbf{Agregação} permite que partes existam independentemente do todo
+\item \textbf{Composição} cria dependência forte entre todo e partes
+\item \textbf{Escolha correta} do relacionamento é fundamental para um bom design
+\end{enumerate}
+
+\vspace{0.5cm}
+\begin{center}
+\includegraphics[width=0.4\textwidth]{../../Image/ufla-logo.PNG}
+\end{center}
+
+\vspace{0.3cm}
+\textbf{Próxima Aula}: Herança e Polimorfismo
+
+\vspace{0.3cm}
+\textbf{Contato}: bento.siqueira@ufla.br\\
+\textbf{Material}: Disponível no sistema acadêmico
+\end{frame}
+
+\end{document}

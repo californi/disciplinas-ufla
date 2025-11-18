@@ -1,0 +1,15 @@
+/Users/bentosiqueira/Documents/GitHub/Disciplinas/disciplinas-ufla/ProgramacaoOrientadaObjetos/Aula2-5/Exemplos/bin/Debug/net7.0/Exemplos
+/Users/bentosiqueira/Documents/GitHub/Disciplinas/disciplinas-ufla/ProgramacaoOrientadaObjetos/Aula2-5/Exemplos/bin/Debug/net7.0/Exemplos.deps.json
+/Users/bentosiqueira/Documents/GitHub/Disciplinas/disciplinas-ufla/ProgramacaoOrientadaObjetos/Aula2-5/Exemplos/bin/Debug/net7.0/Exemplos.runtimeconfig.json
+/Users/bentosiqueira/Documents/GitHub/Disciplinas/disciplinas-ufla/ProgramacaoOrientadaObjetos/Aula2-5/Exemplos/bin/Debug/net7.0/Exemplos.dll
+/Users/bentosiqueira/Documents/GitHub/Disciplinas/disciplinas-ufla/ProgramacaoOrientadaObjetos/Aula2-5/Exemplos/bin/Debug/net7.0/Exemplos.pdb
+/Users/bentosiqueira/Documents/GitHub/Disciplinas/disciplinas-ufla/ProgramacaoOrientadaObjetos/Aula2-5/Exemplos/obj/Debug/net7.0/Exemplos.csproj.AssemblyReference.cache
+/Users/bentosiqueira/Documents/GitHub/Disciplinas/disciplinas-ufla/ProgramacaoOrientadaObjetos/Aula2-5/Exemplos/obj/Debug/net7.0/Exemplos.GeneratedMSBuildEditorConfig.editorconfig
+/Users/bentosiqueira/Documents/GitHub/Disciplinas/disciplinas-ufla/ProgramacaoOrientadaObjetos/Aula2-5/Exemplos/obj/Debug/net7.0/Exemplos.AssemblyInfoInputs.cache
+/Users/bentosiqueira/Documents/GitHub/Disciplinas/disciplinas-ufla/ProgramacaoOrientadaObjetos/Aula2-5/Exemplos/obj/Debug/net7.0/Exemplos.AssemblyInfo.cs
+/Users/bentosiqueira/Documents/GitHub/Disciplinas/disciplinas-ufla/ProgramacaoOrientadaObjetos/Aula2-5/Exemplos/obj/Debug/net7.0/Exemplos.csproj.CoreCompileInputs.cache
+/Users/bentosiqueira/Documents/GitHub/Disciplinas/disciplinas-ufla/ProgramacaoOrientadaObjetos/Aula2-5/Exemplos/obj/Debug/net7.0/Exemplos.dll
+/Users/bentosiqueira/Documents/GitHub/Disciplinas/disciplinas-ufla/ProgramacaoOrientadaObjetos/Aula2-5/Exemplos/obj/Debug/net7.0/refint/Exemplos.dll
+/Users/bentosiqueira/Documents/GitHub/Disciplinas/disciplinas-ufla/ProgramacaoOrientadaObjetos/Aula2-5/Exemplos/obj/Debug/net7.0/Exemplos.pdb
+/Users/bentosiqueira/Documents/GitHub/Disciplinas/disciplinas-ufla/ProgramacaoOrientadaObjetos/Aula2-5/Exemplos/obj/Debug/net7.0/Exemplos.genruntimeconfig.cache
+/Users/bentosiqueira/Documents/GitHub/Disciplinas/disciplinas-ufla/ProgramacaoOrientadaObjetos/Aula2-5/Exemplos/obj/Debug/net7.0/ref/Exemplos.dll

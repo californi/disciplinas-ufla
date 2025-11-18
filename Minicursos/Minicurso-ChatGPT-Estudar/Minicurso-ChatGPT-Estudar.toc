@@ -1,0 +1,8 @@
+\babel@toc {portuguese}{}\relax 
+\beamer@sectionintoc {1}{Introdução}{2}{0}{1}
+\beamer@sectionintoc {2}{Como Fazer Perguntas}{7}{0}{2}
+\beamer@sectionintoc {3}{Como Usar para Estudar}{10}{0}{3}
+\beamer@sectionintoc {4}{O que Fazer e NÃO Fazer}{12}{0}{4}
+\beamer@sectionintoc {5}{Cuidados}{14}{0}{5}
+\beamer@sectionintoc {6}{Exemplos}{16}{0}{6}
+\beamer@sectionintoc {7}{Conclusão}{19}{0}{7}

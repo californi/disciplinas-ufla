@@ -1,0 +1,589 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Configurações do tema
+\usetheme{Berkeley}
+\usecolortheme{spruce}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+% Configuração do logo da UFLA
+\setbeamertemplate{headline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.2cm]{section in head/foot}%
+    \begin{center}
+      \vspace{0.1cm}
+      \includegraphics[height=1.0cm]{../../Image/ufla-logo.PNG}
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Configuração do título centralizado
+\setbeamertemplate{frametitle}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm,dp=0.3cm]{frametitle}%
+    \begin{center}
+      \insertframetitle
+    \end{center}
+  \end{beamercolorbox}%
+}
+
+% Pacotes necessários
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{listings}
+
+% Configurações de cores
+\definecolor{azul}{RGB}{0,51,102}
+\definecolor{azulclaro}{RGB}{51,102,153}
+\definecolor{lightblue}{RGB}{173,216,230}
+\definecolor{lightgreen}{RGB}{144,238,144}
+\definecolor{lightcoral}{RGB}{240,128,128}
+\definecolor{lightyellow}{RGB}{255,255,224}
+\definecolor{lightpink}{RGB}{255,182,193}
+\definecolor{lightgray}{RGB}{211,211,211}
+\definecolor{orange}{RGB}{255,165,0}
+\setbeamercolor{title}{fg=white,bg=azul}
+\setbeamercolor{frametitle}{fg=white,bg=azulclaro}
+\setbeamercolor{section title}{fg=white,bg=azul}
+
+% Configurações do listings para código
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    showstringspaces=false,
+    tabsize=2
+}
+
+% Informações do documento
+\title{Programação Orientada a Objetos}
+\subtitle{GCT052 - Aula 4.0 - Herança}
+\author{Prof. Dr. Bento Rafael Siqueira}
+\institute{Universidade Federal de Lavras\\Departamento de Ciência da Computação}
+\date{\today}
+
+\begin{document}
+
+% Slide de título
+\begin{frame}
+\titlepage
+\end{frame}
+
+% Slide de sumário
+\begin{frame}{Sumário}
+\tableofcontents
+\end{frame}
+
+% Seção 1: Introdução
+\section{Introdução à Herança}
+
+\begin{frame}{O que é Herança?}
+\begin{itemize}
+\item \textbf{Herança}: Mecanismo que permite criar novas classes baseadas em classes existentes
+\item \textbf{Classe Base (Pai)}: Classe que fornece características e comportamentos
+\item \textbf{Classe Derivada (Filha)}: Classe que herda e pode estender ou modificar
+\item \textbf{Relacionamento "é um"}: Classe filha é um tipo especial da classe pai
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Analogia do Mundo Real:}
+\begin{itemize}
+\item \textbf{Classe Base}: Animal
+\item \textbf{Classes Derivadas}: Cachorro, Gato, Pássaro
+\item \textbf{Relacionamento}: Cachorro é um Animal, Gato é um Animal
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Por que usar Herança?}
+\begin{enumerate}
+\item \textbf{Reutilização de Código}: Evita duplicação
+\item \textbf{Organização}: Hierarquia clara e lógica
+\item \textbf{Manutenção}: Mudanças na classe base afetam todas as derivadas
+\item \textbf{Polimorfismo}: Permite tratar objetos de forma uniforme
+\item \textbf{Extensibilidade}: Fácil adicionar novos tipos
+\end{enumerate}
+
+\vspace{0.5cm}
+\textbf{Vantagens:}
+\begin{itemize}
+\item Código mais limpo e organizado
+\item Facilita manutenção e evolução
+\item Permite modelagem hierárquica do mundo real
+\item Base para polimorfismo
+\end{itemize}
+\end{frame}
+
+% Seção 2: Conceitos Fundamentais
+\section{Conceitos Fundamentais}
+
+\begin{frame}{Terminologia da Herança}
+\begin{itemize}
+\item \textbf{Classe Base (Superclasse)}: Classe que é herdada
+\item \textbf{Classe Derivada (Subclasse)}: Classe que herda
+\item \textbf{Herança Simples}: Uma classe pode herdar de apenas uma classe base
+\item \textbf{Herança Múltipla}: Não suportada em C\# (mas interfaces sim)
+\item \textbf{Modificador protected}: Acessível na classe e nas derivadas
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Exemplo:}
+\begin{itemize}
+\item \textbf{Classe Base}: \texttt{Veiculo}
+\item \textbf{Classe Derivada}: \texttt{Carro : Veiculo}
+\item \textbf{Relacionamento}: Carro é um Veículo
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Sintaxe de Herança em C\#}
+\textbf{Sintaxe básica:}
+\begin{itemize}
+\item \texttt{public class ClasseDerivada : ClasseBase}
+\item \texttt{public class Cachorro : Animal}
+\item \texttt{public class Carro : Veiculo}
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Características:}
+\begin{itemize}
+\item Usa dois pontos (\texttt{:}) para indicar herança
+\item Classe derivada herda todos os membros públicos e protegidos
+\item Pode adicionar novos membros
+\item Pode sobrescrever métodos virtuais
+\item Pode chamar construtor da classe base com \texttt{base()}
+\end{itemize}
+\end{frame}
+
+% Seção 3: Modificadores de Acesso
+\section{Modificadores de Acesso}
+
+\begin{frame}{Modificadores e Herança}
+\begin{enumerate}
+\item \textbf{public}: Acessível de qualquer lugar
+\item \textbf{private}: Acessível apenas na própria classe
+\item \textbf{protected}: Acessível na classe e nas classes derivadas
+\item \textbf{internal}: Acessível no mesmo assembly
+\item \textbf{protected internal}: Acessível no assembly ou classes derivadas
+\end{enumerate}
+
+\vspace{0.5cm}
+\textbf{Boas Práticas:}
+\begin{itemize}
+\item Use \textbf{protected} para membros que classes derivadas precisam acessar
+\item Mantenha encapsulamento com \textbf{private}
+\item Use \textbf{public} para interface pública
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Construtores e Herança}
+\begin{itemize}
+\item \textbf{Construtor da Base}: Pode ser chamado com \texttt{base()}
+\item \textbf{Ordem de Execução}: Base primeiro, depois derivada
+\item \textbf{Construtor Padrão}: Se não especificar, chama construtor sem parâmetros da base
+\item \textbf{Construtor Específico}: Deve chamar explicitamente com \texttt{base()}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Exemplo:}
+\begin{itemize}
+\item \texttt{public Cachorro(string nome) : base(nome, "Cachorro")}
+\item Primeiro executa construtor de \texttt{Animal}
+\item Depois executa construtor de \texttt{Cachorro}
+\end{itemize}
+\end{frame}
+
+% Seção 4: Sobrescrita de Métodos
+\section{Sobrescrita de Métodos}
+
+\begin{frame}{Métodos Virtuais e Override}
+\begin{itemize}
+\item \textbf{virtual}: Permite que método seja sobrescrito
+\item \textbf{override}: Sobrescreve método virtual da classe base
+\item \textbf{sealed}: Impede que método seja sobrescrito novamente
+\item \textbf{new}: Oculta membro da classe base (não recomendado)
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Exemplo:}
+\begin{itemize}
+\item \texttt{public virtual void FazerSom()} na classe base
+\item \texttt{public override void FazerSom()} na classe derivada
+\item Cada classe pode ter sua própria implementação
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Polimorfismo}
+\begin{itemize}
+\item \textbf{Polimorfismo}: Capacidade de objetos diferentes responderem de forma diferente à mesma mensagem
+\item \textbf{Ligação Tardia}: Decisão sobre qual método chamar é feita em tempo de execução
+\item \textbf{Referência da Base}: Pode apontar para objeto da derivada
+\item \textbf{Comportamento Específico}: Método sobrescrito é chamado
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Exemplo:}
+\begin{itemize}
+\item \texttt{Animal animal = new Cachorro();}
+\item \texttt{animal.FazerSom();} // Chama método de Cachorro
+\item Mesma referência, comportamentos diferentes
+\end{itemize}
+\end{frame}
+
+% Seção 5: Exemplos Práticos
+\section{Exemplos Práticos}
+
+\begin{frame}{Exemplo 1: Hierarquia de Animais}
+\textbf{Estrutura:}
+\begin{itemize}
+\item \textbf{Classe Base}: \texttt{Animal} (nome, especie, idade, peso)
+\item \textbf{Classe Derivada 1}: \texttt{Cachorro : Animal}
+\item \textbf{Classe Derivada 2}: \texttt{Gato : Animal}
+\item \textbf{Classe Derivada 3}: \texttt{Passaro : Animal}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Características:}
+\begin{itemize}
+\item Todos herdam atributos e métodos de Animal
+\item Cada um sobrescreve \texttt{FazerSom()} de forma diferente
+\item Cada um pode ter métodos específicos
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo 2: Hierarquia de Veículos}
+\textbf{Estrutura:}
+\begin{itemize}
+\item \textbf{Classe Base}: \texttt{Veiculo} (marca, modelo, ano)
+\item \textbf{Classe Derivada 1}: \texttt{Carro : Veiculo}
+\item \textbf{Classe Derivada 2}: \texttt{Moto : Veiculo}
+\item \textbf{Classe Derivada 3}: \texttt{Caminhao : Veiculo}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Características:}
+\begin{itemize}
+\item Todos têm características comuns de veículo
+\item Cada tipo tem comportamentos específicos
+\item Método \texttt{Acelerar()} pode ser sobrescrito
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo 3: Hierarquia de Funcionários}
+\textbf{Estrutura:}
+\begin{itemize}
+\item \textbf{Classe Base}: \texttt{Funcionario} (nome, salario, matricula)
+\item \textbf{Classe Derivada 1}: \texttt{Gerente : Funcionario}
+\item \textbf{Classe Derivada 2}: \texttt{Desenvolvedor : Funcionario}
+\item \textbf{Classe Derivada 3}: \texttt{Analista : Funcionario}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Características:}
+\begin{itemize}
+\item Todos têm dados básicos de funcionário
+\item Cada cargo tem responsabilidades específicas
+\item Método \texttt{CalcularSalario()} pode ser sobrescrito
+\end{itemize}
+\end{frame}
+
+% Seção 6: Implementação em C#
+\section{Implementação em C\#}
+
+\begin{frame}{Estrutura Básica de Herança}
+\textbf{Elementos principais:}
+\begin{itemize}
+\item \textbf{Classe Base}: Define membros comuns
+\item \textbf{Classe Derivada}: Herda e estende funcionalidades
+\item \textbf{Construtores}: Chamam construtor da base com \texttt{base()}
+\item \textbf{Métodos Virtuais}: Permitem sobrescrita
+\item \textbf{Métodos Override}: Implementam comportamento específico
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Exemplo completo:} Ver arquivos \texttt{Exemplos/}
+\end{frame}
+
+\begin{frame}{Padrões de Implementação}
+\textbf{Classe Base:}
+\begin{itemize}
+\item Atributos protegidos ou privados
+\item Métodos virtuais para comportamentos variáveis
+\item Construtores para inicialização
+\item Métodos comuns a todas as derivadas
+\end{itemize}
+
+\textbf{Classe Derivada:}
+\begin{itemize}
+\item Herda membros da base
+\item Adiciona atributos específicos
+\item Sobrescreve métodos virtuais
+\item Chama construtor da base
+\end{itemize}
+\end{frame}
+
+% Seção 7: Exemplos de Código
+\section{Exemplos de Código}
+
+\begin{frame}{Exemplo Completo: Classe Animal (Base)}
+\textbf{Arquivo: Exemplos/Animal.cs}
+\begin{itemize}
+\item Classe base com atributos comuns
+\item Métodos virtuais para comportamentos variáveis
+\item Construtor para inicialização
+\item Properties para acesso controlado
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Características:}
+\begin{itemize}
+\item Método \texttt{virtual void FazerSom()}
+\item Método \texttt{virtual void Mover()}
+\item Atributos protegidos para acesso das derivadas
+\item Código bem documentado
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo Completo: Classe Cachorro (Derivada)}
+\textbf{Arquivo: Exemplos/Cachorro.cs}
+\begin{itemize}
+\item Herda de \texttt{Animal}
+\item Sobrescreve \texttt{FazerSom()} com "Au au!"
+\item Adiciona método específico \texttt{Latir()}
+\item Usa construtor da base
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Características:}
+\begin{itemize}
+\item \texttt{public class Cachorro : Animal}
+\item \texttt{public override void FazerSom()}
+\item Comportamento específico de cachorro
+\item Mantém funcionalidades da base
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo Completo: Classe Gato (Derivada)}
+\textbf{Arquivo: Exemplos/Gato.cs}
+\begin{itemize}
+\item Herda de \texttt{Animal}
+\item Sobrescreve \texttt{FazerSom()} com "Miau!"
+\item Adiciona método específico \texttt{Ronronar()}
+\item Comportamento único de gato
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Características:}
+\begin{itemize}
+\item Mesma estrutura de Cachorro
+\item Comportamento diferente
+\item Demonstra polimorfismo
+\end{itemize}
+\end{frame}
+
+% Seção 8: Exercícios Práticos
+\section{Exercícios Práticos}
+
+\begin{frame}{Exercício 1: Hierarquia de Formas Geométricas}
+\textbf{Crie uma hierarquia de formas:}
+
+\textbf{Classes necessárias:}
+\begin{itemize}
+\item \texttt{Forma} (base) - cor, área, perímetro
+\item \texttt{Retangulo : Forma} - largura, altura
+\item \texttt{Circulo : Forma} - raio
+\item \texttt{Triangulo : Forma} - base, altura
+\end{itemize}
+
+\textbf{Requisitos:}
+\begin{itemize}
+\item Método virtual \texttt{CalcularArea()}
+\item Método virtual \texttt{CalcularPerimetro()}
+\item Cada forma calcula de forma diferente
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tempo}: 30 minutos
+\end{frame}
+
+\begin{frame}{Exercício 2: Hierarquia de Contas Bancárias}
+\textbf{Crie uma hierarquia de contas:}
+
+\textbf{Classes necessárias:}
+\begin{itemize}
+\item \texttt{ContaBancaria} (base) - numero, titular, saldo
+\item \texttt{ContaCorrente : ContaBancaria} - limite, taxa
+\item \texttt{ContaPoupanca : ContaBancaria} - rendimento
+\item \texttt{ContaInvestimento : ContaBancaria} - tipo investimento
+\end{itemize}
+
+\textbf{Requisitos:}
+\begin{itemize}
+\item Método virtual \texttt{Sacar()} com regras diferentes
+\item Método virtual \texttt{CalcularRendimento()}
+\item Cada tipo tem regras específicas
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tempo}: 35 minutos
+\end{frame}
+
+\begin{frame}{Exercício 3: Hierarquia de Produtos}
+\textbf{Crie uma hierarquia de produtos:}
+
+\textbf{Classes necessárias:}
+\begin{itemize}
+\item \texttt{Produto} (base) - codigo, nome, preco
+\item \texttt{Livro : Produto} - autor, isbn, paginas
+\item \texttt{Eletronico : Produto} - garantia, voltagem
+\item \texttt{Roupa : Produto} - tamanho, cor, material
+\end{itemize}
+
+\textbf{Requisitos:}
+\begin{itemize}
+\item Método virtual \texttt{CalcularDesconto()}
+\item Método virtual \texttt{ExibirInformacoes()}
+\item Cada tipo tem informações específicas
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Tempo}: 40 minutos
+\end{frame}
+
+% Seção 9: Boas Práticas
+\section{Boas Práticas}
+
+\begin{frame}{Design de Herança}
+\begin{itemize}
+\item \textbf{Use herança para relacionamento "é um"}
+\item \textbf{Evite herança profunda} (máximo 3-4 níveis)
+\item \textbf{Prefer composição sobre herança} quando apropriado
+\item \textbf{Use classes abstratas} para classes base que não devem ser instanciadas
+\item \textbf{Documente} a hierarquia de herança
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Princípios:}
+\begin{itemize}
+\item \textbf{Princípio da Substituição de Liskov}: Objetos derivados devem poder substituir objetos base
+\item \textbf{Open/Closed Principle}: Aberto para extensão, fechado para modificação
+\item \textbf{DRY}: Don't Repeat Yourself - reutilize código
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Implementação em C\#}
+\begin{itemize}
+\item \textbf{Use \texttt{virtual}} para métodos que podem ser sobrescritos
+\item \textbf{Use \texttt{override}} para sobrescrever métodos virtuais
+\item \textbf{Use \texttt{base()}} para chamar construtor da base
+\item \textbf{Use \texttt{protected}} para membros acessíveis às derivadas
+\item \textbf{Documente} com XML comments
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Evite:}
+\begin{itemize}
+\item Herança apenas para reutilizar código
+\item Classes base muito grandes
+\item Hierarquias muito profundas
+\item Uso de \texttt{new} para ocultar membros
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Testes e Validação}
+\begin{itemize}
+\item \textbf{Teste} cada classe derivada independentemente
+\item \textbf{Valide} que métodos sobrescritos funcionam corretamente
+\item \textbf{Teste} polimorfismo com referências da base
+\item \textbf{Verifique} que construtores são chamados na ordem correta
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Validações importantes:}
+\begin{itemize}
+\item Herança mantém comportamento esperado
+\item Sobrescrita funciona corretamente
+\item Polimorfismo se comporta como esperado
+\item Encapsulamento é respeitado
+\end{itemize}
+\end{frame}
+
+% Seção 10: Próximos Passos
+\section{Próximos Passos}
+
+\begin{frame}{Tópicos Relacionados}
+\begin{enumerate}
+\item \textbf{Classes Abstratas}
+\begin{itemize}
+\item Classes que não podem ser instanciadas
+\item Métodos abstratos obrigatórios
+\item Base para hierarquias
+\end{itemize}
+
+\item \textbf{Interfaces}
+\begin{itemize}
+\item Contratos de comportamento
+\item Múltiplas implementações
+\item Herança múltipla através de interfaces
+\end{itemize}
+
+\item \textbf{Polimorfismo Avançado}
+\begin{itemize}
+\item Polimorfismo paramétrico
+\item Generics
+\item Padrões de projeto
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Leitura Recomendada}
+\begin{itemize}
+\item \textbf{Microsoft Docs}: Inheritance in C\#
+\item \textbf{Clean Code}: Robert C. Martin
+\item \textbf{Effective C\#}: Bill Wagner
+\item \textbf{Pro C\# 10}: Andrew Troelsen
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Prática Recomendada:}
+\begin{enumerate}
+\item Implemente os exemplos da pasta \texttt{Exemplos}
+\item Resolva os exercícios propostos
+\item Crie suas próprias hierarquias de classes
+\item Pratique polimorfismo com diferentes tipos
+\end{enumerate}
+\end{frame}
+
+% Slide final
+\begin{frame}{Dúvidas e Discussão}
+\begin{center}
+\textbf{Obrigado pela atenção!}
+\end{center}
+
+\textbf{Pontos-Chave da Aula}:
+\begin{enumerate}
+\item \textbf{Herança} permite reutilização de código e organização hierárquica
+\item \textbf{Classe derivada} herda membros da classe base
+\item \textbf{Métodos virtuais} permitem sobrescrita e polimorfismo
+\item \textbf{Construtores} devem chamar construtor da base
+\item \textbf{Herança} modela relacionamento "é um"
+\end{enumerate}
+
+\vspace{0.5cm}
+\begin{center}
+\includegraphics[width=0.4\textwidth]{../../Image/ufla-logo.PNG}
+\end{center}
+
+\vspace{0.3cm}
+\textbf{Próxima Aula}: Classes Abstratas e Interfaces
+
+\vspace{0.3cm}
+\textbf{Contato}: bento.siqueira@ufla.br\\
+\textbf{Material}: Disponível no sistema acadêmico
+\end{frame}
+
+\end{document}
