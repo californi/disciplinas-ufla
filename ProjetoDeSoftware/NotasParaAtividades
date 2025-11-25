@@ -65,6 +65,10 @@ Atividade 1 - Revisar casos de uso, aplicando análise das 10 armadilhas (quinta
 Atividade 2 - Os 5 passos de A Novice's Process of Object-Oriented Programming; 18/11 de laboratório, entrega no dia 25/11.
 * Funcionalidades no projeto: a) Aprovação (campo novo); b) Apadrinhamento; e c) Sobre nós
 
+Atividade 2b - Rastreabilidade de modificações (entrega no dia 02/12/2025)
+  a) Impacto nos diagramas
+  b) Impacto no Projeto de Software
+
 Atividade 3 - Padrões de Projeto
 
 * Definir um padrão de projeto diferente para cada integrante (06/11);
@@ -73,6 +77,9 @@ Atividade 3 - Padrões de Projeto
   - Renan: Composite
   - Vanessa: Template
   - Vanusa: Factory
+
+
+
 
 * Implementar o padrão (projeto novo ou projeto da ONG) - (04/12);
 
